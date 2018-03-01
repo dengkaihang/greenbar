@@ -14,4 +14,3 @@ spring:
     url: jdbc:mysql://192.168.1.2:3306/lemon_2?characterEncoding=utf8&useSSL=true
     username: shadow
     password: 123456
-
