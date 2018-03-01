@@ -30,7 +30,21 @@ configurations {
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-web')
-	runtime('mysql:mysql-connector-java')
-	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
+
+	compile('mysql:mysql-connector-java')
+	compile('org.springframework.boot:spring-boot-starter-tomcat')
+
+
+	// swagger API 文档支持包
+	compile("io.springfox:springfox-swagger-ui:2.6.1")
+	compile("io.springfox:springfox-swagger2:2.6.1")
+
+
+	// 配置tomcat jsp 识别。 jsp解析引擎
+	compile group: 'org.apache.tomcat', name: 'tomcat-jasper', version: '9.0.2'
+
+
+//	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+
 }
