@@ -17,9 +17,9 @@ public class Order {
     @Column(name = "status", length = 8)
     private String status;          //状态
     @Column(name = "user_id", length = 12)
-    private String userId;          //用户id
+    private Integer userId;          //用户id
     @Column(name = "coupon_id", length = 12)
-    private String couponId;        //代金券id
+    private Integer couponId;        //代金券id
     @Column(name = "num", length = 4)
     private String num;             //商品数量
     @Column(name = "pay_way", length = 8)
@@ -31,7 +31,7 @@ public class Order {
     @Column(name = "new_file", length = 256)
     private String newFile;         //修改后文件链接
     @Column(name = "pack_id", length = 12)
-    private String packId;          //套餐id
+    private Integer packId;          //套餐id
     @Column(name = "modify_desc", length = 256)
     private String modifyDesc;      //修改套餐描述
     @Column(name = "price", length = 8)
@@ -48,16 +48,16 @@ public class Order {
     private String originalAllow;   //源文件允许下载时间
     @Column(name = "new_allow", length = 32)
     private String newAllow;        //修改后允许下载时间
-    @Column(name = "if_download", length = 8)
+    @Column(name = "if_download", columnDefinition = "varchar(8) default 'true'")
     private String ifDownload;      //是否允许下载
     @Column(name = "new_file_time", length = 32)
     private String newFileTime;     //修改后文件下载时间
     @Column(name = "dispute_time", length = 32)
     private String disputeTime;     //允许纠纷时间
-    @Column(name = "if_fozen", length = 8)
+    @Column(name = "if_fozen", columnDefinition = "varchar(8) default 'false'")
     private String ifFozen;         //是否冻结
     @Column(name = "employee_id", length = 12)
-    private String employeeId;      //体现操作员工ｉｄ
+    private Integer employeeId;      //体现操作员工ｉｄ
     @Column(name = "play_money_time", length = 32)
     private String playMoneyTime;   //打款时间
     @Column(name = "post_describe", length = 128)
@@ -69,7 +69,7 @@ public class Order {
     @Column(name = "arrival_money", length = 8)
     private String arrivalMoney;    //到账金额
     @Column(name = "address_id", length = 12)
-    private String addressId;       //地址id
+    private Integer addressId;       //地址id
     @Column(name = "if_del", columnDefinition = "varchar(8) default 'false'")
     private String ifDel;           //是否删除
     @Column(name = "label1", length = 32)
@@ -98,19 +98,19 @@ public class Order {
         this.status = status;
     }
 
-    public String getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
-    public String getCouponId() {
+    public Integer getCouponId() {
         return couponId;
     }
 
-    public void setCouponId(String couponId) {
+    public void setCouponId(Integer couponId) {
         this.couponId = couponId;
     }
 
@@ -154,11 +154,11 @@ public class Order {
         this.newFile = newFile;
     }
 
-    public String getPackId() {
+    public Integer getPackId() {
         return packId;
     }
 
-    public void setPackId(String packId) {
+    public void setPackId(Integer packId) {
         this.packId = packId;
     }
 
@@ -258,11 +258,11 @@ public class Order {
         this.ifFozen = ifFozen;
     }
 
-    public String getEmployeeId() {
+    public Integer getEmployeeId() {
         return employeeId;
     }
 
-    public void setEmployeeId(String employeeId) {
+    public void setEmployeeId(Integer employeeId) {
         this.employeeId = employeeId;
     }
 
@@ -306,11 +306,11 @@ public class Order {
         this.arrivalMoney = arrivalMoney;
     }
 
-    public String getAddressId() {
+    public Integer getAddressId() {
         return addressId;
     }
 
-    public void setAddressId(String addressId) {
+    public void setAddressId(Integer addressId) {
         this.addressId = addressId;
     }
 
@@ -345,7 +345,6 @@ public class Order {
     public void setLabel3(String label3) {
         this.label3 = label3;
     }
-
 
     @Override
     public String toString() {
