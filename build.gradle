@@ -1,13 +1,13 @@
 buildscript {
-	ext {
-		springBootVersion = '1.5.10.RELEASE'
-	}
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-	}
+    ext {
+        springBootVersion = '1.5.10.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
 }
 
 apply plugin: 'java'
@@ -20,31 +20,38 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 configurations {
-	providedRuntime
+    providedRuntime
 }
 
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter-data-jpa')
-	compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('org.springframework.boot:spring-boot-starter-web')
 
-	compile('mysql:mysql-connector-java')
-	compile('org.springframework.boot:spring-boot-starter-tomcat')
+    compile('mysql:mysql-connector-java')
+    compile('org.springframework.boot:spring-boot-starter-tomcat')
 
+    // swagger API 文档支持包
+    compile("io.springfox:springfox-swagger-ui:2.6.1")
+    compile("io.springfox:springfox-swagger2:2.6.1")
 
-	// swagger API 文档支持包
-	compile("io.springfox:springfox-swagger-ui:2.6.1")
-	compile("io.springfox:springfox-swagger2:2.6.1")
+    // 配置tomcat jsp 识别。 jsp解析引擎
+    compile group: 'org.apache.tomcat', name: 'tomcat-jasper', version: '9.0.2'
 
+    // MD5 BASE64 加密依赖jar包
+    compile group: 'commons-codec', name: 'commons-codec', version: '1.11'
 
-	// 配置tomcat jsp 识别。 jsp解析引擎
-	compile group: 'org.apache.tomcat', name: 'tomcat-jasper', version: '9.0.2'
+    // 微信工具dom4j2支持
+    compile group: 'org.jdom', name: 'jdom2', version: '2.0.6'
+
+    // 加载本地 jar 包
+    compile fileTree(dir:'libs',include:['*.jar'])
 
 
 //	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
 
 }
