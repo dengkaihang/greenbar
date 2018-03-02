@@ -14,7 +14,7 @@ public class Order {
     @TableGenerator(name = "table",initialValue = 100000,allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.TABLE,generator = "table")
     @Column(name = "id", length = 12)
-    private String id;              //id
+    private Integer id;              //id
     @Column(name = "status", length = 8)
     private String status;          //状态
     @Column(name = "user_id", length = 12)
@@ -84,11 +84,11 @@ public class Order {
     }
 
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
