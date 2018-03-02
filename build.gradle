@@ -50,6 +50,9 @@ dependencies {
     // 加载本地 jar 包
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
+    // alibaba json包
+    compile group: 'com.alibaba', name: 'fastjson', version: '1.2.44'
+
     //	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
     testCompile('org.springframework.boot:spring-boot-starter-test')
 
