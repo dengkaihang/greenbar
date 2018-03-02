@@ -1,4 +1,4 @@
-package com.lemengxiangju.lemon.xiangju.entity.easemob;
+package com.qawhcb.shadow.entity.easemob;
 
 /**
  * @author Taoism <br/>

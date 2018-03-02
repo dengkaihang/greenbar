@@ -1,6 +1,6 @@
-package com.lemengxiangju.lemon.xiangju.controller.app;
+package com.qawhcb.shadow.controller;
 
-import com.lemengxiangju.lemon.xiangju.utils.easemobUtils.ImUtils;
+import com.qawhcb.shadow.utils.easemobUtils.ImUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

@@ -1,10 +1,10 @@
 package com.qawhcb.shadow.utils.easemobUtils;
 
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
-import com.lemengxiangju.lemon.xiangju.controller.app.ImController;
-import com.lemengxiangju.lemon.xiangju.entity.easemob.Message;
-import com.lemengxiangju.lemon.xiangju.utils.HttpUtils;
+import com.qawhcb.shadow.entity.easemob.Message;
+import com.qawhcb.shadow.utils.HttpUtils;
 
 import java.io.IOException;
 import java.io.InputStream;

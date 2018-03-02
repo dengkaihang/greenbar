@@ -11,9 +11,8 @@ import javax.persistence.*;
 public class Order {
 
     @Id
-    @TableGenerator(name = "table", initialValue = 100000, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "table")
-    @Column(name = "id", length = 12)
+    @GeneratedValue()
+    @Column(name = "id", columnDefinition = "int(11) UNSIGNED ZEROFILL AUTO_INCREMENT")
     private Integer id;              //id
     @Column(name = "status", length = 8)
     private String status;          //状态
@@ -71,7 +70,7 @@ public class Order {
     private String arrivalMoney;    //到账金额
     @Column(name = "address_id", length = 12)
     private String addressId;       //地址id
-    @Column(name = "if_del", length = 32)
+    @Column(name = "if_del", columnDefinition = "varchar(8) default 'false'")
     private String ifDel;           //是否删除
     @Column(name = "label1", length = 32)
     private String label1;          //标签１
@@ -82,7 +81,6 @@ public class Order {
 
     public Order() {
     }
-
 
     public Integer getId() {
         return id;
