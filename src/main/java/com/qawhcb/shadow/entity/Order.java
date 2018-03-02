@@ -3,7 +3,7 @@ package com.qawhcb.shadow.entity;
 import javax.persistence.*;
 
 /**
- *  订单类
+ * 订单类
  * Created by kane on 18-3-2
  */
 @Entity
@@ -11,8 +11,8 @@ import javax.persistence.*;
 public class Order {
 
     @Id
-    @TableGenerator(name = "table",initialValue = 100000,allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.TABLE,generator = "table")
+    @TableGenerator(name = "table", initialValue = 100000, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "table")
     @Column(name = "id", length = 12)
     private String id;              //id
     @Column(name = "status", length = 8)
@@ -71,7 +71,7 @@ public class Order {
     private String arrivalMoney;    //到账金额
     @Column(name = "address_id", length = 12)
     private String addressId;       //地址id
-    @Column(name = "if_del", length = 32,columnDefinition = "blob default false")
+    @Column(name = "if_del", length = 32)
     private String ifDel;           //是否删除
     @Column(name = "label1", length = 32)
     private String label1;          //标签１
