@@ -48,10 +48,9 @@ dependencies {
     compile group: 'org.jdom', name: 'jdom2', version: '2.0.6'
 
     // 加载本地 jar 包
-    compile fileTree(dir:'libs',include:['*.jar'])
+    compile fileTree(dir: 'libs', include: ['*.jar'])
 
-
-//	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
+    //	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
     testCompile('org.springframework.boot:spring-boot-starter-test')
 
 }
