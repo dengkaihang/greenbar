@@ -1,4 +1,4 @@
-package com.qawhcb.shadow.controller;
+package com.qawhcb.shadow.controller.app;
 
 import com.qawhcb.shadow.utils.easemobUtils.ImUtils;
 import org.springframework.web.bind.annotation.PostMapping;

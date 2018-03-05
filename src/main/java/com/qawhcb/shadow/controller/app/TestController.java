@@ -1,6 +1,7 @@
-package com.qawhcb.shadow.controller;
+package com.qawhcb.shadow.controller.app;
 
 import com.qawhcb.shadow.dao.OrderDao;
+import com.qawhcb.shadow.service.TestServer;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,15 +19,15 @@ public class TestController {
     @ApiOperation(value = "value", tags = {"tags"})
     @PostMapping(value = "/test")
     public String test(){
-        int i = orderDao.updateNameById("你好", 1);
+        int i = testServer.test("你好呀呀你好呀呀你好呀呀你好呀呀你好呀呀你好呀呀你好呀呀你好呀呀vv", 1);
 
         if (i > 0){
-            return orderDao.findOne(1).toString();
+            return "成功";
         }else {
             return "失败！";
         }
     }
 
     @Autowired
-    private OrderDao orderDao;
+    private TestServer testServer;
 }
