@@ -12,9 +12,9 @@ public class Coupon {
     @Id
     @GeneratedValue()
     @Column(name = "id", columnDefinition = "int(11) UNSIGNED ZEROFILL AUTO_INCREMENT")
-    private String id;              //id
+    private Integer id;              //id
     @Column(name = "employee_id", length = 11)
-    private String employeeId;      //员工id
+    private Integer employeeId;      //员工id
     @Column(name = "money", length = 3)
     private String money;           //金额
     @Column(name = "title", length = 32)
@@ -45,19 +45,19 @@ public class Coupon {
     public Coupon() {
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getEmployeeId() {
+    public Integer getEmployeeId() {
         return employeeId;
     }
 
-    public void setEmployeeId(String employeeId) {
+    public void setEmployeeId(Integer employeeId) {
         this.employeeId = employeeId;
     }
 

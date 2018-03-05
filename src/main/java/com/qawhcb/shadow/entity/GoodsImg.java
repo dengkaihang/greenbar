@@ -3,28 +3,24 @@ package com.qawhcb.shadow.entity;
 import javax.persistence.*;
 
 /**
- * 活动类
+ * 商品图片
  * Created by kane on 18-3-5
  */
 @Entity
-@Table(name = "t_activity")
-public class Activity {
+@Table(name = "t_goods_img")
+public class GoodsImg {
     @Id
     @GeneratedValue()
     @Column(name = "id", columnDefinition = "int(11) UNSIGNED ZEROFILL AUTO_INCREMENT")
     private Integer id;              //id
-    @Column(name = "employee_id", length = 32)
-    private Integer employeeId;      //员工id
-    @Column(name = "title", length = 32)
-    private String title;           //活动标题
-    @Column(name = "img", length = 32)
-    private String img;             //活动图片
-    @Column(name = "text", length = 32)
-    private String text;            //活动内容
+    @Column(name = "goods_id", length = 11)
+    private Integer goodsId;         //商品id
+    @Column(name = "address", length = 256)
+    private String address;         //图片地址
     @Column(name = "time", length = 32)
-    private String time;            //活动发布时间
-    @Column(name = "cover_img", length = 32)
-    private String coverImg;        //活动封面图
+    private String time;            //上传时间
+    @Column(name = "status", length = 4)
+    private String status;          //状态
     @Column(name = "if_del", columnDefinition = "varchar(8) default 'false'")
     private String ifDel;           //是否删除
     @Column(name = "lable1", length = 32)
@@ -34,7 +30,7 @@ public class Activity {
     @Column(name = "lable3", length = 32)
     private String lable3;
 
-    public Activity() {
+    public GoodsImg() {
     }
 
     public Integer getId() {
@@ -45,36 +41,20 @@ public class Activity {
         this.id = id;
     }
 
-    public Integer getEmployeeId() {
-        return employeeId;
+    public Integer getGoodsId() {
+        return goodsId;
     }
 
-    public void setEmployeeId(Integer employeeId) {
-        this.employeeId = employeeId;
+    public void setGoodsId(Integer goodsId) {
+        this.goodsId = goodsId;
     }
 
-    public String getTitle() {
-        return title;
+    public String getAddress() {
+        return address;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getImg() {
-        return img;
-    }
-
-    public void setImg(String img) {
-        this.img = img;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getTime() {
@@ -85,12 +65,12 @@ public class Activity {
         this.time = time;
     }
 
-    public String getCoverImg() {
-        return coverImg;
+    public String getStatus() {
+        return status;
     }
 
-    public void setCoverImg(String coverImg) {
-        this.coverImg = coverImg;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getIfDel() {
@@ -127,14 +107,12 @@ public class Activity {
 
     @Override
     public String toString() {
-        return "Activity{" +
-                "id='" + id + '\'' +
-                ", employeeId='" + employeeId + '\'' +
-                ", title='" + title + '\'' +
-                ", img='" + img + '\'' +
-                ", text='" + text + '\'' +
+        return "GoodsImg{" +
+                "id=" + id +
+                ", goodsId=" + goodsId +
+                ", address='" + address + '\'' +
                 ", time='" + time + '\'' +
-                ", coverImg='" + coverImg + '\'' +
+                ", status='" + status + '\'' +
                 ", ifDel='" + ifDel + '\'' +
                 ", lable1='" + lable1 + '\'' +
                 ", lable2='" + lable2 + '\'' +

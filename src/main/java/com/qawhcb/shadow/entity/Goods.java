@@ -17,10 +17,10 @@ public class Goods {
     private Integer storeId;        //店铺id
     @Column(name = "type", length = 8)
     private String type;            //类型
-    @Column(name = "describe", length = 128)
-    private String describe;        //商品描述
-    @Column(name = "share_describe", length = 128)
-    private String shareDescribe;  //商品分享描述
+    @Column(name = "depict", length = 128)
+    private String depict;        //商品描述
+    @Column(name = "share_depict", length = 128)
+    private String shareDepict;  //商品分享描述
     @Column(name = "if_del", columnDefinition = "varchar(8) default 'false'")
     private String ifDel;           //是否删除
     @Column(name = "label1", length = 32)
@@ -57,20 +57,20 @@ public class Goods {
         this.type = type;
     }
 
-    public String getDescribe() {
-        return describe;
+    public String getDepict() {
+        return depict;
     }
 
-    public void setDescribe(String describe) {
-        this.describe = describe;
+    public void setDepict(String depict) {
+        this.depict = depict;
     }
 
-    public String getShareDescribe() {
-        return shareDescribe;
+    public String getShareDepict() {
+        return shareDepict;
     }
 
-    public void setShareDescribe(String shareDescribe) {
-        this.shareDescribe = shareDescribe;
+    public void setShareDepict(String shareDepict) {
+        this.shareDepict = shareDepict;
     }
 
     public String getIfDel() {
@@ -111,8 +111,8 @@ public class Goods {
                 "id=" + id +
                 ", storeId=" + storeId +
                 ", type='" + type + '\'' +
-                ", describe='" + describe + '\'' +
-                ", shareDescribe='" + shareDescribe + '\'' +
+                ", depict='" + depict + '\'' +
+                ", shareDepict='" + shareDepict + '\'' +
                 ", ifDel='" + ifDel + '\'' +
                 ", label1='" + label1 + '\'' +
                 ", label2='" + label2 + '\'' +

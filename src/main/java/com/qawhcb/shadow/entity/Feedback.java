@@ -12,7 +12,7 @@ public class Feedback {
     @Id
     @GeneratedValue()
     @Column(name = "id", columnDefinition = "int(11) UNSIGNED ZEROFILL AUTO_INCREMENT")
-    private String id;              //id
+    private Integer id;              //id
     @Column(name = "img", length = 32)
     private String img;             //反馈图片
     @Column(name = "text", length = 32)
@@ -33,11 +33,11 @@ public class Feedback {
     public Feedback() {
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

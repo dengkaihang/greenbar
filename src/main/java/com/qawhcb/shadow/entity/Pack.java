@@ -17,8 +17,8 @@ public class Pack {
     private Integer goodsId;    //商品id
     @Column(name = "name", length = 8)
     private String name;        //套餐名字
-    @Column(name = "describe", length = 128)
-    private String describe;    //描述
+    @Column(name = "depict", length = 128)
+    private String depict;    //描述
     @Column(name = "price", length = 8)
     private String price;       //价格
     @Column(name = "if_print", columnDefinition = "varchar(8) default 'true'")
@@ -61,12 +61,12 @@ public class Pack {
         this.name = name;
     }
 
-    public String getDescribe() {
-        return describe;
+    public String getDepict() {
+        return depict;
     }
 
-    public void setDescribe(String describe) {
-        this.describe = describe;
+    public void setDepict(String depict) {
+        this.depict = depict;
     }
 
     public String getPrice() {
@@ -131,7 +131,7 @@ public class Pack {
                 "id=" + id +
                 ", goodsId=" + goodsId +
                 ", name='" + name + '\'' +
-                ", describe='" + describe + '\'' +
+                ", depict='" + depict + '\'' +
                 ", price='" + price + '\'' +
                 ", ifPrint='" + ifPrint + '\'' +
                 ", ifPost='" + ifPost + '\'' +

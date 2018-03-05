@@ -32,8 +32,8 @@ public class Store {
     private String defaultImg;     //店铺图片链接
     @Column(name = "rank", length = 4)
     private String rank;            //等级
-    @Column(name = "describe", length = 256)
-    private String describe;        //店铺描述
+    @Column(name = "depict", length = 256)
+    private String depict;        //店铺描述
     @Column(name = "store_address", length = 128)
     private String storeAddress;   //店铺地址
     @Column(name = "remark", length = 128)
@@ -136,12 +136,12 @@ public class Store {
         this.rank = rank;
     }
 
-    public String getDescribe() {
-        return describe;
+    public String getdepict() {
+        return depict;
     }
 
-    public void setDescribe(String describe) {
-        this.describe = describe;
+    public void setDepict(String depict) {
+        this.depict = depict;
     }
 
     public String getStoreAddress() {
@@ -229,7 +229,7 @@ public class Store {
                 ", storeName='" + storeName + '\'' +
                 ", defaultImg='" + defaultImg + '\'' +
                 ", rank='" + rank + '\'' +
-                ", describe='" + describe + '\'' +
+                ", depict='" + depict + '\'' +
                 ", storeAddress='" + storeAddress + '\'' +
                 ", remark='" + remark + '\'' +
                 ", employeeId=" + employeeId +

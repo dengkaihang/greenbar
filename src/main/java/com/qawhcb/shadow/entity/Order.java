@@ -60,8 +60,8 @@ public class Order {
     private Integer employeeId;      //体现操作员工ｉｄ
     @Column(name = "play_money_time", length = 32)
     private String playMoneyTime;   //打款时间
-    @Column(name = "post_describe", length = 128)
-    private String postDescribe;    //快递描述
+    @Column(name = "post_depict", length = 128)
+    private String postDepict;    //快递描述
     @Column(name = "reflect_water", length = 64)
     private String reflectWater;    //体现流水
     @Column(name = "arrival_time", length = 32)
@@ -274,12 +274,12 @@ public class Order {
         this.playMoneyTime = playMoneyTime;
     }
 
-    public String getPostDescribe() {
-        return postDescribe;
+    public String getPostDepict() {
+        return postDepict;
     }
 
-    public void setPostDescribe(String postDescribe) {
-        this.postDescribe = postDescribe;
+    public void setPostDepict(String postDepict) {
+        this.postDepict = postDepict;
     }
 
     public String getReflectWater() {
@@ -373,7 +373,7 @@ public class Order {
                 ", ifFozen='" + ifFozen + '\'' +
                 ", employeeId='" + employeeId + '\'' +
                 ", playMoneyTime='" + playMoneyTime + '\'' +
-                ", postDescribe='" + postDescribe + '\'' +
+                ", postDepict='" + postDepict + '\'' +
                 ", reflectWater='" + reflectWater + '\'' +
                 ", arrivalTime='" + arrivalTime + '\'' +
                 ", arrivalMoney='" + arrivalMoney + '\'' +

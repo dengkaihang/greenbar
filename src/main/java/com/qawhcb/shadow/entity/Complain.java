@@ -12,9 +12,9 @@ public class Complain {
     @Id
     @GeneratedValue()
     @Column(name = "id", columnDefinition = "int(11) UNSIGNED ZEROFILL AUTO_INCREMENT")
-    private String id;              //id
+    private Integer id;              //id
     @Column(name = "order_id", length = 11)
-    private String orderId;         //订单id
+    private Integer orderId;         //订单id
     @Column(name = "reason", length = 256)
     private String reason;          //原因
     @Column(name = "time", length = 32)
@@ -33,20 +33,20 @@ public class Complain {
     public Complain() {
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getOrderId() {
-        return orderId;
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
     }
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
+    public Integer getId() {
+        return id;
+    }
+
+    public Integer getOrderId() {
+        return orderId;
     }
 
     public String getReason() {

@@ -13,7 +13,7 @@ public class User {
     @Id
     @GeneratedValue()
     @Column(name = "id", columnDefinition = "int(11) UNSIGNED ZEROFILL AUTO_INCREMENT")
-    private String id;          //id
+    private Integer id;          //id
     @Column(name = "nick_name", length = 12)
     private String nickName;    //昵称
     @Column(name = "password", length = 32)
@@ -46,11 +46,11 @@ public class User {
     public User() {
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
