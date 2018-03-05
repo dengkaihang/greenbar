@@ -12,9 +12,9 @@ public class Post {
     @Id
     @GeneratedValue()
     @Column(name = "id", columnDefinition = "int(11) UNSIGNED ZEROFILL AUTO_INCREMENT")
-    private String id;              //id
+    private Integer id;              //id
     @Column(name = "user_id", length = 11)
-    private String userId;          //用户id
+    private Integer userId;          //用户id
     @Column(name = "img", length = 256)
     private String img;             //图片
     @Column(name = "text", length = 512)
@@ -39,19 +39,19 @@ public class Post {
     public Post() {
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 

@@ -3,25 +3,26 @@ package com.qawhcb.shadow.entity;
 import javax.persistence.*;
 
 /**
- * 帖子评论
- * Created by kane on 18-3-4
+ * 员工类
+ * Created by kane on 18-3-5
  */
 @Entity
-@Table(name = "t_post_comment")
-public class PostComment {
-
+@Table(name = "t_employee")
+public class Employee {
     @Id
     @GeneratedValue()
     @Column(name = "id", columnDefinition = "int(11) UNSIGNED ZEROFILL AUTO_INCREMENT")
     private Integer id;              //id
-    @Column(name = "post_id", length = 11)
-    private Integer postId;          //帖子id
-    @Column(name = "user_id", length = 11)
-    private Integer userId;          //用户id
-    @Column(name = "text", length = 256)
-    private String text;            //内容
-    @Column(name = "time", length = 32)
-    private String time;            //评论时间
+    @Column(name = "name", length = 8)
+    private String name;            //姓名
+    @Column(name = "id_card", length = 18)
+    private String idCard;          //身份证
+    @Column(name = "role_id", length = 11)
+    private Integer roleId;          //角色id
+    @Column(name = "account", length = 12)
+    private String account;         //账号
+    @Column(name = "password", length = 16)
+    private String password;        //密码
     @Column(name = "if_del", columnDefinition = "varchar(8) default 'false'")
     private String ifDel;           //是否删除
     @Column(name = "lable1", length = 32)
@@ -31,7 +32,7 @@ public class PostComment {
     @Column(name = "lable3", length = 32)
     private String lable3;
 
-    public PostComment() {
+    public Employee() {
     }
 
     public Integer getId() {
@@ -42,36 +43,44 @@ public class PostComment {
         this.id = id;
     }
 
-    public Integer getPostId() {
-        return postId;
+    public Integer getRoleId() {
+        return roleId;
     }
 
-    public void setPostId(Integer postId) {
-        this.postId = postId;
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public String getName() {
+        return name;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getText() {
-        return text;
+    public String getIdCard() {
+        return idCard;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setIdCard(String idCard) {
+        this.idCard = idCard;
     }
 
-    public String getTime() {
-        return time;
+    public String getAccount() {
+        return account;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getIfDel() {
@@ -108,12 +117,13 @@ public class PostComment {
 
     @Override
     public String toString() {
-        return "PostComment{" +
+        return "Employee{" +
                 "id='" + id + '\'' +
-                ", postId='" + postId + '\'' +
-                ", userId='" + userId + '\'' +
-                ", text='" + text + '\'' +
-                ", time='" + time + '\'' +
+                ", name='" + name + '\'' +
+                ", idCard='" + idCard + '\'' +
+                ", roleId='" + roleId + '\'' +
+                ", account='" + account + '\'' +
+                ", password='" + password + '\'' +
                 ", ifDel='" + ifDel + '\'' +
                 ", lable1='" + lable1 + '\'' +
                 ", lable2='" + lable2 + '\'' +

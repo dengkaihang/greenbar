@@ -12,11 +12,11 @@ public class UseCoupon {
     @Id
     @GeneratedValue()
     @Column(name = "id", columnDefinition = "int(11) UNSIGNED ZEROFILL AUTO_INCREMENT")
-    private String id;              //id
+    private Integer id;              //id
     @Column(name = "coupon_id", length = 11)
-    private String couponId;        //代金券id
+    private Integer couponId;        //代金券id
     @Column(name = "user_id", length = 11)
-    private String userId;          //用户id
+    private Integer userId;          //用户id
     @Column(name = "if_use", columnDefinition = "varchar(8) default 'false'")
     private String ifUse;           //是否使用
     @Column(name = "use_time", length = 32)
@@ -33,27 +33,27 @@ public class UseCoupon {
     public UseCoupon() {
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getCouponId() {
+    public Integer getCouponId() {
         return couponId;
     }
 
-    public void setCouponId(String couponId) {
+    public void setCouponId(Integer couponId) {
         this.couponId = couponId;
     }
 
-    public String getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 

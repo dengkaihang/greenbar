@@ -1,27 +1,26 @@
 package com.qawhcb.shadow.entity;
 
+import io.swagger.models.auth.In;
+
 import javax.persistence.*;
 
 /**
- * 帖子评论
- * Created by kane on 18-3-4
+ * 用户好友
+ * Created by kane on 18-3-5
  */
 @Entity
-@Table(name = "t_post_comment")
-public class PostComment {
-
+@Table(name = "t_user_friends")
+public class UserFriends {
     @Id
     @GeneratedValue()
     @Column(name = "id", columnDefinition = "int(11) UNSIGNED ZEROFILL AUTO_INCREMENT")
     private Integer id;              //id
-    @Column(name = "post_id", length = 11)
-    private Integer postId;          //帖子id
+    @Column(name = "friend_id", length = 11)
+    private Integer frienId;
     @Column(name = "user_id", length = 11)
-    private Integer userId;          //用户id
-    @Column(name = "text", length = 256)
-    private String text;            //内容
-    @Column(name = "time", length = 32)
-    private String time;            //评论时间
+    private Integer userId;
+    @Column(name = "status", length = 4)
+    private String status;
     @Column(name = "if_del", columnDefinition = "varchar(8) default 'false'")
     private String ifDel;           //是否删除
     @Column(name = "lable1", length = 32)
@@ -31,7 +30,7 @@ public class PostComment {
     @Column(name = "lable3", length = 32)
     private String lable3;
 
-    public PostComment() {
+    public UserFriends() {
     }
 
     public Integer getId() {
@@ -42,12 +41,12 @@ public class PostComment {
         this.id = id;
     }
 
-    public Integer getPostId() {
-        return postId;
+    public Integer getFrienId() {
+        return frienId;
     }
 
-    public void setPostId(Integer postId) {
-        this.postId = postId;
+    public void setFrienId(Integer frienId) {
+        this.frienId = frienId;
     }
 
     public Integer getUserId() {
@@ -58,20 +57,12 @@ public class PostComment {
         this.userId = userId;
     }
 
-    public String getText() {
-        return text;
+    public String getStatus() {
+        return status;
     }
 
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getIfDel() {
@@ -108,12 +99,11 @@ public class PostComment {
 
     @Override
     public String toString() {
-        return "PostComment{" +
-                "id='" + id + '\'' +
-                ", postId='" + postId + '\'' +
-                ", userId='" + userId + '\'' +
-                ", text='" + text + '\'' +
-                ", time='" + time + '\'' +
+        return "UserFriends{" +
+                "id=" + id +
+                ", frienId=" + frienId +
+                ", userId=" + userId +
+                ", status='" + status + '\'' +
                 ", ifDel='" + ifDel + '\'' +
                 ", lable1='" + lable1 + '\'' +
                 ", lable2='" + lable2 + '\'' +

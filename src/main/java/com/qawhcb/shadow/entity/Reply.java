@@ -3,28 +3,20 @@ package com.qawhcb.shadow.entity;
 import javax.persistence.*;
 
 /**
- * 活动类
+ * 订单评论回复
  * Created by kane on 18-3-5
  */
 @Entity
-@Table(name = "t_activity")
-public class Activity {
+@Table(name = "t_reply")
+public class Reply {
     @Id
     @GeneratedValue()
     @Column(name = "id", columnDefinition = "int(11) UNSIGNED ZEROFILL AUTO_INCREMENT")
     private Integer id;              //id
-    @Column(name = "employee_id", length = 32)
-    private Integer employeeId;      //员工id
-    @Column(name = "title", length = 32)
-    private String title;           //活动标题
-    @Column(name = "img", length = 32)
-    private String img;             //活动图片
-    @Column(name = "text", length = 32)
-    private String text;            //活动内容
-    @Column(name = "time", length = 32)
-    private String time;            //活动发布时间
-    @Column(name = "cover_img", length = 32)
-    private String coverImg;        //活动封面图
+    @Column(name = "order_comment_id", length = 11)
+    private Integer orderCommentId;  //订单评论id
+    @Column(name = "text", length = 128)
+    private String text;             //回复内容
     @Column(name = "if_del", columnDefinition = "varchar(8) default 'false'")
     private String ifDel;           //是否删除
     @Column(name = "lable1", length = 32)
@@ -34,7 +26,7 @@ public class Activity {
     @Column(name = "lable3", length = 32)
     private String lable3;
 
-    public Activity() {
+    public Reply() {
     }
 
     public Integer getId() {
@@ -45,28 +37,12 @@ public class Activity {
         this.id = id;
     }
 
-    public Integer getEmployeeId() {
-        return employeeId;
+    public Integer getOrderCommentId() {
+        return orderCommentId;
     }
 
-    public void setEmployeeId(Integer employeeId) {
-        this.employeeId = employeeId;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getImg() {
-        return img;
-    }
-
-    public void setImg(String img) {
-        this.img = img;
+    public void setOrderCommentId(Integer orderCommentId) {
+        this.orderCommentId = orderCommentId;
     }
 
     public String getText() {
@@ -75,22 +51,6 @@ public class Activity {
 
     public void setText(String text) {
         this.text = text;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
-    public String getCoverImg() {
-        return coverImg;
-    }
-
-    public void setCoverImg(String coverImg) {
-        this.coverImg = coverImg;
     }
 
     public String getIfDel() {
@@ -127,14 +87,10 @@ public class Activity {
 
     @Override
     public String toString() {
-        return "Activity{" +
-                "id='" + id + '\'' +
-                ", employeeId='" + employeeId + '\'' +
-                ", title='" + title + '\'' +
-                ", img='" + img + '\'' +
+        return "Reply{" +
+                "id=" + id +
+                ", orderCommentId=" + orderCommentId +
                 ", text='" + text + '\'' +
-                ", time='" + time + '\'' +
-                ", coverImg='" + coverImg + '\'' +
                 ", ifDel='" + ifDel + '\'' +
                 ", lable1='" + lable1 + '\'' +
                 ", lable2='" + lable2 + '\'' +

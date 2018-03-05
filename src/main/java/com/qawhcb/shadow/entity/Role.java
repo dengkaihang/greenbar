@@ -3,25 +3,22 @@ package com.qawhcb.shadow.entity;
 import javax.persistence.*;
 
 /**
- * 帖子评论
- * Created by kane on 18-3-4
+ * 角色类
+ * Created by kane on 18-3-5
  */
 @Entity
-@Table(name = "t_post_comment")
-public class PostComment {
-
+@Table(name = "t_role")
+public class Role {
     @Id
     @GeneratedValue()
     @Column(name = "id", columnDefinition = "int(11) UNSIGNED ZEROFILL AUTO_INCREMENT")
-    private Integer id;              //id
-    @Column(name = "post_id", length = 11)
-    private Integer postId;          //帖子id
-    @Column(name = "user_id", length = 11)
-    private Integer userId;          //用户id
-    @Column(name = "text", length = 256)
-    private String text;            //内容
-    @Column(name = "time", length = 32)
-    private String time;            //评论时间
+    private Integer id;             //id
+    @Column(name = "name", length = 8)
+    private String name;            //角色名称
+    @Column(name = "jurisdiction", length = 8)
+    private String jurisdiction;    //权限
+    @Column(name = "operation_data", length = 8)
+    private String operationData;   //操作数据库
     @Column(name = "if_del", columnDefinition = "varchar(8) default 'false'")
     private String ifDel;           //是否删除
     @Column(name = "lable1", length = 32)
@@ -31,7 +28,7 @@ public class PostComment {
     @Column(name = "lable3", length = 32)
     private String lable3;
 
-    public PostComment() {
+    public Role() {
     }
 
     public Integer getId() {
@@ -42,36 +39,28 @@ public class PostComment {
         this.id = id;
     }
 
-    public Integer getPostId() {
-        return postId;
+    public String getName() {
+        return name;
     }
 
-    public void setPostId(Integer postId) {
-        this.postId = postId;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public String getJurisdiction() {
+        return jurisdiction;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setJurisdiction(String jurisdiction) {
+        this.jurisdiction = jurisdiction;
     }
 
-    public String getText() {
-        return text;
+    public String getOperationData() {
+        return operationData;
     }
 
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
+    public void setOperationData(String operationData) {
+        this.operationData = operationData;
     }
 
     public String getIfDel() {
@@ -108,12 +97,11 @@ public class PostComment {
 
     @Override
     public String toString() {
-        return "PostComment{" +
-                "id='" + id + '\'' +
-                ", postId='" + postId + '\'' +
-                ", userId='" + userId + '\'' +
-                ", text='" + text + '\'' +
-                ", time='" + time + '\'' +
+        return "Role{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", jurisdiction='" + jurisdiction + '\'' +
+                ", operationData='" + operationData + '\'' +
                 ", ifDel='" + ifDel + '\'' +
                 ", lable1='" + lable1 + '\'' +
                 ", lable2='" + lable2 + '\'' +

@@ -3,13 +3,12 @@ package com.qawhcb.shadow.entity;
 import javax.persistence.*;
 
 /**
- * 帖子评论
- * Created by kane on 18-3-4
+ * 帖子收藏
+ * Created by kane on 18-3-5
  */
 @Entity
-@Table(name = "t_post_comment")
-public class PostComment {
-
+@Table(name = "t_collect_post")
+public class CollectPost {
     @Id
     @GeneratedValue()
     @Column(name = "id", columnDefinition = "int(11) UNSIGNED ZEROFILL AUTO_INCREMENT")
@@ -18,10 +17,6 @@ public class PostComment {
     private Integer postId;          //帖子id
     @Column(name = "user_id", length = 11)
     private Integer userId;          //用户id
-    @Column(name = "text", length = 256)
-    private String text;            //内容
-    @Column(name = "time", length = 32)
-    private String time;            //评论时间
     @Column(name = "if_del", columnDefinition = "varchar(8) default 'false'")
     private String ifDel;           //是否删除
     @Column(name = "lable1", length = 32)
@@ -31,7 +26,7 @@ public class PostComment {
     @Column(name = "lable3", length = 32)
     private String lable3;
 
-    public PostComment() {
+    public CollectPost() {
     }
 
     public Integer getId() {
@@ -56,22 +51,6 @@ public class PostComment {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
     }
 
     public String getIfDel() {
@@ -108,12 +87,10 @@ public class PostComment {
 
     @Override
     public String toString() {
-        return "PostComment{" +
+        return "CollectPost{" +
                 "id='" + id + '\'' +
                 ", postId='" + postId + '\'' +
                 ", userId='" + userId + '\'' +
-                ", text='" + text + '\'' +
-                ", time='" + time + '\'' +
                 ", ifDel='" + ifDel + '\'' +
                 ", lable1='" + lable1 + '\'' +
                 ", lable2='" + lable2 + '\'' +

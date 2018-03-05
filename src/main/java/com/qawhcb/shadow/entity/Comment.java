@@ -12,15 +12,15 @@ public class Comment {
     @Id
     @GeneratedValue()
     @Column(name = "id", columnDefinition = "int(11) UNSIGNED ZEROFILL AUTO_INCREMENT")
-    private String id;              //id
+    private Integer id;              //id
     @Column(name = "order_id", length = 11)
-    private String orderId;         //订单id
+    private Integer orderId;         //订单id
     @Column(name = "text", length = 256)
     private String text;            //评价内容
     @Column(name = "comment_time", length = 32)
     private String commentTime;     //评价时间
-    @Column(name = "describe", length = 128)
-    private String describe;        //描述
+    @Column(name = "depict", length = 128)
+    private String depict;        //描述
     @Column(name = "img", length = 256)
     private String img;             //图片
     @Column(name = "service", length = 2)
@@ -41,19 +41,19 @@ public class Comment {
     public Comment() {
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getOrderId() {
+    public Integer getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(String orderId) {
+    public void setOrderId(Integer orderId) {
         this.orderId = orderId;
     }
 
@@ -73,12 +73,12 @@ public class Comment {
         this.commentTime = commentTime;
     }
 
-    public String getDescribe() {
-        return describe;
+    public String getDepict() {
+        return depict;
     }
 
-    public void setDescribe(String describe) {
-        this.describe = describe;
+    public void setDepict(String depict) {
+        this.depict = depict;
     }
 
     public String getImg() {
@@ -152,7 +152,7 @@ public class Comment {
                 ", orderId='" + orderId + '\'' +
                 ", text='" + text + '\'' +
                 ", commentTime='" + commentTime + '\'' +
-                ", describe='" + describe + '\'' +
+                ", depict='" + depict + '\'' +
                 ", img='" + img + '\'' +
                 ", service='" + service + '\'' +
                 ", speed='" + speed + '\'' +
