@@ -19,7 +19,7 @@ public class TestController {
     @ApiOperation(value = "value", tags = {"tags"})
     @PostMapping(value = "/test")
     public String test(){
-        int i = testServer.test("你好呀呀你好呀呀你好呀呀你好呀呀你好呀呀你好呀呀你好呀呀你好呀呀vv", 1);
+        int i = testServer.test("你好呀呀你好呀呀你好呀呀你好呀呀你好呀呀你好呀呀你好呀呀你好呀呀", 1);
 
         if (i > 0){
             return "成功";

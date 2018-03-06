@@ -14,12 +14,12 @@ public class TestServer {
 
 
 
-    @Transactional(noRollbackFor = Exception.class)
+    @Transactional(rollbackFor = Exception.class)
     public int test(String name, int id){
 
         orderDao.er("exception", id);
 
-        int i = 1/0;
+//        int i = 1/0;
 
         return orderDao.updateNameById(name, id);
     }
