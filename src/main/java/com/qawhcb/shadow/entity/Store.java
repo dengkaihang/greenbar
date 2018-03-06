@@ -44,6 +44,8 @@ public class Store {
     private String auditTime;      //审核时间
     @Column(name = "status", length = 8)
     private String status;          //状态
+    @Column(name = "token", length = 64)
+    private String token;           //验证token
     @Column(name = "if_del", columnDefinition = "varchar(8) default 'false'")
     private String ifDel;           //是否删除
     @Column(name = "label1", length = 32)

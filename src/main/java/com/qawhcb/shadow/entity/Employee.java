@@ -23,6 +23,8 @@ public class Employee {
     private String account;         //账号
     @Column(name = "password", length = 16)
     private String password;        //密码
+    @Column(name = "token", length = 64)
+    private String token;           //验证token
     @Column(name = "if_del", columnDefinition = "varchar(8) default 'false'")
     private String ifDel;           //是否删除
     @Column(name = "lable1", length = 32)

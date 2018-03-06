@@ -34,6 +34,8 @@ public class User {
     private String portrait;    //头像
     @Column(name = "qr_code", length = 256)
     private String qrCode;      //二维码
+    @Column(name = "token", length = 64)
+    private String token;       //ｔｏｋｅｎ验证
     @Column(name = "if_del", columnDefinition = "varchar(8) default 'false'")
     private String ifDel;       //是否删除
     @Column(name = "label1", length = 32)
@@ -44,6 +46,14 @@ public class User {
     private String label3;      //
 
     public User() {
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public Integer getId() {
