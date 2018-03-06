@@ -23,7 +23,7 @@ nbbuild/
 dist/
 nbdist/
 out/
-/out/
+/out/*
 .nb-gradle/
 
 # Compiled class file
