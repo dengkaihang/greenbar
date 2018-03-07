@@ -1,6 +1,7 @@
 package com.qawhcb.shadow.service.serviceImpl;
 
 import com.qawhcb.shadow.dao.IStoreDao;
+import com.qawhcb.shadow.entity.Store;
 import com.qawhcb.shadow.service.IStoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,4 +15,8 @@ public class StoreServiceImpl implements IStoreService{
     @Autowired
     private IStoreDao iStoreDao;
 
+    @Override
+    public Store regist(Store store) {
+        return iStoreDao.save(store);
+    }
 }
