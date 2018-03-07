@@ -3,7 +3,7 @@ package com.qawhcb.shadow.controller.app;
 import com.alibaba.fastjson.JSONArray;
 import com.qawhcb.shadow.entity.User;
 import com.qawhcb.shadow.service.IUserService;
-import com.qawhcb.shadow.service.serviceImpl.UtilsService;
+import com.qawhcb.shadow.service.impl.UtilsService;
 import com.qawhcb.shadow.utils.IdentifyingCodeUtils;
 import com.qawhcb.shadow.utils.LoggerUtil;
 import com.qawhcb.shadow.utils.MD5Util;

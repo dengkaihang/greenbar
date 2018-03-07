@@ -1,4 +1,4 @@
-package com.qawhcb.shadow.service.serviceImpl;
+package com.qawhcb.shadow.service.impl;
 
 import com.qawhcb.shadow.dao.IStoreDao;
 import com.qawhcb.shadow.entity.Store;
