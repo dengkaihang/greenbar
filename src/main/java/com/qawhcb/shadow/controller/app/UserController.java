@@ -3,7 +3,6 @@ package com.qawhcb.shadow.controller.app;
 import com.alibaba.fastjson.JSONArray;
 import com.qawhcb.shadow.entity.User;
 import com.qawhcb.shadow.service.IUserService;
-import com.qawhcb.shadow.service.serviceImpl.UtilsService;
 import com.qawhcb.shadow.utils.LoggerUtil;
 import com.qawhcb.shadow.utils.MD5Util;
 import io.swagger.annotations.Api;
@@ -26,9 +25,6 @@ import java.util.Map;
 @RestController
 @RequestMapping("/user")
 public class UserController {
-
-    @Autowired
-    private UtilsService utilsService;
 
     @Autowired
     private IUserService iUserService;
