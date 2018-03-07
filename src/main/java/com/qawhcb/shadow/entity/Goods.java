@@ -17,10 +17,12 @@ public class Goods {
     private Integer storeId;        //店铺id
     @Column(name = "type", length = 8)
     private String type;            //类型
+    @Column(name = "name", length = 128)
+    private String name;             //商品名字
     @Column(name = "depict", length = 128)
-    private String depict;        //商品描述
+    private String depict;           //商品描述
     @Column(name = "share_depict", length = 128)
-    private String shareDepict;  //商品分享描述
+    private String shareDepict;      //商品分享描述
     @Column(name = "if_del", columnDefinition = "varchar(8) default 'false'")
     private String ifDel;           //是否删除
     @Column(name = "label1", length = 32)
@@ -31,6 +33,14 @@ public class Goods {
     private String label3;          //
 
     public Goods() {
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Integer getId() {

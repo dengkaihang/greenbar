@@ -15,6 +15,24 @@ public interface IStoreService {
     public Store regist(Store store);
 
     /**
+     * 店铺登录
+     * @param phone 手机号码
+     * @param password  密码
+     * @return
+     */
+    public Store login(String phone, String password);
+
+    /**
+     * 通过电话号码查询店铺
+     * @param phone
+     * @return
+     */
+    public Store selectByPhone(String phone);
+
+
+    public Store modify(Store store);
+
+    /**
      * 删除用户信息
      * @param id 用户id
      */
