@@ -1,4 +1,4 @@
-package com.qawhcb.shadow.controller.app;
+package com.qawhcb.shadow.controller;
 
 /**
  * @author Taoism <br/>

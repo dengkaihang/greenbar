@@ -5,6 +5,7 @@ import com.qawhcb.shadow.entity.User;
 import com.qawhcb.shadow.service.IUserService;
 import com.qawhcb.shadow.utils.LoggerUtil;
 import com.qawhcb.shadow.utils.MD5Util;
+import com.qawhcb.shadow.utils.VerifyUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -45,8 +46,7 @@ public class UserController {
         Map<String, Object> map = new HashMap<>();
         String token = MD5Util.createId();
         try {
-            codeMsg = MD5Util.md5(codeMsg);
-            if(null != code && null != codeMsg && code.equals(codeMsg)){
+            if(VerifyUtil.verify(code, codeMsg)){
                 user = iUserService.codeLogin(phone);
                 if(null != user){
                     user.setToken(token);

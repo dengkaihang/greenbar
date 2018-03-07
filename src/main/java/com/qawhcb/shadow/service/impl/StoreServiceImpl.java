@@ -16,6 +16,11 @@ public class StoreServiceImpl implements IStoreService{
     @Autowired
     private IStoreDao iStoreDao;
 
+    /**
+     * 注册店铺
+     * @param store
+     * @return
+     */
     @Override
     public Store regist(Store store) {
         return iStoreDao.save(store);
