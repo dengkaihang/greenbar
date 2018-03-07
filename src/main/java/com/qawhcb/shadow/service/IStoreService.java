@@ -13,4 +13,10 @@ public interface IStoreService {
      * @return
      */
     public Store regist(Store store);
+
+    /**
+     * 删除用户信息
+     * @param id 用户id
+     */
+    public void delete(Integer id);
 }

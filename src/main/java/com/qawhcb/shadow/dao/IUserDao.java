@@ -19,4 +19,5 @@ public interface IUserDao extends JpaRepository<User, Integer>, JpaSpecification
     @Modifying(clearAutomatically = true)
     @Query(value = "update User as a set a.ifDel = 'true' where a.id = ?1")
     void delete(Integer id);
+
 }
