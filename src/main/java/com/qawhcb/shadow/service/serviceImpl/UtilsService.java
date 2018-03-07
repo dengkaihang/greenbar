@@ -27,8 +27,8 @@ public class UtilsService {
      * @param userId　待验证的用户ｉｄ
      * @return 验证结果
      */
-    public boolean userTokenVerify(String token, String userId){
-        if(StringUtils.isNull(token) || StringUtils.isNull(userId)){
+    public boolean userTokenVerify(String token, Integer userId){
+        if(StringUtils.isNull(token)){
             return false;
         }
 
@@ -47,7 +47,7 @@ public class UtilsService {
      * @param token
      * @return
      */
-    public String userVerifyAndReturn(String userId, String token){
+    public String userVerifyAndReturn(Integer userId, String token){
         try {
             Map<String, Object> map = new HashMap<>();
             if (!this.userTokenVerify(token, userId)){

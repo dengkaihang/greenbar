@@ -17,7 +17,7 @@ public class IdentifyingCodeUtils {
 		}
 
 		try {
-			SMSUtils.send(phone, "【乐萌乡居】尊敬的用户，您的短信验证码是" + code + "。请尽快完成验证。若非本人发送，请忽略此短信。");
+			SMSUtils.send(phone, " 尊敬的用户，您的短信验证码是" + code + "。请尽快完成验证。若非本人发送，请忽略此短信。");
 		} catch (Exception e) {
 			LoggerUtil.getLogger().error("验证码生成错误！");
 		}
