@@ -47,3 +47,26 @@ spring:
       ddl-auto: update
       naming:
         strategy: org.hibernate.cfg.ImprovedNamingStrategy
+
+  # SpringMVC jsp 页面设置
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+
+
+  # http 请求设置
+  http:
+    encoding:
+      force: true
+      charset: UTF-8
+      enabled: true
+    # 配置文件上传下载大小
+    multipart:
+      max-file-size: 1024Mb
+      max-request-size: 1024Mb
+
+
+## 日志配置文件地址
+#logging:
+#  config: classpath:properties/logback-spring.xml
