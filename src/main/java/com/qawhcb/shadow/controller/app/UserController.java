@@ -3,15 +3,17 @@ package com.qawhcb.shadow.controller.app;
 import com.alibaba.fastjson.JSONArray;
 import com.qawhcb.shadow.entity.User;
 import com.qawhcb.shadow.service.IUserService;
-import com.qawhcb.shadow.service.impl.UtilsService;
-import com.qawhcb.shadow.utils.IdentifyingCodeUtils;
 import com.qawhcb.shadow.utils.LoggerUtil;
 import com.qawhcb.shadow.utils.MD5Util;
+import com.qawhcb.shadow.utils.VerifyUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,28 +28,7 @@ import java.util.Map;
 public class UserController {
 
     @Autowired
-    private UtilsService utilsService;
-
-    @Autowired
     private IUserService iUserService;
-
-    /**
-     * 获取验证码
-     * @param phone　用户手机号码
-     * @return
-     */
-    @ApiOperation("获取验证码")
-    @GetMapping(value = "/identify/{phone}")
-    public String identify(@ApiParam("手机号码") @PathVariable(value = "phone", required = true) String phone){
-        Map<String, Object> map = new HashMap<>();
-        if(phone == null && phone.trim().isEmpty()){
-            map.put("msg", "电话号码格式错误");
-            map.put("code", "-1");
-        }
-        String code = IdentifyingCodeUtils.sendIdentifyingCode(phone);
-        code = MD5Util.md5(code);
-        return code;
-    }
 
     /**
      * 验证码登录／注册
@@ -65,8 +46,7 @@ public class UserController {
         Map<String, Object> map = new HashMap<>();
         String token = MD5Util.createId();
         try {
-            codeMsg = MD5Util.md5(codeMsg);
-            if(null != code && null != codeMsg && code.equals(codeMsg)){
+            if(VerifyUtil.verify(code, codeMsg)){
                 user = iUserService.codeLogin(phone);
                 if(null != user){
                     user.setToken(token);
