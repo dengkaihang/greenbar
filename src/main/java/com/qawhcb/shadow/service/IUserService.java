@@ -29,4 +29,10 @@ public interface IUserService {
      * @return
      */
     public User modify(User user);
+
+    /**
+     * 删除用户信息
+     * @param id 用户id
+     */
+    public void delete(Integer id);
 }

@@ -1,4 +1,4 @@
-package com.qawhcb.shadow.service.serviceImpl;
+package com.qawhcb.shadow.service.impl;
 
 import com.alibaba.fastjson.JSONArray;
 import com.qawhcb.shadow.dao.IUserDao;
@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * ｔｏｋｅｎ验证。
+ * token验证。
  * Created by kane on 18-3-6
  */
 @Service
@@ -23,7 +23,7 @@ public class UtilsService {
 
     /**
      * 验证用户token
-     * @param token 待验证的ｔｏｋｅｎ
+     * @param token 待验证的token
      * @param userId　待验证的用户ｉｄ
      * @return 验证结果
      */
@@ -42,7 +42,7 @@ public class UtilsService {
     }
 
     /**
-     * 用户验证ｔｏｋｅｎ，并返回ｍａｐ信息
+     * 用户验证token，并返回map信息
      * @param userId
      * @param token
      * @return

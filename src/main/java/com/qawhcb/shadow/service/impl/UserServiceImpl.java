@@ -1,4 +1,4 @@
-package com.qawhcb.shadow.service.serviceImpl;
+package com.qawhcb.shadow.service.impl;
 
 import com.qawhcb.shadow.dao.IUserDao;
 import com.qawhcb.shadow.entity.User;
@@ -6,6 +6,7 @@ import com.qawhcb.shadow.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -56,5 +57,12 @@ public class UserServiceImpl implements IUserService {
     @Override
     public User modify(User user) {
         return userDao.save(user);
+    }
+
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void delete(Integer id) {
+        userDao.delete(id);
     }
 }
