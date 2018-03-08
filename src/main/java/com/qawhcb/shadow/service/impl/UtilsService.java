@@ -1,7 +1,9 @@
 package com.qawhcb.shadow.service.impl;
 
 import com.alibaba.fastjson.JSONArray;
+import com.qawhcb.shadow.dao.IStoreDao;
 import com.qawhcb.shadow.dao.IUserDao;
+import com.qawhcb.shadow.entity.Store;
 import com.qawhcb.shadow.entity.User;
 import com.qawhcb.shadow.utils.LoggerUtil;
 import com.qawhcb.shadow.utils.StringUtils;
@@ -20,6 +22,9 @@ public class UtilsService {
 
     @Autowired
     private IUserDao iUserDao;
+
+    @Autowired
+    private IStoreDao iStoreDao;
 
     /**
      * 验证用户token
@@ -42,6 +47,26 @@ public class UtilsService {
     }
 
     /**
+     * 验证店铺token
+     * @param storeId
+     * @param token
+     * @return
+     */
+    public boolean storeTokenVerify(Integer storeId, String token){
+        if(StringUtils.isNull(token)){
+            return false;
+        }
+
+        Store store = iStoreDao.findOne(storeId);
+
+        if(store == null){
+            return false;
+        }else{
+            return token.equalsIgnoreCase(store.getToken());
+        }
+    }
+
+    /**
      * 用户验证token，并返回map信息
      * @param userId
      * @param token
@@ -51,6 +76,29 @@ public class UtilsService {
         try {
             Map<String, Object> map = new HashMap<>();
             if (!this.userTokenVerify(token, userId)){
+                map.put("msg", "token error");
+                map.put("code", -33);
+
+                return JSONArray.toJSONString(map);
+            }else{
+                return null;
+            }
+        } catch (Exception e) {
+            LoggerUtil.getLogger().error("" + e.getMessage());
+            return  null;
+        }
+    }
+
+    /**
+     * 店铺验证token，并返回map信息
+     * @param token
+     * @param storeId
+     * @return
+     */
+    public String storeVerifyAndReturn(String token, Integer storeId){
+        try {
+            Map<String, Object> map = new HashMap<>();
+            if (!this.userTokenVerify(token, storeId)){
                 map.put("msg", "token error");
                 map.put("code", -33);
 
