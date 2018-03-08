@@ -57,6 +57,6 @@ dependencies {
     compile group: 'commons-io', name: 'commons-io', version: '2.6'
 
     //	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
-    testCompile('org.springframework.boot:spring-boot-starter-test')
+    compile('org.springframework.boot:spring-boot-starter-test')
 
 }
