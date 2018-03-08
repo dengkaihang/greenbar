@@ -1,5 +1,7 @@
 .gradle
 /build/
+out/
+src/test/
 !gradle/wrapper/gradle-wrapper.jar
 
 ### STS ###
@@ -11,10 +13,13 @@
 .springBeans
 
 ### IntelliJ IDEA ###
-.idea
+.idea/
 *.iws
 *.iml
 *.ipr
+out/
+src/test/
+
 
 ### NetBeans ###
 nbproject/private/
@@ -22,7 +27,6 @@ build/
 nbbuild/
 dist/
 nbdist/
-out/
 .nb-gradle/
 
 # Compiled class file
@@ -47,4 +51,3 @@ out/
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
-src/test/
