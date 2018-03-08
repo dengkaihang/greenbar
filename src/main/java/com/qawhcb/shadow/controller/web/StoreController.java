@@ -36,13 +36,13 @@ public class StoreController {
     @ApiOperation("店铺注册")
     @PostMapping(value = "/regist/{code}/{codeMsg}")
     @ResponseBody
-    public String regist(@ApiParam(name = "phone", value = "验证码") @PathVariable String code,
-                         @ApiParam(name = "phone", value = "用户输入的验证码") @PathVariable String codeMsg,
+    public String regist(@ApiParam(name = "code", value = "验证码") @PathVariable String code,
+                         @ApiParam(name = "codeMsg", value = "用户输入的验证码") @PathVariable String codeMsg,
                         @ApiParam(name = "store", value = "店铺") @RequestBody(required = true) Store store){
         JSONObject obj = new JSONObject();
         if(VerifyUtil.verify(code, codeMsg)){
-            store = iStoreService.selectByPhone(store.getPhone());
-            if(store != null){
+            Store stores = iStoreService.selectByPhone(store.getPhone());
+            if(stores != null){
                 obj.put("msg", "此号码已注册，请直接登录");
                 obj.put("code", "-1");
                 return obj.toString();
