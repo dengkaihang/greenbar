@@ -18,11 +18,13 @@ public class IdentifyingCodeUtils {
 
 		try {
             String send = SMSUtils.send(phone, "【爱影动萌】尊敬的用户，您的短信验证码是" + code + "。请尽快完成验证。若非本人发送，请忽略此短信。回复TD退订！");
-            System.out.println(send);
+            if (send.contains("提交成功")){
+                return code;
+            }
         } catch (Exception e) {
 			LoggerUtil.getLogger().error("验证码生成错误！");
 		}
 
-		return code;
+		return "-1";
 	}
 }
