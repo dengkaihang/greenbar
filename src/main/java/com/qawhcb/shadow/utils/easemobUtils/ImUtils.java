@@ -4,6 +4,7 @@ package com.qawhcb.shadow.utils.easemobUtils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.qawhcb.shadow.entity.easemob.Message;
+import com.qawhcb.shadow.entity.easemob.User;
 import com.qawhcb.shadow.utils.HttpUtils;
 
 import java.io.IOException;
@@ -95,7 +96,8 @@ public class ImUtils {
 
     /**
      * 发送给所有人
-     * @param limit 最多的人数
+     *
+     * @param limit   最多的人数
      * @param message 发送的信息
      * @return 发送结果
      */
@@ -113,7 +115,7 @@ public class ImUtils {
 //        JSONArray entities = (JSONArray) mapType.get("entities");
 
 
-        List<Map<String,Object>> mapListJson = (List) mapType.get("entities");
+        List<Map<String, Object>> mapListJson = (List) mapType.get("entities");
 
         ArrayList<String> users = new ArrayList<>(16);
         String[] userNames = new String[20];
@@ -125,27 +127,44 @@ public class ImUtils {
             users.add(username);
 
             // 最多一次发送20人
-           if (users.size() == 20){
+            if (users.size() == 20) {
 
-               send(users.toArray(userNames), message);
+                send(users.toArray(userNames), message);
 
-               System.out.println("发送一次："+users.size());
-               users.clear();
+                System.out.println("发送一次：" + users.size());
+                users.clear();
 
-               System.out.println("清除后："+users.size());
-           }
+                System.out.println("清除后：" + users.size());
+            }
 
         }
-        if (users.size() != 0){
+        if (users.size() != 0) {
             send(users.toArray(userNames), message);
-            System.out.println("最后一次："+users.size());
+            System.out.println("最后一次：" + users.size());
             users.clear();
 
-            System.out.println("清除后："+users.size());
+            System.out.println("清除后：" + users.size());
         }
 
 
         return null;
     }
 
+
+
+    public static String register(String username) {
+
+        String token = getToken(orgName, appName, clientId, clientSecret);
+
+        String url = "http://a1.easemob.com/" + orgName + "/" + appName + "/users";
+
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword("12345678");
+
+
+        String post = HttpUtils.httpRequest(url, "POST", JSONArray.toJSONString(user), "Bearer " + token);
+
+        return post;
+    }
 }
