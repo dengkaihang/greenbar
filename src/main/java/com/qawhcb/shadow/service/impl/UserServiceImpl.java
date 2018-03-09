@@ -3,6 +3,7 @@ package com.qawhcb.shadow.service.impl;
 import com.qawhcb.shadow.dao.IUserDao;
 import com.qawhcb.shadow.entity.User;
 import com.qawhcb.shadow.service.IUserService;
+import com.qawhcb.shadow.utils.easemobUtils.ImUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -50,7 +51,8 @@ public class UserServiceImpl implements IUserService {
         user.setNickName("小萌");
         user.setAutograph("P出另一个你。");
         user.setSex("男");
-        userDao.save(user);
+        user = userDao.save(user);
+        ImUtils.register(user.getId().toString());
         return user;
     }
 

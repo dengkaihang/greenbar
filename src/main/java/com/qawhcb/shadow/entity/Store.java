@@ -60,6 +60,30 @@ public class Store {
     public Store() {
     }
 
+    public Store(String password, String trueName, String idCard, String handIdCard, String phone, String portrait, String address, String storeName, String defaultImg, String rank, String depict, String storeAddress, String remark, Integer employeeId, String auditTime, String status, String token, String ifDel, String label1, String label2, String label3) {
+        this.password = password;
+        this.trueName = trueName;
+        this.idCard = idCard;
+        this.handIdCard = handIdCard;
+        this.phone = phone;
+        this.portrait = portrait;
+        this.address = address;
+        this.storeName = storeName;
+        this.defaultImg = defaultImg;
+        this.rank = rank;
+        this.depict = depict;
+        this.storeAddress = storeAddress;
+        this.remark = remark;
+        this.employeeId = employeeId;
+        this.auditTime = auditTime;
+        this.status = status;
+        this.token = token;
+        this.ifDel = ifDel;
+        this.label1 = label1;
+        this.label2 = label2;
+        this.label3 = label3;
+    }
+
     public String getPortrait() {
         return portrait;
     }

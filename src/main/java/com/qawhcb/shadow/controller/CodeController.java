@@ -38,14 +38,15 @@ public class CodeController {
             map.put("code", "-1");
         } else {
 
-            String code = IdentifyingCodeUtils.sendIdentifyingCode(phone);
+            //String code = IdentifyingCodeUtils.sendIdentifyingCode(phone);
+            String code = "123456";
             if ("-1".equals(code)) {
                 map.put("msg", "验证码发送失败");
                 map.put("code", "-1");
             } else {
-
-                code = MD5Util.md5(code);
-                return code;
+                code = MD5Util.md5(code + "shadow");
+                map.put("msg", code);
+                map.put("code", "1");
             }
         }
 

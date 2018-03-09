@@ -98,7 +98,7 @@ public class UtilsService {
     public String storeVerifyAndReturn(String token, Integer storeId){
         try {
             Map<String, Object> map = new HashMap<>();
-            if (!this.userTokenVerify(token, storeId)){
+            if (!this.storeTokenVerify(storeId, token)){
                 map.put("msg", "token error");
                 map.put("code", -33);
 

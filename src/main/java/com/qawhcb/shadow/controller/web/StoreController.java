@@ -21,7 +21,7 @@ import java.util.Map;
  * 店铺ｃｏｎｔｒｏｌｌｅｒ
  * Created by kane on 18-3-7
  */
-@Api(value = "店铺类(技师账户信息)", description = "店铺登录注册")
+@Api(value = "店铺类(技师账户信息)", description = "店铺登录注册,重置密码，修改信息，上传图片")
 @RestController
 @RequestMapping("/store")
 public class StoreController {
@@ -41,11 +41,11 @@ public class StoreController {
      * @return
      */
     @ApiOperation("店铺注册")
-    @PostMapping(value = "/regist/{code}/{codeMsg}")
+    @PostMapping(value = "/regist")
     @ResponseBody
-    public String regist(@ApiParam(name = "code", value = "验证码") @PathVariable String code,
-                         @ApiParam(name = "codeMsg", value = "用户输入的验证码") @PathVariable String codeMsg,
-                         @ApiParam(name = "store", value = "店铺") @RequestBody(required = true) Store store) {
+    public String regist(@ApiParam(name = "code", value = "验证码") @RequestParam String code,
+                         @ApiParam(name = "codeMsg", value = "用户输入的验证码") @RequestParam String codeMsg,
+                         @ApiParam(name = "store", value = "店铺对象") @RequestBody(required = true) Store store) {
         JSONObject obj = new JSONObject();
         if (VerifyUtil.verify(code, codeMsg)) {
             Store stores = iStoreService.selectByPhone(store.getPhone());
@@ -75,8 +75,8 @@ public class StoreController {
     @ApiOperation("店铺密码登录")
     @PostMapping(value = "/login")
     @ResponseBody
-    public String login(@ApiParam(name = "phone", value = "手机号码") @RequestBody(required = true) String phone,
-                        @ApiParam(name = "password", value = "密码") @RequestBody(required = true) String password) {
+    public String login(@ApiParam(name = "phone", value = "手机号码") @RequestParam String phone,
+                        @ApiParam(name = "password", value = "密码") @RequestParam String password) {
         Store store = null;
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("msg", "登录失败，请核对账号和密码是否正确");
@@ -102,11 +102,10 @@ public class StoreController {
      */
     @ApiOperation("店铺重置密码")
     @PostMapping(value = "/modify")
-    @ResponseBody
-    public String modify(@ApiParam(name = "phone", value = "验证码") @PathVariable String code,
-                         @ApiParam(name = "phone", value = "用户输入的验证码") @PathVariable String codeMsg,
-                         @ApiParam(name = "phone", value = "手机号码") @RequestBody(required = true) String phone,
-                         @ApiParam(name = "password", value = "密码") @RequestBody(required = true) String password) {
+    public String modify(@ApiParam(name = "code", value = "验证码") @RequestParam String code,
+                         @ApiParam(name = "codeMsg", value = "用户输入的验证码") @RequestParam String codeMsg,
+                         @ApiParam(name = "phone", value = "手机号码") @RequestParam String phone,
+                         @ApiParam(name = "password", value = "密码") @RequestParam String password) {
         JSONObject obj = new JSONObject();
         if (VerifyUtil.verify(code, codeMsg)) {
             Store store = iStoreService.selectByPhone(phone);
@@ -126,7 +125,7 @@ public class StoreController {
     @PostMapping(value = "/addImages/{token}/{storeId}")
     @ResponseBody
     public String addImages(@ApiParam(name = "token", value = "token验证") @PathVariable(value = "token") String token,
-                            @ApiParam(name = "storeId", value = "店铺id") @PathVariable(value = "landlordId") Integer storeId,
+                            @ApiParam(name = "storeId", value = "店铺id") @PathVariable(value = "storeId") Integer storeId,
                             @ApiParam(name = "files", value = "图片文件,files", required = true) @RequestParam("files") MultipartFile[] files){
         // 验证token
         String verifyToken = utilsService.storeVerifyAndReturn(token, storeId);
@@ -138,9 +137,27 @@ public class StoreController {
             return obj.toJSONString();
         }
 
-        Store store = iStoreService.selectById(storeId);
+        try {
+            Store store = iStoreService.selectById(storeId);
+            String names = ImgUploadUtils.storeImgUpload(files, storeId.toString());
+            String[] name = names.split(",");
 
-
+            String defaultImg = store.getDefaultImg();
+            for(int i = 0; i<name.length; i++){
+                if(null == defaultImg){
+                    defaultImg = name[i];
+                }else {
+                    defaultImg = defaultImg + "," + name[i];
+                    iStoreService.modify(store);
+                }
+            }
+            obj.put("msg", "上传图片成功");
+            obj.put("code", "1");
+        } catch (Exception e) {
+            e.printStackTrace();
+            obj.put("msg", "上传图片失败");
+            obj.put("code", "-1");
+        }
         return obj.toJSONString();
     }
 }

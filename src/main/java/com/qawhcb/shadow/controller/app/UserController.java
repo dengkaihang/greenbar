@@ -40,8 +40,8 @@ public class UserController {
     @ApiOperation("验证码登录／注册")
     @PostMapping(value = "/codeLogin")
     public String codeLogin(@ApiParam(name = "phone", value = "手机号码") @RequestParam String phone,
-                            @ApiParam(name = "phone", value = "验证码") @RequestParam String code,
-                            @ApiParam(name = "phone", value = "用户输入的验证码") @RequestParam String codeMsg){
+                            @ApiParam(name = "code", value = "验证码") @RequestParam String code,
+                            @ApiParam(name = "codeMsg", value = "用户输入的验证码") @RequestParam String codeMsg){
         User user = null;
         Map<String, Object> map = new HashMap<>();
         String token = MD5Util.createId();
