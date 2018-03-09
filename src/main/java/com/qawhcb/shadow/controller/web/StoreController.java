@@ -79,13 +79,14 @@ public class StoreController {
                         @ApiParam(name = "password", value = "密码") @RequestParam String password) {
         Store store = null;
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("msg", "登录失败，请核对账号和密码是否正确");
-        map.put("code", "-1");
         store = iStoreService.login(phone, password);
         if (store != null) {
             map.put("msg", "登录成功");
             map.put("code", "1");
             map.put("store", store);
+        }else {
+            map.put("msg", "登录失败，请核对账号和密码是否正确");
+            map.put("code", "-1");
         }
 
         return JSONArray.toJSONString(map);
