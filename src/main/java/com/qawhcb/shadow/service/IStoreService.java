@@ -29,8 +29,19 @@ public interface IStoreService {
      */
     public Store selectByPhone(String phone);
 
-
+    /**
+     * 修改店铺信息
+     * @param store
+     * @return
+     */
     public Store modify(Store store);
+
+    /**
+     * 通过id查找店铺
+     * @param storeId
+     * @return
+     */
+    public Store selectById(Integer storeId);
 
     /**
      * 删除用户信息

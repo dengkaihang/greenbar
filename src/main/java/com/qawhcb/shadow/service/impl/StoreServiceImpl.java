@@ -69,6 +69,11 @@ public class StoreServiceImpl implements IStoreService{
         return iStoreDao.save(store);
     }
 
+    @Override
+    public Store selectById(Integer storeId) {
+        return iStoreDao.findOne(storeId);
+    }
+
 
     @Transactional(rollbackFor = Exception.class)
     @Override

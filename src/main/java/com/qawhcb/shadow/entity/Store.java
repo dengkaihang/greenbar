@@ -24,6 +24,8 @@ public class Store {
     private String handIdCard;    //手持身份证照片
     @Column(name = "phone", length = 11)
     private String phone;           //手机号码
+    @Column(name = "portrait", length = 256)
+    private String portrait;        //头像
     @Column(name = "address", length = 128)
     private String address;         //技师长地址
     @Column(name = "store_name", length = 16)
@@ -56,6 +58,26 @@ public class Store {
     private String label3;
 
     public Store() {
+    }
+
+    public String getPortrait() {
+        return portrait;
+    }
+
+    public void setPortrait(String portrait) {
+        this.portrait = portrait;
+    }
+
+    public String getDepict() {
+        return depict;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public Integer getId() {
