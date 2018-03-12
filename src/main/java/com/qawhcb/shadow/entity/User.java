@@ -37,7 +37,7 @@ public class User {
     @Column(name = "token", length = 64)
     private String token;       //ｔｏｋｅｎ验证
     @Column(name = "if_del", columnDefinition = "varchar(8) default 'false'")
-    private String ifDel;       //是否删除
+    private String ifDel = "false";       //是否删除
     @Column(name = "label1", length = 32)
     private String label1;      //标签
     @Column(name = "label2", length = 32)

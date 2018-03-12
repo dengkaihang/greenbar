@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Created on 2018/2/7 <br/>
  */
 @RestController
-@RequestMapping("/im")
+@RequestMapping("/app/im")
 public class ImController {
 
     @PostMapping("/push")

@@ -23,7 +23,7 @@ import java.util.Map;
  */
 @Api(value = "店铺类(技师账户信息)", description = "店铺登录注册,重置密码，修改信息，上传图片")
 @RestController
-@RequestMapping("/store")
+@RequestMapping("/web/store")
 public class StoreController {
 
     @Autowired

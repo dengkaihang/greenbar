@@ -28,7 +28,7 @@ public class Post {
     @Column(name = "publish_address", length = 16)
     private String publishAddress;  //发布位置
     @Column(name = "if_del", columnDefinition = "varchar(8) default 'false'")
-    private String ifDel;           //是否删除
+    private String ifDel = "false";           //是否删除
     @Column(name = "lable1", length = 32)
     private String lable1;          //标签1
     @Column(name = "lable2", length = 32)

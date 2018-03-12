@@ -71,7 +71,7 @@ public class Order {
     @Column(name = "address_id", length = 12)
     private Integer addressId;       //地址id
     @Column(name = "if_del", columnDefinition = "varchar(8) default 'false'")
-    private String ifDel;           //是否删除
+    private String ifDel = "false";           //是否删除
     @Column(name = "label1", length = 32)
     private String label1;          //标签１
     @Column(name = "label2", length = 32)

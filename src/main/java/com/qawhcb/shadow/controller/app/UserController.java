@@ -24,7 +24,7 @@ import java.util.Map;
  */
 @Api(value = "爱影动萌用户", description = "用户登录注册操作")
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/app/user")
 public class UserController {
 
     @Autowired

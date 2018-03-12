@@ -26,7 +26,7 @@ public class Pack {
     @Column(name = "if_post", columnDefinition = "varchar(8) default 'true'")
     private String ifPost;      //是否支持邮寄
     @Column(name = "ifDel", columnDefinition = "varchar(8) default 'false'")
-    private String ifDel;       //是否删除
+    private String ifDel = "false";       //是否删除
     @Column(name = "label1", length = 32)
     private String label1;      //标签
     @Column(name = "label2", length = 32)

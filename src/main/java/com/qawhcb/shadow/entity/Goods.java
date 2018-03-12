@@ -23,8 +23,10 @@ public class Goods {
     private String depict;           //商品描述
     @Column(name = "share_depict", length = 128)
     private String shareDepict;      //商品分享描述
+    @Column(name = "cover", length = 256)
+    private String cover;      //商品封面图片
     @Column(name = "if_del", columnDefinition = "varchar(8) default 'false'")
-    private String ifDel;           //是否删除
+    private String ifDel = "false";           //是否删除
     @Column(name = "label1", length = 32)
     private String label1;          //标签
     @Column(name = "label2", length = 32)
@@ -33,6 +35,14 @@ public class Goods {
     private String label3;          //
 
     public Goods() {
+    }
+
+    public String getCover() {
+        return cover;
+    }
+
+    public void setCover(String cover) {
+        this.cover = cover;
     }
 
     public String getName() {
