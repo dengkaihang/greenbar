@@ -1,7 +1,6 @@
 package com.qawhcb.shadow.controller;
 
 import com.alibaba.fastjson.JSONArray;
-import com.qawhcb.shadow.utils.IdentifyingCodeUtils;
 import com.qawhcb.shadow.utils.MD5Util;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -52,5 +51,4 @@ public class CodeController {
 
         return JSONArray.toJSONString(map);
     }
-
 }

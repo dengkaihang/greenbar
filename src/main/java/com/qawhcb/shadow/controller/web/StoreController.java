@@ -6,6 +6,7 @@ import com.qawhcb.shadow.entity.Store;
 import com.qawhcb.shadow.service.IStoreService;
 import com.qawhcb.shadow.service.impl.UtilsService;
 import com.qawhcb.shadow.utils.ImgUploadUtils;
+import com.qawhcb.shadow.utils.MD5Util;
 import com.qawhcb.shadow.utils.VerifyUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -81,6 +83,18 @@ public class StoreController {
         Map<String, Object> map = new HashMap<String, Object>();
         store = iStoreService.login(phone, password);
         if (store != null) {
+
+            store.setToken(MD5Util.createId());
+
+            iStoreService.modify(store);
+
+            Store storeTarget = new Store();
+
+            storeTarget.setId(store.getId());
+            storeTarget.setToken(store.getToken());
+            storeTarget.setPhone(store.getPhone());
+            storeTarget.setIfDel(null);
+
             map.put("msg", "登录成功");
             map.put("code", "1");
             map.put("store", store);

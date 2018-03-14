@@ -32,6 +32,8 @@ public class Order {
     private String newFile;         //修改后文件链接
     @Column(name = "pack_id", length = 12)
     private Integer packId;          //套餐id
+    @Column(name = "goods_id", length = 12)
+    private Integer goodsId;          //商品Id
     @Column(name = "modify_desc", length = 256)
     private String modifyDesc;      //修改套餐描述
     @Column(name = "price", length = 8)
@@ -80,6 +82,14 @@ public class Order {
     private String label3;          //
 
     public Order() {
+    }
+
+    public Integer getGoodsId() {
+        return goodsId;
+    }
+
+    public void setGoodsId(Integer goodsId) {
+        this.goodsId = goodsId;
     }
 
     public Integer getId() {

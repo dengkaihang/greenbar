@@ -15,6 +15,8 @@ public class Comment {
     private Integer id;              //id
     @Column(name = "order_id", length = 11)
     private Integer orderId;         //订单id
+    @Column(name = "user_id", length = 11)
+    private Integer userId;         //订单id
     @Column(name = "text", length = 256)
     private String text;            //评价内容
     @Column(name = "comment_time", length = 32)
@@ -39,6 +41,14 @@ public class Comment {
     private String lable3;
 
     public Comment() {
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public Integer getId() {

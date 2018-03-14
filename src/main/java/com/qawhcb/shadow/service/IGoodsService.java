@@ -2,10 +2,14 @@ package com.qawhcb.shadow.service;
 
 import com.qawhcb.shadow.entity.Goods;
 import com.qawhcb.shadow.entity.GoodsImg;
+import com.qawhcb.shadow.entity.Pack;
+import com.qawhcb.shadow.entity.dataModel.GoodsVo;
 import org.springframework.data.domain.Page;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Taoism <br/>
@@ -61,4 +65,21 @@ public interface IGoodsService {
      * @return 商品实体
      */
     public List<Goods> findAllByType(int page, String type);
+
+    /**
+     * 按照商品id查找商品及店铺详情
+     *
+     * @param goodsId 商品id
+     * @return 查询结果
+     */
+    public GoodsVo findByGoodsId(int goodsId);
+
+    /**
+     * 按照店铺id查找商品及套餐
+     *
+     * @param storeId 店铺id
+     * @param page    当前页
+     * @return 查询结果
+     */
+    public List<GoodsVo> findAllByStore(int storeId, int page);
 }

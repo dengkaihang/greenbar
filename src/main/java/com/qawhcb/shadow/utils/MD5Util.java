@@ -11,7 +11,7 @@ public class MD5Util {
     /*
      * MD5加密:摘要算法
      * 特点:任意长度字节处理成等长结果;不可逆
-     * Base64:a-z A-Z 0-9 = +
+     * Base64:a-z A-Z 0-9 + /
      */
     public static String md5(String src) {
         try {
