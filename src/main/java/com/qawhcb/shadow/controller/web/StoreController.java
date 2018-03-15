@@ -5,7 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.qawhcb.shadow.entity.Store;
 import com.qawhcb.shadow.service.IStoreService;
 import com.qawhcb.shadow.service.impl.UtilsService;
-import com.qawhcb.shadow.utils.ImgUploadUtils;
+import com.qawhcb.shadow.utils.UploadFileUtils;
 import com.qawhcb.shadow.utils.MD5Util;
 import com.qawhcb.shadow.utils.VerifyUtil;
 import io.swagger.annotations.Api;
@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -154,7 +153,7 @@ public class StoreController {
 
         try {
             Store store = iStoreService.selectById(storeId);
-            String names = ImgUploadUtils.storeImgUpload(files, storeId.toString());
+            String names = UploadFileUtils.storeImgUpload(files, storeId.toString());
             String[] name = names.split(",");
 
             String defaultImg = store.getDefaultImg();

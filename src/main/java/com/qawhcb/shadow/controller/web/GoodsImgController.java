@@ -1,13 +1,9 @@
 package com.qawhcb.shadow.controller.web;
 
-/**
- * @author Taoism <br/>
- * Created on 2018/3/12 <br/>
- */
 
 import com.qawhcb.shadow.service.IGoodsImgService;
 import com.qawhcb.shadow.service.impl.UtilsService;
-import com.qawhcb.shadow.utils.ImgUploadUtils;
+import com.qawhcb.shadow.utils.UploadFileUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -16,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
+ * @author Taoism <br/>
+ * Created on 2018/3/12 <br/>
  * 商品图片控制类
  */
 @Api(value = "商品图片相关接口", description = "商品图片上传及读取相关")
@@ -35,7 +33,7 @@ public class GoodsImgController {
             return verifyToken;
         }
 
-        String names = ImgUploadUtils.storeImgUpload(files, storeId + "/cover");
+        String names = UploadFileUtils.storeImgUpload(files, storeId + "/cover");
 
 
 

@@ -1,32 +1,26 @@
 package com.qawhcb.shadow.controller.web;
 
-/**
- * @author Taoism <br/>
- * Created on 2018/3/12 <br/>
- */
-
 import com.alibaba.fastjson.JSONArray;
 import com.qawhcb.shadow.entity.Goods;
-import com.qawhcb.shadow.entity.Pack;
 import com.qawhcb.shadow.entity.dataModel.GoodsVo;
 import com.qawhcb.shadow.service.IGoodsService;
 import com.qawhcb.shadow.service.impl.UtilsService;
-import com.qawhcb.shadow.utils.ImgUploadUtils;
+import com.qawhcb.shadow.utils.UploadFileUtils;
 import com.qawhcb.shadow.utils.UpdateUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
+ * @author Taoism <br/>
+ * Created on 2018/3/12 <br/>
  * 商品相关信息
  */
 @Api(value = "商品相关操作", description = "店铺商品相关操作")
@@ -46,9 +40,9 @@ public class GoodsController {
             // 验证不通过，直接返回错误信息
             return verifyToken;
         }
-        Map<String, Object> map = new HashMap<>(16);
+        Map<String, Object> map = new HashMap<>(8);
 
-        String names = ImgUploadUtils.storeImgUpload(files, storeId + "/cover");
+        String names = UploadFileUtils.storeImgUpload(files, storeId + "/cover");
 
         Goods goods = iGoodsService.updateCoverImg(names);
 
@@ -70,7 +64,7 @@ public class GoodsController {
             // 验证不通过，直接返回错误信息
             return verifyToken;
         }
-        Map<String, Object> map = new HashMap<>(16);
+        Map<String, Object> map = new HashMap<>(8);
 
         // 测试UpdateUtils
         Goods target = iGoodsService.findOne(goods.getId());
@@ -88,14 +82,14 @@ public class GoodsController {
         return JSONArray.toJSONString(map);
     }
 
-    @ApiOperation(value = "查询当前店铺下所有商品及套餐信息")
+    @ApiOperation(value = "查询当前店铺下所有商品及套餐信息", notes = "goods的label1暂存页数")
     @GetMapping(value = "/findAllByStore/{storeId}/{page}")
     public String findOne(@ApiParam(name = "storeId", value = "店铺id") @PathVariable(value = "storeId") int storeId,
                           @ApiParam(name = "page", value = "当前页") @PathVariable(value = "page") int page) {
 
-        Map<String, Object> map = new HashMap<>(16);
+        Map<String, Object> map = new HashMap<>(8);
 
-        if (page < 1){
+        if (page < 1) {
             page = 1;
         }
 

@@ -9,7 +9,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,6 +16,7 @@ import java.util.Map;
 /**
  * @author Taoism <br/>
  * Created on 2018/3/12 <br/>
+ * 套餐处理
  */
 @Api(value = "商品套餐", description = "商品套餐相关操作")
 @RestController(value = "webPackController")
@@ -35,7 +35,7 @@ public class PackController {
             // 验证不通过，直接返回错误信息
             return verifyToken;
         }
-        Map<String, Object> map = new HashMap<>(16);
+        Map<String, Object> map = new HashMap<>(8);
 
         Pack save = iPackService.save(pack);
 

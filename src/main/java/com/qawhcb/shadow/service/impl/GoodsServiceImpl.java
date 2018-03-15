@@ -216,7 +216,7 @@ public class GoodsServiceImpl implements IGoodsService {
 
         List<GoodsVo> list = new ArrayList<>(16);
 
-        // 查询当前店铺所遇商品
+        // 查询当前店铺所有商品
         Page<Goods> goods = iGoodsDao.findAll(new Specification<Goods>() {
             @Override
             public Predicate toPredicate(Root<Goods> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
@@ -229,7 +229,7 @@ public class GoodsServiceImpl implements IGoodsService {
 
                 return cb.and(re.toArray(p));
             }
-        }, new PageRequest(page, 4));
+        }, new PageRequest(page, 8));
 
         // 查询每个商品的套餐
         for (Goods g :
@@ -250,6 +250,9 @@ public class GoodsServiceImpl implements IGoodsService {
                     return cb.and(re.toArray(p));
                 }
             });
+
+            // 将总页数封装到goods的label1中
+            g.setLabel1(String.valueOf(goods.getTotalPages()));
 
             goodsVo.setGoods(g);
             goodsVo.setPacks(packs);

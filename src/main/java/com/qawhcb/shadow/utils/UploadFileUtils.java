@@ -14,7 +14,7 @@ import java.util.UUID;
  * @author Taoism <br/>
  * Created on 2018/1/28 <br/>
  */
-public class ImgUploadUtils {
+public class UploadFileUtils {
 
     /**
      * 用户文件上传
@@ -26,9 +26,30 @@ public class ImgUploadUtils {
     public static String userImgUpload(MultipartFile[] files, String parentPath) {
 
 
-        String uploadPath = ImgUploadUtils.getProperty("img.upload.user");
+        String uploadPath = UploadFileUtils.getProperty("img.upload.user");
 
-        String download = ImgUploadUtils.getProperty("img.download.user");
+        String download = UploadFileUtils.getProperty("img.download.user");
+
+        // 可以从页面传参数过来
+        // 这里可以支持多文件上传
+        String names = upload(files, parentPath, uploadPath, download);
+
+        return names;
+    }
+
+    /**
+     * 订单文件上传
+     *
+     * @param files 文件数组类
+     * @param parentPath 文件保存路径
+     * @return 上传全部文件路径
+     */
+    public static String orderFileUpload(MultipartFile[] files, String parentPath) {
+
+
+        String uploadPath = UploadFileUtils.getProperty("img.upload.order");
+
+        String download = UploadFileUtils.getProperty("img.download.order");
 
         // 可以从页面传参数过来
         // 这里可以支持多文件上传
@@ -46,9 +67,9 @@ public class ImgUploadUtils {
      */
     public static String storeImgUpload(MultipartFile[] files, String parentPath) {
 
-        String uploadPath = ImgUploadUtils.getProperty("img.upload.store");
+        String uploadPath = UploadFileUtils.getProperty("img.upload.store");
 
-        String download = ImgUploadUtils.getProperty("img.download.store");
+        String download = UploadFileUtils.getProperty("img.download.store");
 
         // 可以从页面传参数过来
         // 这里可以支持多文件上传
@@ -66,7 +87,7 @@ public class ImgUploadUtils {
 
                 for (int i = 0; i < files.length; i++) {
                     String fileName = files[i].getOriginalFilename();
-                    // 判断是否有文件且是否为图片文件
+                    // 判断是否有文件且是否符合指定后缀
                     if (fileName != null && !"".equalsIgnoreCase(fileName.trim()) && isImageFile(fileName)) {
                         // 创建输出文件对象
                         File outFile = new File(uploadPath + parentPath + "/" + UUID.randomUUID().toString() + getFileType(fileName));
@@ -93,7 +114,7 @@ public class ImgUploadUtils {
     }
 
     public static String getProperty(String s) {
-        InputStream is = ImgUploadUtils.class.getResourceAsStream("/properties/path.properties");
+        InputStream is = UploadFileUtils.class.getResourceAsStream("/properties/path.properties");
         Properties properties = new Properties();
         try {
             properties.load(is);
@@ -104,13 +125,13 @@ public class ImgUploadUtils {
     }
 
     /**
-     * 判断文件是否为图片文件
+     * 判断文件格式
      *
      * @param fileName
      * @return
      */
     private static Boolean isImageFile(String fileName) {
-        String[] img_type = new String[]{".jpg", ".jpeg", ".png", ".gif", ".bmp"};
+        String[] img_type = new String[]{".jpg", ".jpeg", ".png", ".gif", ".bmp", ".zip"};
         if (fileName == null) {
             return false;
         }

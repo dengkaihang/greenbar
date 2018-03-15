@@ -1,15 +1,9 @@
 package com.qawhcb.shadow.controller.app;
 
-/**
- * @author Taoism <br/>
- * Created on 2018/3/14 <br/>
- */
 
 import com.alibaba.fastjson.JSONArray;
-import com.qawhcb.shadow.entity.Comment;
 import com.qawhcb.shadow.entity.dataModel.CommentVo;
 import com.qawhcb.shadow.service.ICommentService;
-import com.qawhcb.shadow.service.IGoodsService;
 import com.qawhcb.shadow.service.impl.UtilsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -25,6 +19,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * @author Taoism <br/>
+ * Created on 2018/3/14 <br/>
  * 商品相关信息
  */
 @Api(value = "评论相关", description = "评论相关操作")
@@ -36,7 +32,7 @@ public class CommentController {
     @GetMapping(value = "/findAll/{goodsId}")
     public String findAll(@ApiParam(name = "goodsId", value = "商品Id") @PathVariable(value = "goodsId") int goodsId) {
 
-        Map<String, Object> map = new HashMap<>(16);
+        Map<String, Object> map = new HashMap<>(8);
 
         List<CommentVo> commentVos = iCommentService.findAll(goodsId);
 
