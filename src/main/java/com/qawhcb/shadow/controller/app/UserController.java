@@ -3,6 +3,7 @@ package com.qawhcb.shadow.controller.app;
 import com.alibaba.fastjson.JSONArray;
 import com.qawhcb.shadow.entity.User;
 import com.qawhcb.shadow.service.IUserService;
+import com.qawhcb.shadow.service.impl.UtilsService;
 import com.qawhcb.shadow.utils.LoggerUtil;
 import com.qawhcb.shadow.utils.MD5Util;
 import com.qawhcb.shadow.utils.VerifyUtil;
@@ -10,10 +11,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,8 +26,7 @@ import java.util.Map;
 @RequestMapping("/app/user")
 public class UserController {
 
-    @Autowired
-    private IUserService iUserService;
+
 
     /**
      * 验证码登录／注册
@@ -76,4 +74,57 @@ public class UserController {
         return JSONArray.toJSONString(map);
     }
 
+
+    @ApiOperation("用户信息修改")
+    @PatchMapping(value = "/update/{token}/{userId}")
+    public String update(@ApiParam(name = "token", value = "token验证") @PathVariable(value = "token") String token,
+                            @ApiParam(name = "userId", value = "用户id") @PathVariable(value = "userId") Integer userId,
+                            @ApiParam(name = "user", value = "用户信息") @RequestBody() User user){
+
+        // 验证token
+        String verifyToken = utilsService.userVerifyAndReturn(token, userId);
+        if (verifyToken != null) {
+            // 验证不通过，直接返回错误信息
+            return verifyToken;
+        }
+        Map<String, Object> map = new HashMap<>(8);
+
+        User save = iUserService.update(user);
+
+        map.put("code", 1);
+        map.put("mag", "修改用户信息成功");
+        map.put("obj", save);
+
+        return JSONArray.toJSONString(map);
+    }
+
+    @ApiOperation("用户头像修改")
+    @PatchMapping(value = "/updateVar/{token}/{userId}")
+    public String updateVar(@ApiParam(name = "token", value = "token验证") @PathVariable(value = "token") String token,
+                            @ApiParam(name = "userId", value = "用户id") @PathVariable(value = "userId") Integer userId,
+                            @ApiParam(name = "files", value = "用户头像") @RequestBody() MultipartFile[] files){
+
+        // 验证token
+        String verifyToken = utilsService.userVerifyAndReturn(token, userId);
+        if (verifyToken != null) {
+            // 验证不通过，直接返回错误信息
+            return verifyToken;
+        }
+        Map<String, Object> map = new HashMap<>(8);
+
+        User save = iUserService.updateVar(userId, files);
+
+        map.put("code", 1);
+        map.put("mag", "修改用户头像成功");
+        map.put("obj", save);
+
+        return JSONArray.toJSONString(map);
+
+    }
+
+    @Autowired
+    private IUserService iUserService;
+
+    @Autowired
+    private UtilsService utilsService;
 }

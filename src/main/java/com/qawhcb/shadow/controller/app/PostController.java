@@ -3,6 +3,7 @@ package com.qawhcb.shadow.controller.app;
 import com.alibaba.fastjson.JSONArray;
 import com.qawhcb.shadow.entity.Address;
 import com.qawhcb.shadow.entity.Post;
+import com.qawhcb.shadow.entity.dataModel.PostVo;
 import com.qawhcb.shadow.service.IPostService;
 import com.qawhcb.shadow.service.impl.UtilsService;
 import io.swagger.annotations.Api;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -25,6 +27,7 @@ import java.util.Map;
 @RestController(value = "appPostController")
 @RequestMapping(value = "/app/community")
 public class PostController {
+
     @ApiOperation(value = "发帖")
     @PostMapping(value = "/add/{token}/{userId}")
     public String save(@ApiParam(name = "token", value = "token验证") @PathVariable(value = "token") String token,
@@ -49,7 +52,24 @@ public class PostController {
         map.put("obj", save);
 
         return JSONArray.toJSONString(map);
+    }
 
+
+    @ApiOperation(value = "分类查询发贴")
+    @GetMapping(value = "/find")
+    public String find(@ApiParam(name = "type", value = "分类") @RequestParam(value = "type") String type,
+                       @ApiParam(name = "requirement", value = "查询条件") @RequestParam(value = "requirement") String requirement) {
+
+        Map<String, Object> map = new HashMap<>(8);
+
+
+        List<PostVo> posts = iPostService.find(type, requirement);
+
+        map.put("code", 1);
+        map.put("mag", "添加地址成功");
+        map.put("obj", posts);
+
+        return JSONArray.toJSONString(map);
     }
 
 

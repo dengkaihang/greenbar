@@ -3,11 +3,14 @@ package com.qawhcb.shadow.service.impl;
 import com.qawhcb.shadow.dao.IUserDao;
 import com.qawhcb.shadow.entity.User;
 import com.qawhcb.shadow.service.IUserService;
+import com.qawhcb.shadow.utils.UpdateUtils;
+import com.qawhcb.shadow.utils.UploadFileUtils;
 import com.qawhcb.shadow.utils.easemobUtils.ImUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -73,5 +76,28 @@ public class UserServiceImpl implements IUserService {
     @Override
     public void delete(Integer id) {
         userDao.delete(id);
+    }
+
+    @Override
+    public User update(User user) {
+        User target = userDao.findOne(user.getId());
+
+        UpdateUtils.copyNonNullProperties(user,target);
+
+        // 清空密码
+        target.setPassword(null);
+
+        return userDao.save(target);
+    }
+
+    @Override
+    public User updateVar(Integer userId, MultipartFile[] files) {
+        User user = userDao.findOne(userId);
+
+        String names = UploadFileUtils.userImgUpload(files, String.valueOf(userId));
+
+        user.setPortrait(names);
+
+        return userDao.save(user);
     }
 }

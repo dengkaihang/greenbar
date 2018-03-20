@@ -20,7 +20,7 @@ public class Post {
     @Column(name = "text", length = 512)
     private String text;            //文字
     @Column(name = "laud_time", length = 32)
-    private String laudTime;        //点赞次数
+    private String laudCount;        //点赞次数
     @Column(name = "follow_num", length = 8)
     private String followNum;       //关注人数
     @Column(name = "publish_time", length = 32)
@@ -72,11 +72,11 @@ public class Post {
     }
 
     public String getLaudTime() {
-        return laudTime;
+        return laudCount;
     }
 
-    public void setLaudTime(String laudTime) {
-        this.laudTime = laudTime;
+    public void setLaudTime(String laudCount) {
+        this.laudCount = laudCount;
     }
 
     public String getFollowNum() {
@@ -142,7 +142,7 @@ public class Post {
                 ", userId='" + userId + '\'' +
                 ", img='" + img + '\'' +
                 ", text='" + text + '\'' +
-                ", laudTime='" + laudTime + '\'' +
+                ", laudCount='" + laudCount + '\'' +
                 ", followNum='" + followNum + '\'' +
                 ", publishTime='" + publishTime + '\'' +
                 ", publishAddress='" + publishAddress + '\'' +
