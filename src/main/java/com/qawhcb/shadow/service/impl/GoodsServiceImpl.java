@@ -60,7 +60,7 @@ public class GoodsServiceImpl implements IGoodsService {
             public Predicate toPredicate(Root<Goods> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
 
                 // 条件集合
-                List<Predicate> re = new ArrayList<>(16);
+                List<Predicate> re = new ArrayList<>(8);
 
                 for (Map.Entry<String, String> entry :
                         reqm.entrySet()) {
@@ -169,7 +169,7 @@ public class GoodsServiceImpl implements IGoodsService {
                 }
             });
 
-            if (comments.size() != 0){
+            if (comments.size() != 0) {
                 CommentVo commentVo = new CommentVo();
 
                 commentVo.setComment(comments.get(0));
@@ -229,7 +229,7 @@ public class GoodsServiceImpl implements IGoodsService {
 
                 return cb.and(re.toArray(p));
             }
-        }, new PageRequest(page, 8));
+        }, new PageRequest(page, 5));
 
         // 查询每个商品的套餐
         for (Goods g :
@@ -253,6 +253,60 @@ public class GoodsServiceImpl implements IGoodsService {
 
             // 将总页数封装到goods的label1中
             g.setLabel1(String.valueOf(goods.getTotalPages()));
+
+            goodsVo.setGoods(g);
+            goodsVo.setPacks(packs);
+
+            list.add(goodsVo);
+        }
+
+        return list;
+    }
+
+    @Override
+    public List<GoodsVo> findAllByStore(int storeId) {
+
+        List<GoodsVo> list = new ArrayList<>(16);
+
+        // 查询当前店铺所有商品
+        List<Goods> goods = iGoodsDao.findAll(new Specification<Goods>() {
+            @Override
+            public Predicate toPredicate(Root<Goods> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                List<Predicate> re = new ArrayList<>(4);
+
+                re.add(cb.equal(root.get("storeId"), storeId));
+                re.add(cb.equal(root.get("ifDel"), "false"));
+
+                Predicate[] p = new Predicate[re.size()];
+
+                return cb.and(re.toArray(p));
+            }
+        });
+
+        // 查询每个商品的套餐
+        for (Goods g :
+                goods) {
+
+            GoodsVo goodsVo = new GoodsVo();
+
+            List<Pack> packs = iPackDao.findAll(new Specification<Pack>() {
+                @Override
+                public Predicate toPredicate(Root<Pack> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                    List<Predicate> re = new ArrayList<>(8);
+
+                    re.add(cb.equal(root.get("goodsId"), g.getId()));
+                    re.add(cb.equal(root.get("ifDel"), "false"));
+
+                    Predicate[] p = new Predicate[re.size()];
+
+                    return cb.and(re.toArray(p));
+                }
+            });
+
+            // 查询已售订单
+            List<Order> orders = iOrderService.getAll(g.getId());
+
+            g.setLabel2(String.valueOf(orders.size()));
 
             goodsVo.setGoods(g);
             goodsVo.setPacks(packs);

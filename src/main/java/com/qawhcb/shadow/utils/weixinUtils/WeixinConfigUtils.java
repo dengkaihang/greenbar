@@ -17,7 +17,7 @@ public class WeixinConfigUtils {
 	private static final Log log = LogFactory.getLog(WeixinConfigUtils.class);
 
 
-	public static String appid;
+	public static String app_id;
 	public static String mch_id;
 	public static String notify_url;
 
@@ -32,9 +32,9 @@ public class WeixinConfigUtils {
 			Properties properties = new Properties();
 			properties.load(is);
 			
-			appid = properties.getProperty("appid");
+			app_id = properties.getProperty("app_id");
 			mch_id = properties.getProperty("mch_id");
-			notify_url = properties.getProperty("notify_url");
+			notify_url = properties.getProperty("notify_url_wx");
 			
 			/*appid = "wxc2222fa595265736";
 			mch_id = "1490420532";

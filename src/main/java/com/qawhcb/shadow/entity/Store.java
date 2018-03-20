@@ -22,7 +22,7 @@ public class Store {
     private String idCard;         //身份证号码
     @Column(name = "hand_id_card", length = 256)
     private String handIdCard;    //手持身份证照片
-    @Column(name = "phone", length = 11)
+    @Column(name = "phone", length = 11, unique = true)
     private String phone;           //手机号码
     @Column(name = "portrait", length = 256)
     private String portrait;        //头像
@@ -44,6 +44,8 @@ public class Store {
     private Integer employeeId;      //工作人员id
     @Column(name = "audit_time", length = 32)
     private String auditTime;      //审核时间
+    @Column(name = "create_time", length = 32)
+    private String createTime;      //创建时间
     @Column(name = "status", length = 8)
     private String status;          //状态
     @Column(name = "token", length = 64)
@@ -61,6 +63,13 @@ public class Store {
     }
 
 
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
 
     public String getPortrait() {
         return portrait;

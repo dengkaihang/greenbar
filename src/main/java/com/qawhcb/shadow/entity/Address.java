@@ -15,6 +15,8 @@ public class Address {
     private Integer id;              //id
     @Column(name = "user_id", length = 11)
     private Integer userId;          //用户id
+    @Column(name = "receiver", length = 8)
+    private String receiver;          //用户id
     @Column(name = "region", length = 12)
     private String region;          //所在地区
     @Column(name = "detailed_address", length = 128)
@@ -43,6 +45,14 @@ public class Address {
     }
 
     public Address() {
+    }
+
+    public String getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(String receiver) {
+        this.receiver = receiver;
     }
 
     public Integer getId() {

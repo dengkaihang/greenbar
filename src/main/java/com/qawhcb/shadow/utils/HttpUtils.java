@@ -76,17 +76,29 @@ public class HttpUtils {
         } finally {
 
             // 关闭所开各种流对象
-            try {
-                bufferedReader.close();
-                inputStreamReader.close();
-                inputStream.close();
-                connection.disconnect();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            colseR(connection, inputStream, inputStreamReader, bufferedReader);
         }
 
         return buffer.toString();
+    }
+
+    private static void colseR(HttpURLConnection connection, InputStream inputStream, InputStreamReader inputStreamReader, BufferedReader bufferedReader) {
+        try {
+            if (bufferedReader != null) {
+                bufferedReader.close();
+            }
+            if (inputStreamReader != null) {
+                inputStreamReader.close();
+            }
+            if (inputStream != null) {
+                inputStream.close();
+            }
+            if (connection != null) {
+                connection.disconnect();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -152,14 +164,7 @@ public class HttpUtils {
         } finally {
 
             // 关闭所开各种流对象
-            try {
-                bufferedReader.close();
-                inputStreamReader.close();
-                inputStream.close();
-                connection.disconnect();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            colseR(connection, inputStream, inputStreamReader, bufferedReader);
         }
 
         return buffer.toString();

@@ -40,6 +40,11 @@ public class ImUtils {
     }
 
 
+    /**
+     * 发送信息给指定用户
+     * @param users
+     * @param message
+     */
     public static void send(String[] users, String message) {
 
 //        InputStream is = ImController.class.getResourceAsStream("/properties/im.properties");
@@ -151,7 +156,11 @@ public class ImUtils {
     }
 
 
-
+    /**
+     * 环信用户注册
+     * @param username 注册用户名
+     * @return 请求结果
+     */
     public static String register(String username) {
 
         String token = getToken(orgName, appName, clientId, clientSecret);

@@ -14,7 +14,7 @@ public class Complain {
     @Column(name = "id", columnDefinition = "int(11) UNSIGNED ZEROFILL AUTO_INCREMENT")
     private Integer id;              //id
     @Column(name = "order_id", length = 11)
-    private Integer orderId;         //订单id
+    private String orderId;         //订单id
     @Column(name = "reason", length = 256)
     private String reason;          //原因
     @Column(name = "time", length = 32)
@@ -37,7 +37,7 @@ public class Complain {
         this.id = id;
     }
 
-    public void setOrderId(Integer orderId) {
+    public void setOrderId(String orderId) {
         this.orderId = orderId;
     }
 
@@ -45,7 +45,7 @@ public class Complain {
         return id;
     }
 
-    public Integer getOrderId() {
+    public String getOrderId() {
         return orderId;
     }
 

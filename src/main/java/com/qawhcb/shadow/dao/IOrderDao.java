@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.Query;
  * @author Taoism <br/>
  * Created on 2018/3/6 <br/>
  */
-public interface IOrderDao extends JpaRepository<Order, Integer>, JpaSpecificationExecutor<Order> {
+public interface IOrderDao extends JpaRepository<Order, String>, JpaSpecificationExecutor<Order> {
 
     /**
      * 按指定id逻辑删除数据
@@ -20,6 +20,6 @@ public interface IOrderDao extends JpaRepository<Order, Integer>, JpaSpecificati
     @Override
     @Modifying(clearAutomatically = true)
     @Query(value = "update Order as a set a.ifDel = 'true' where a.id = ?1")
-    void delete(Integer id);
+    void delete(String id);
 
 }

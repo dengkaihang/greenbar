@@ -17,9 +17,31 @@ import java.util.UUID;
 public class UploadFileUtils {
 
     /**
+     * 公共文件上传方法
+     *
+     * @param files      文件数组类
+     * @param parentPath 文件保存路径（父路径，一般为文件所属模块id）
+     * @return 上传全部文件路径
+     */
+    public static String cardImgUpload(MultipartFile[] files, String parentPath) {
+
+
+        String uploadPath = UploadFileUtils.getProperty("img.upload.card");
+
+        String download = UploadFileUtils.getProperty("img.download.card");
+
+        // 可以从页面传参数过来
+        // 这里可以支持多文件上传
+        String names = upload(files, parentPath, uploadPath, download);
+
+        return names;
+    }
+
+
+    /**
      * 用户文件上传
      *
-     * @param files 文件数组类
+     * @param files      文件数组类
      * @param parentPath 文件保存路径
      * @return 上传全部文件路径
      */
@@ -40,7 +62,7 @@ public class UploadFileUtils {
     /**
      * 订单文件上传
      *
-     * @param files 文件数组类
+     * @param files      文件数组类
      * @param parentPath 文件保存路径
      * @return 上传全部文件路径
      */
@@ -61,7 +83,7 @@ public class UploadFileUtils {
     /**
      * 店铺文件上传
      *
-     * @param files 文件数组类
+     * @param files      文件数组类
      * @param parentPath 文件保存路径
      * @return 上传全部文件路径
      */

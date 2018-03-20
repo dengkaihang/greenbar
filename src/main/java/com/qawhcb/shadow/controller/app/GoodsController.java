@@ -26,7 +26,7 @@ import java.util.Map;
 @RequestMapping(value = "/app/goods")
 public class GoodsController {
 
-    @ApiOperation(value = "查询所有商品", notes = "label1暂存价格,label2暂存销售总量")
+    @ApiOperation(value = "查询所有商品", notes = "goods对象 label1暂存价格,label2暂存销售总量")
     @GetMapping(value = "/findAll/{page}")
     public String save(@ApiParam(name = "page", value = "当前页") @PathVariable(value = "page") int page,
                        @ApiParam(name = "type", value = "查询类型") @RequestParam() String type) {
@@ -48,7 +48,7 @@ public class GoodsController {
 
     @ApiOperation(value = "单个商品详情")
     @GetMapping(value = "/findOne/{goodsId}")
-    public String findOne(@ApiParam(name = "goodsId", value = "商品Id") @PathVariable(value = "goodsId") int goodsId) {
+    public String findOne(@ApiParam(name = "goodsId", value = "商品Id") @PathVariable(value = "goodsId") Integer goodsId) {
 
         Map<String, Object> map = new HashMap<>(8);
 
@@ -62,13 +62,30 @@ public class GoodsController {
 
     }
 
+    @ApiOperation(value = "查询指定店铺下所有的商品", notes = "goods对象 label2暂存销售总量")
+    @GetMapping(value = "/findAll")
+    public String findAll(@ApiParam(name = "storeId", value = "店铺id") @RequestParam(value = "storeId") Integer storeId) {
+
+        Map<String, Object> map = new HashMap<>(8);
+
+        List<GoodsVo> allByStore = iGoodsService.findAllByStore(storeId);
+
+        map.put("code", 1);
+        map.put("msg", "查询成功");
+        map.put("obj", allByStore);
+
+        return JSONArray.toJSONString(map);
+
+    }
+
+
     @Autowired
     private IGoodsService iGoodsService;
 
-    @Autowired
-    private UtilsService utilsService;
-
-    @Autowired
-    private IOrderService iOrderService;
+//    @Autowired
+//    private UtilsService utilsService;
+//
+//    @Autowired
+//    private IOrderService iOrderService;
 
 }

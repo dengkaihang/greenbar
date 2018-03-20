@@ -2,6 +2,7 @@ package com.qawhcb.shadow.controller.web;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.qawhcb.shadow.entity.Pack;
 import com.qawhcb.shadow.entity.Store;
 import com.qawhcb.shadow.service.IStoreService;
 import com.qawhcb.shadow.service.impl.UtilsService;
@@ -50,6 +51,7 @@ public class StoreController {
         JSONObject obj = new JSONObject();
         if (VerifyUtil.verify(code, codeMsg)) {
             Store stores = iStoreService.selectByPhone(store.getPhone());
+            int i = 0;
             if (stores != null) {
                 obj.put("msg", "此号码已注册，请直接登录");
                 obj.put("code", "-1");
@@ -97,7 +99,7 @@ public class StoreController {
             map.put("msg", "登录成功");
             map.put("code", "1");
             map.put("store", store);
-        }else {
+        } else {
             map.put("msg", "登录失败，请核对账号和密码是否正确");
             map.put("code", "-1");
         }
@@ -140,7 +142,7 @@ public class StoreController {
     @ResponseBody
     public String addImages(@ApiParam(name = "token", value = "token验证") @PathVariable(value = "token") String token,
                             @ApiParam(name = "storeId", value = "店铺id") @PathVariable(value = "storeId") Integer storeId,
-                            @ApiParam(name = "files", value = "图片文件,files", required = true) @RequestParam("files") MultipartFile[] files){
+                            @ApiParam(name = "files", value = "图片文件,files", required = true) @RequestParam("files") MultipartFile[] files) {
         // 验证token
         String verifyToken = utilsService.storeVerifyAndReturn(token, storeId);
         JSONObject obj = new JSONObject();
@@ -157,10 +159,10 @@ public class StoreController {
             String[] name = names.split(",");
 
             String defaultImg = store.getDefaultImg();
-            for(int i = 0; i<name.length; i++){
-                if(null == defaultImg){
+            for (int i = 0; i < name.length; i++) {
+                if (null == defaultImg) {
                     defaultImg = name[i];
-                }else {
+                } else {
                     defaultImg = defaultImg + "," + name[i];
                     iStoreService.modify(store);
                 }
@@ -174,4 +176,43 @@ public class StoreController {
         }
         return obj.toJSONString();
     }
+
+
+    @ApiOperation("修改店铺信息")
+    @PatchMapping(value = "/update/{token}/{storeId}")
+    public String update(@ApiParam(name = "token", value = "token验证") @PathVariable(value = "token") String token,
+                         @ApiParam(name = "storeId", value = "店铺id") @PathVariable(value = "storeId") Integer storeId,
+                         @ApiParam(name = "store", value = "店铺对象") @RequestBody() Store store) {
+
+
+        Map<String, Object> map = new HashMap<>(8);
+
+        Store update = iStoreService.update(store);
+
+        map.put("code", 1);
+        map.put("msg", "添加成功");
+        map.put("obj", update);
+
+        return JSONArray.toJSONString(map);
+
+    }
+
+    @ApiOperation("根据id查询店铺信息")
+    @GetMapping(value = "/findOne/{token}/{storeId}")
+    public String modify(@ApiParam(name = "token", value = "token验证") @PathVariable(value = "token") String token,
+                         @ApiParam(name = "storeId", value = "店铺id") @PathVariable(value = "storeId") Integer storeId) {
+
+
+        Map<String, Object> map = new HashMap<>(8);
+
+        Store store = iStoreService.find(storeId);
+
+        map.put("code", 1);
+        map.put("msg", "添加成功");
+        map.put("obj", store);
+
+        return JSONArray.toJSONString(map);
+
+    }
+
 }

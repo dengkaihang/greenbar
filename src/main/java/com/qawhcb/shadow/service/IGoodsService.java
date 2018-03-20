@@ -82,4 +82,12 @@ public interface IGoodsService {
      * @return 查询结果
      */
     public List<GoodsVo> findAllByStore(int storeId, int page);
+
+    /**
+     * 按照店铺id查找商品及套餐(不分页)
+     *
+     * @param storeId 店铺id
+     * @return 查询结果
+     */
+    public List<GoodsVo> findAllByStore(int storeId);
 }

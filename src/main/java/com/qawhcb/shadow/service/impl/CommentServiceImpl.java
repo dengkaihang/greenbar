@@ -41,6 +41,12 @@ public class CommentServiceImpl implements ICommentService {
         List<Order> orders = iOrderService.getAll(goodsId);
 
         List<CommentVo> commentVos = new ArrayList<>(16);
+
+        Double depictNum = 0.0;
+        Double speedNum = 0.0;
+        Double serviceNum = 0.0;
+        Double totalPointsNum = 0.0;
+
         for (Order o :
                 orders) {
             List<Comment> comments = iCommentDao.findAll(new Specification<Comment>() {
@@ -56,6 +62,8 @@ public class CommentServiceImpl implements ICommentService {
                     return cb.and(re.toArray(p));
                 }
             });
+
+
 
             // 遍历订单，关联评论用户
             CommentVo commentVo = null;
@@ -73,13 +81,52 @@ public class CommentServiceImpl implements ICommentService {
                 userTarget.setNickName(userSrc.getNickName());
                 userTarget.setPortrait(userSrc.getPortrait());
 
+                // 计算总评分
+                depictNum += Double.parseDouble(comment.getDepict());
+                speedNum += Double.parseDouble(comment.getSpeed());
+                serviceNum += Double.parseDouble(comment.getService());
+                totalPointsNum += Double.parseDouble(comment.getTotalPoints());
+
                 commentVo.setUser(userTarget);
 
                 commentVos.add(commentVo);
             }
+
+
+
+        }
+        int size = commentVos.size();
+         if (size > 0) {
+
+            commentVos.get(0).setDepictNum(String.valueOf(depictNum / size));
+            commentVos.get(0).setSpeedNum(String.valueOf(speedNum / size));
+            commentVos.get(0).setServiceNum(String.valueOf(serviceNum / size));
+            commentVos.get(0).setTotalPointsNum(String.valueOf(totalPointsNum / size));
+        } else {
+            commentVos.get(0).setDepictNum("0");
+            commentVos.get(0).setSpeedNum("0");
+            commentVos.get(0).setServiceNum("0");
+            commentVos.get(0).setTotalPointsNum("0");
         }
 
         return commentVos;
+    }
+
+    @Override
+    public Comment save(Comment comment) {
+        Order order = iOrderDao.findOne(comment.getOrderId());
+
+        order.setStatus("ywc");
+
+        iOrderDao.save(order);
+
+        double service = Double.parseDouble(comment.getService());
+        double depict = Double.parseDouble(comment.getDepict());
+        double speed = Double.parseDouble(comment.getSpeed());
+
+        comment.setTotalPoints(String.valueOf((speed + depict + service) / 3));
+
+        return iCommentDao.save(comment);
     }
 
     @Autowired
@@ -87,6 +134,9 @@ public class CommentServiceImpl implements ICommentService {
 
     @Autowired
     private IOrderService iOrderService;
+
+    @Autowired
+    private IOrderDao iOrderDao;
 
     @Autowired
     private IUserDao iUserDao;

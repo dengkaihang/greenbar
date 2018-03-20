@@ -13,23 +13,23 @@ public class Comment {
     @GeneratedValue()
     @Column(name = "id", columnDefinition = "int(11) UNSIGNED ZEROFILL AUTO_INCREMENT")
     private Integer id;              //id
-    @Column(name = "order_id", length = 11)
-    private Integer orderId;         //订单id
+    @Column(name = "order_id", length = 20)
+    private String orderId;         //订单id
     @Column(name = "user_id", length = 11)
-    private Integer userId;         //订单id
+    private Integer userId;         //用户id
     @Column(name = "text", length = 256)
     private String text;            //评价内容
     @Column(name = "comment_time", length = 32)
     private String commentTime;     //评价时间
-    @Column(name = "depict", length = 128)
-    private String depict;        //描述
     @Column(name = "img", length = 256)
     private String img;             //图片
-    @Column(name = "service", length = 2)
-    private String service;         //服务
-    @Column(name = "speed", length = 2)
-    private String speed;           //速度
-    @Column(name = "total_points", length = 2)
+    @Column(name = "depict", length = 4)
+    private String depict;        //描述评分
+    @Column(name = "service", length = 4)
+    private String service;         //服务评分
+    @Column(name = "speed", length = 4)
+    private String speed;           //速度评分
+    @Column(name = "total_points", length = 4)
     private String totalPoints;     //总分
     @Column(name = "if_del", columnDefinition = "varchar(8) default 'false'")
     private String ifDel = "false";           //是否删除
@@ -59,11 +59,11 @@ public class Comment {
         this.id = id;
     }
 
-    public Integer getOrderId() {
+    public String getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(Integer orderId) {
+    public void setOrderId(String orderId) {
         this.orderId = orderId;
     }
 

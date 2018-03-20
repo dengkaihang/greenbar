@@ -1,6 +1,7 @@
 package com.qawhcb.shadow.service;
 
 import com.qawhcb.shadow.entity.Store;
+import com.qawhcb.shadow.entity.dataModel.StoreVo;
 
 /**
  * 店铺service
@@ -48,4 +49,26 @@ public interface IStoreService {
      * @param id 用户id
      */
     public void delete(Integer id);
+
+    /**
+     * 按照id查询指定收藏店铺
+     * @param userId 用户id（没有设置为null）
+     * @param storeId 店铺id
+     * @return 查询结果
+     */
+    public StoreVo findOne(Integer userId, Integer storeId);
+
+    /**
+     * 查询店铺
+     * @param storeId 店铺id
+     * @return 查询的信息
+     */
+    public Store find(Integer storeId);
+
+    /**
+     * 更新店铺对象
+     * @param store 更新对象
+     * @return 更新后的
+     */
+    public Store update(Store store);
 }

@@ -59,7 +59,7 @@ public class UserController {
                     user.setToken(token);
                     iUserService.modify(user);
                     map.put("msg", "注册成功");
-                    map.put("code", "0");
+                    map.put("code", "1");
                     map.put("obj", user);
                 }
             }else {

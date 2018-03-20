@@ -13,14 +13,14 @@ public class Feedback {
     @GeneratedValue()
     @Column(name = "id", columnDefinition = "int(11) UNSIGNED ZEROFILL AUTO_INCREMENT")
     private Integer id;              //id
-    @Column(name = "img", length = 32)
+    @Column(name = "img", length = 256)
     private String img;             //反馈图片
     @Column(name = "text", length = 32)
     private String text;            //内容
     @Column(name = "time", length = 32)
     private String time;            //时间
     @Column(name = "user_id", length = 32)
-    private String userId;          //用户id
+    private Integer userId;          //用户id
     @Column(name = "if_del", columnDefinition = "varchar(8) default 'false'")
     private String ifDel = "false";           //是否删除
     @Column(name = "lable1", length = 32)
@@ -65,11 +65,11 @@ public class Feedback {
         this.time = time;
     }
 
-    public String getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 

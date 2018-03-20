@@ -1,6 +1,7 @@
 package com.qawhcb.shadow.service.impl;
 
 import com.qawhcb.shadow.dao.IFeedbackDao;
+import com.qawhcb.shadow.entity.Feedback;
 import com.qawhcb.shadow.service.IFeedbackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,11 @@ public class FeedbackServiceImpl implements IFeedbackService {
     @Override
     public void delete(Integer id) {
         iFeedbackDao.delete(id);
+    }
+
+    @Override
+    public Feedback save(Feedback feedback) {
+        return iFeedbackDao.save(feedback);
     }
 
     @Autowired

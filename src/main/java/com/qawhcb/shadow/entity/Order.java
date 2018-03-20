@@ -11,13 +11,17 @@ import javax.persistence.*;
 public class Order {
 
     @Id
-    @GeneratedValue()
-    @Column(name = "id", columnDefinition = "int(11) UNSIGNED ZEROFILL AUTO_INCREMENT")
-    private Integer id;              //id
+//    @GeneratedValue()
+    @Column(name = "id", length = 20)
+    private String id;              //id
     @Column(name = "status", length = 8)
     private String status;          //状态
     @Column(name = "user_id", length = 12)
     private Integer userId;          //用户id
+    @Column(name = "refund_reason", length = 128)
+    private String refundReason;          //退款原因
+    @Column(name = "refuse_reason", length = 128)
+    private String refuseReason;          //拒绝原因
     @Column(name = "coupon_id", length = 12)
     private Integer couponId;        //代金券id
     @Column(name = "num", length = 4)
@@ -35,13 +39,17 @@ public class Order {
     @Column(name = "goods_id", length = 12)
     private Integer goodsId;          //商品Id
     @Column(name = "store_id", length = 12)
-    private Integer storeId;          //商品Id
+    private Integer storeId;          //店铺
     @Column(name = "modify_desc", length = 256)
     private String modifyDesc;      //修改套餐描述
     @Column(name = "price", length = 8)
     private String price;           //价格
-    @Column(name = "plan_time", length = 32)
-    private String planTime;        //预计完成时间
+    @Column(name = "create_time", length = 32)
+    private String createTime;        //创建时间
+    @Column(name = "pay_time", length = 32)
+    private String payTime;        //支付时间
+    @Column(name = "fulfil_time", length = 32)
+    private String fulfilTime;        //确认收货时间
     @Column(name = "reminder_time", length = 2)
     private String reminderTime;    //催单次数
     @Column(name = "original_load_time", length = 32)
@@ -86,27 +94,27 @@ public class Order {
     public Order() {
     }
 
-    public Integer getStoreId() {
-        return storeId;
+    public String getRefuseReason() {
+        return refuseReason;
     }
 
-    public void setStoreId(Integer storeId) {
-        this.storeId = storeId;
+    public void setRefuseReason(String refuseReason) {
+        this.refuseReason = refuseReason;
     }
 
-    public Integer getGoodsId() {
-        return goodsId;
+    public String getRefundReason() {
+        return refundReason;
     }
 
-    public void setGoodsId(Integer goodsId) {
-        this.goodsId = goodsId;
+    public void setRefundReason(String refundReason) {
+        this.refundReason = refundReason;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -182,6 +190,22 @@ public class Order {
         this.packId = packId;
     }
 
+    public Integer getGoodsId() {
+        return goodsId;
+    }
+
+    public void setGoodsId(Integer goodsId) {
+        this.goodsId = goodsId;
+    }
+
+    public Integer getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(Integer storeId) {
+        this.storeId = storeId;
+    }
+
     public String getModifyDesc() {
         return modifyDesc;
     }
@@ -198,12 +222,28 @@ public class Order {
         this.price = price;
     }
 
-    public String getPlanTime() {
-        return planTime;
+    public String getCreateTime() {
+        return createTime;
     }
 
-    public void setPlanTime(String planTime) {
-        this.planTime = planTime;
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getPayTime() {
+        return payTime;
+    }
+
+    public void setPayTime(String payTime) {
+        this.payTime = payTime;
+    }
+
+    public String getFulfilTime() {
+        return fulfilTime;
+    }
+
+    public void setFulfilTime(String fulfilTime) {
+        this.fulfilTime = fulfilTime;
     }
 
     public String getReminderTime() {
@@ -371,17 +411,21 @@ public class Order {
         return "Order{" +
                 "id='" + id + '\'' +
                 ", status='" + status + '\'' +
-                ", userId='" + userId + '\'' +
-                ", couponId='" + couponId + '\'' +
+                ", userId=" + userId +
+                ", couponId=" + couponId +
                 ", num='" + num + '\'' +
                 ", payWay='" + payWay + '\'' +
                 ", payWater='" + payWater + '\'' +
                 ", originalFile='" + originalFile + '\'' +
                 ", newFile='" + newFile + '\'' +
-                ", packId='" + packId + '\'' +
+                ", packId=" + packId +
+                ", goodsId=" + goodsId +
+                ", storeId=" + storeId +
                 ", modifyDesc='" + modifyDesc + '\'' +
                 ", price='" + price + '\'' +
-                ", planTime='" + planTime + '\'' +
+                ", createTime='" + createTime + '\'' +
+                ", payTime='" + payTime + '\'' +
+                ", fulfilTime='" + fulfilTime + '\'' +
                 ", reminderTime='" + reminderTime + '\'' +
                 ", originalLoadTime='" + originalLoadTime + '\'' +
                 ", newLoadTime='" + newLoadTime + '\'' +
@@ -391,13 +435,13 @@ public class Order {
                 ", newFileTime='" + newFileTime + '\'' +
                 ", disputeTime='" + disputeTime + '\'' +
                 ", ifFozen='" + ifFozen + '\'' +
-                ", employeeId='" + employeeId + '\'' +
+                ", employeeId=" + employeeId +
                 ", playMoneyTime='" + playMoneyTime + '\'' +
                 ", postDepict='" + postDepict + '\'' +
                 ", reflectWater='" + reflectWater + '\'' +
                 ", arrivalTime='" + arrivalTime + '\'' +
                 ", arrivalMoney='" + arrivalMoney + '\'' +
-                ", addressId='" + addressId + '\'' +
+                ", addressId=" + addressId +
                 ", ifDel='" + ifDel + '\'' +
                 ", label1='" + label1 + '\'' +
                 ", label2='" + label2 + '\'' +

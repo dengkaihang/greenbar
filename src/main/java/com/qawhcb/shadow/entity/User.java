@@ -18,7 +18,7 @@ public class User {
     private String nickName;    //昵称
     @Column(name = "password", length = 32)
     private String password;    //密码
-    @Column(name = "phone", length = 11)
+    @Column(name = "phone", length = 11, unique = true)
     private String phone;       //电话
     @Column(name = "wechat", length = 32)
     private String wechat;      //微信

@@ -58,7 +58,14 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public User modify(User user) {
-        return userDao.save(user);
+        User save = userDao.save(user);
+
+        // 注册环信即时通讯用户
+        if (save != null){
+            ImUtils.register(save.getPhone());
+        }
+
+        return save;
     }
 
 

@@ -22,4 +22,12 @@ public interface ICommentService {
      * @param goodsId
      */
     public List<CommentVo> findAll(int goodsId);
+
+
+    /**
+     * 添加订单评论
+     * @param comment 评论
+     * @return 添加结果
+     */
+    public Comment save(Comment comment);
 }
