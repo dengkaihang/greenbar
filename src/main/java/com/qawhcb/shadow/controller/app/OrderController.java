@@ -24,7 +24,7 @@ import java.util.Map;
  * Created on 2018/3/14 <br/>
  * 商品相关信息
  */
-@Api(value = "订单相关", description = "订单相关操作")
+@Api(tags = "order app", description = "订单相关操作")
 @RestController(value = "appOrderController")
 @RequestMapping(value = "/app/order")
 public class OrderController {
@@ -48,7 +48,7 @@ public class OrderController {
         Order save = iOrderService.save(order);
 
         map.put("code", 1);
-        map.put("mag", "添加成功");
+        map.put("msg", "添加成功");
         map.put("obj", save);
 
         return JSONArray.toJSONString(map);
@@ -71,7 +71,7 @@ public class OrderController {
         Order order = iOrderService.uploadFile(orderId, files);
 
         map.put("code", 1);
-        map.put("mag", "文件上传成功");
+        map.put("msg", "文件上传成功");
         map.put("obj", order);
 
         return JSONArray.toJSONString(map);
@@ -94,7 +94,7 @@ public class OrderController {
         List<Order> orders = iOrderService.findAll(userId);
 
         map.put("code", 1);
-        map.put("mag", "查询成功");
+        map.put("msg", "查询成功");
         map.put("obj", orders);
 
         return JSONArray.toJSONString(map);
@@ -122,7 +122,7 @@ public class OrderController {
 
 
         map.put("code", 1);
-        map.put("mag", "查询成功");
+        map.put("msg", "查询成功");
         map.put("obj", orderVos);
 
         return JSONArray.toJSONString(map);
@@ -147,7 +147,7 @@ public class OrderController {
 
 
         map.put("code", 1);
-        map.put("mag", "查询成功");
+        map.put("msg", "查询成功");
         map.put("obj", orderVo);
 
         return JSONArray.toJSONString(map);
@@ -170,7 +170,7 @@ public class OrderController {
         iOrderService.delete(orderId);
 
         map.put("code", 1);
-        map.put("mag", "取消订单成功");
+        map.put("msg", "取消订单成功");
 
         return JSONArray.toJSONString(map);
     }
@@ -192,7 +192,7 @@ public class OrderController {
         Order order = iOrderService.finish(orderId);
 
         map.put("code", 1);
-        map.put("mag", "已确认收货");
+        map.put("msg", "已确认收货");
         map.put("obj", order);
 
         return JSONArray.toJSONString(map);
@@ -209,9 +209,9 @@ public class OrderController {
 
         map.put("code", 1);
         if ("".equals(fruit)){
-            map.put("mag", "提交支付失败");
+            map.put("msg", "提交支付失败");
         }else {
-            map.put("mag", "提交支付成功");
+            map.put("msg", "提交支付成功");
             map.put("fruit", fruit);
         }
 
@@ -247,7 +247,7 @@ public class OrderController {
         String refund = iOrderService.askRefund(orderId, cause);
 
         map.put("code", 1);
-        map.put("mag", refund);
+        map.put("msg", refund);
 
         return JSONArray.toJSONString(map);
     }

@@ -21,7 +21,7 @@ import java.util.Map;
  * Created on 2018/3/14 <br/>
  * 商品相关信息
  */
-@Api(value = "订单相关", description = "订单相关操作")
+@Api(tags = "order web", description = "订单相关操作")
 @RestController(value = "webOrderController")
 @RequestMapping(value = "/web/order")
 public class OrderController {
@@ -46,7 +46,7 @@ public class OrderController {
         List<OrderVo> orderVos = iOrderService.findAllByStore(storeId, --page);
 
         map.put("code", 1);
-        map.put("mag", "查询成功");
+        map.put("msg", "查询成功");
         map.put("obj", orderVos);
 
         return JSONArray.toJSONString(map);
@@ -75,7 +75,7 @@ public class OrderController {
         List<OrderVo> orderVos = iOrderService.sotreFindByStatus(storeId, status, --page, 5);
 
         map.put("code", 1);
-        map.put("mag", "查询成功");
+        map.put("msg", "查询成功");
         map.put("obj", orderVos);
 
         return JSONArray.toJSONString(map);
@@ -99,7 +99,7 @@ public class OrderController {
         Order order = iOrderService.findOneInStore(orderId);
 
         map.put("code", 1);
-        map.put("mag", "查询成功");
+        map.put("msg", "查询成功");
         map.put("obj", order);
 
         return JSONArray.toJSONString(map);
@@ -123,7 +123,7 @@ public class OrderController {
         String refund = iOrderService.refund(orderId);
 
         map.put("code", 1);
-        map.put("mag", refund);
+        map.put("msg", refund);
 
         return JSONArray.toJSONString(map);
     }
@@ -146,7 +146,7 @@ public class OrderController {
         Order updateOrder = iOrderService.update(order);
 
         map.put("code", 1);
-        map.put("mag", "订单修改成功");
+        map.put("msg", "订单修改成功");
         map.put("obj", updateOrder);
 
         return JSONArray.toJSONString(map);
@@ -171,7 +171,7 @@ public class OrderController {
         Order order = iOrderService.refuse(orderId, cause);
 
         map.put("code", 1);
-        map.put("mag", "订单拒绝已处理");
+        map.put("msg", "订单拒绝已处理");
         map.put("obj", order);
 
         return JSONArray.toJSONString(map);
@@ -196,7 +196,7 @@ public class OrderController {
         Order order = iOrderService.result(orderId, files);
 
         map.put("code", 1);
-        map.put("mag", "上传成功");
+        map.put("msg", "上传成功");
         map.put("obj", order);
 
         return JSONArray.toJSONString(map);

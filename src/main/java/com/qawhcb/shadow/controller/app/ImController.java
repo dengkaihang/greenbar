@@ -17,7 +17,7 @@ public class ImController {
 
     public void test() {
 
-        String[] users = new String[]{"15180047865"};
+        String[] users = new String[]{"15208243035"};
 
         String msg = "我们给你备好的套套怎么办？";
 

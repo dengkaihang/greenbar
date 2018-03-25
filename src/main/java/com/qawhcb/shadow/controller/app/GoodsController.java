@@ -21,7 +21,7 @@ import java.util.Map;
  * Created on 2018/3/12 <br/>
  * 商品相关信息
  */
-@Api(value = "商品相关操作", description = "店铺商品相关操作")
+@Api(tags = "goods app", description = "店铺商品相关操作")
 @RestController(value = "appGoodsController")
 @RequestMapping(value = "/app/goods")
 public class GoodsController {

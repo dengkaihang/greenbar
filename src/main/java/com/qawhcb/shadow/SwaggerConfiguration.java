@@ -53,7 +53,7 @@ public class SwaggerConfiguration {
                 .build();
         ResponseMessage error504 = new ResponseMessageBuilder()
                 .code(504)
-                .message("服务器尝试执行请求时！")
+                .message("服务器尝试执行请求超时！")
                 .responseModel(new ModelRef("Error"))
                 .build();
 

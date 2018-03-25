@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
  * Created on 2018/3/12 <br/>
  * 商品图片控制类
  */
-@Api(value = "商品图片相关接口", description = "商品图片上传及读取相关")
+@Api(tags = "goodsImg web", description = "商品图片上传及读取相关")
 @RestController
 @RequestMapping(value = "/web/goodsImg")
 public class GoodsImgController {

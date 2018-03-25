@@ -23,7 +23,7 @@ import java.util.Map;
  * Created on 2018/3/12 <br/>
  * 商品相关信息
  */
-@Api(value = "商品相关操作", description = "店铺商品相关操作")
+@Api(tags = "goods web", description = "店铺商品相关操作")
 @RestController(value = "webGoodsController")
 @RequestMapping(value = "/web/goods")
 public class GoodsController {
@@ -47,7 +47,7 @@ public class GoodsController {
         Goods goods = iGoodsService.updateCoverImg(names);
 
         map.put("code", 1);
-        map.put("mag", "图片上传成功");
+        map.put("msg", "图片上传成功");
         map.put("obj", goods);
 
         return JSONArray.toJSONString(map);
@@ -76,7 +76,7 @@ public class GoodsController {
         Goods save = iGoodsService.save(target);
 
         map.put("code", 1);
-        map.put("mag", "添加成功");
+        map.put("msg", "添加成功");
         map.put("obj", save);
 
         return JSONArray.toJSONString(map);

@@ -1,9 +1,9 @@
 package com.qawhcb.shadow.controller.app;
 
 import com.alibaba.fastjson.JSONArray;
-import com.qawhcb.shadow.entity.Address;
-import com.qawhcb.shadow.entity.dataModel.CommentVo;
-import com.qawhcb.shadow.service.IAddressService;
+import com.qawhcb.shadow.entity.CollectPost;
+import com.qawhcb.shadow.entity.dataModel.PostVo;
+import com.qawhcb.shadow.service.ICollectPostService;
 import com.qawhcb.shadow.service.impl.UtilsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -17,19 +17,19 @@ import java.util.Map;
 
 /**
  * @author Taoism <br/>
- * Created on 2018/3/16 <br/>
- * 订单邮寄地址
+ * Created on 2018/3/24 <br/>
+ * 帖子收藏
  */
-@Api(tags = "address app", description = "订单邮寄地址")
-@RestController(value = "appAddressController")
-@RequestMapping(value = "/app/address")
-public class AddressController {
+@Api(tags = "collectPost app", description = "帖子收藏相关")
+@RestController(value = "appCollectPostController")
+@RequestMapping(value = "/app/collectPost")
+public class CollectPostController {
 
-    @ApiOperation(value = "添加常用收货地址")
+    @ApiOperation(value = "收藏发帖")
     @PostMapping(value = "/add/{token}/{userId}")
     public String save(@ApiParam(name = "token", value = "token验证") @PathVariable(value = "token") String token,
                        @ApiParam(name = "userId", value = "用户id") @PathVariable(value = "userId") Integer userId,
-                       @ApiParam(name = "address", value = "地址对象") @RequestBody() Address address) {
+                       @ApiParam(name = "postId", value = "帖子id") @RequestParam(value = "postId") Integer postId) {
 
         // 验证token
         String verifyToken = utilsService.userVerifyAndReturn(token, userId);
@@ -39,19 +39,19 @@ public class AddressController {
         }
         Map<String, Object> map = new HashMap<>(8);
 
-
-        Address save = iAddressService.save(address);
+        CollectPost collectPost = iCollectPostService.save(userId, postId);
 
         map.put("code", 1);
-        map.put("msg", "添加地址成功");
-        map.put("obj", save);
+        map.put("msg", "操作成功");
+        map.put("obj", collectPost);
 
         return JSONArray.toJSONString(map);
+
     }
 
-    @ApiOperation(value = "查询所有收货地址")
-    @GetMapping(value = "/findAll/{token}/{userId}")
-    public String save(@ApiParam(name = "token", value = "token验证") @PathVariable(value = "token") String token,
+    @ApiOperation(value = "查询收藏列表")
+    @GetMapping(value = "/find/{token}/{userId}")
+    public String find(@ApiParam(name = "token", value = "token验证") @PathVariable(value = "token") String token,
                        @ApiParam(name = "userId", value = "用户id") @PathVariable(value = "userId") Integer userId) {
 
         // 验证token
@@ -62,20 +62,21 @@ public class AddressController {
         }
         Map<String, Object> map = new HashMap<>(8);
 
-        List<Address> addresses = iAddressService.findAll(userId);
+        List<PostVo> postVos = iCollectPostService.find(userId);
 
         map.put("code", 1);
-        map.put("msg", "查询收货地址成功");
-        map.put("obj", addresses);
+        map.put("msg", "查询成功");
+        map.put("obj", postVos);
 
         return JSONArray.toJSONString(map);
+
     }
 
-    @ApiOperation(value = "删除常用地址")
+    @ApiOperation(value = "取消收藏帖子")
     @GetMapping(value = "/delete/{token}/{userId}")
     public String delete(@ApiParam(name = "token", value = "token验证") @PathVariable(value = "token") String token,
                          @ApiParam(name = "userId", value = "用户id") @PathVariable(value = "userId") Integer userId,
-                         @ApiParam(name = "addressId", value = "地址Id") @RequestParam(value = "addressId") Integer addressId) {
+                         @ApiParam(name = "postId", value = "帖子id") @RequestParam(value = "postId") Integer postId) {
 
         // 验证token
         String verifyToken = utilsService.userVerifyAndReturn(token, userId);
@@ -85,18 +86,19 @@ public class AddressController {
         }
         Map<String, Object> map = new HashMap<>(8);
 
-        iAddressService.delete(addressId);
+        iCollectPostService.deleteByUserIdAndPostId(userId, postId);
 
         map.put("code", 1);
-        map.put("msg", "删除成功");
+        map.put("msg", "取消收藏成功");
 
         return JSONArray.toJSONString(map);
+
     }
 
     @Autowired
     private UtilsService utilsService;
 
-    @Autowired
-    private IAddressService iAddressService;
 
+    @Autowired
+    private ICollectPostService iCollectPostService;
 }

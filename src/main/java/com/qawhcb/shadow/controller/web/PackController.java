@@ -18,7 +18,7 @@ import java.util.Map;
  * Created on 2018/3/12 <br/>
  * 套餐处理
  */
-@Api(value = "商品套餐", description = "商品套餐相关操作")
+@Api(tags = "pack web", description = "商品套餐相关操作")
 @RestController(value = "webPackController")
 @RequestMapping(value = "/web/pack")
 public class PackController {

@@ -1,7 +1,9 @@
 package com.qawhcb.shadow.service;
 
 import com.qawhcb.shadow.entity.Store;
+import com.qawhcb.shadow.entity.dataModel.StatisticsOrderVo;
 import com.qawhcb.shadow.entity.dataModel.StoreVo;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 店铺service
@@ -71,4 +73,34 @@ public interface IStoreService {
      * @return 更新后的
      */
     public Store update(Store store);
+
+    /**
+     * 店铺用户信息图片上传
+     * @param storeId 店铺
+     * @param type 上传图片所属种类
+     * @param files 文件
+     * @return 修改的店铺信息
+     */
+    Store updateImg(Integer storeId, String type, MultipartFile[] files);
+
+    /**
+     * 统计当前店铺订单信息
+     * @param storeId 店铺id
+     * @return 统计结果
+     */
+    StatisticsOrderVo statisticsOrder(Integer storeId);
+
+    /**
+     * 店铺首页信息展示
+     * @param storeId 商品id
+     * @return 展示的信息
+     */
+    Store showInHome(Integer storeId);
+
+    /**
+     * 店铺评分查询
+     * @param storeId 店铺id
+     * @return 查询的评分, json 格式
+     */
+    StoreVo grade(Integer storeId);
 }

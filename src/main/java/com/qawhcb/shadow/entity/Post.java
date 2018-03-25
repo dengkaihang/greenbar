@@ -19,12 +19,14 @@ public class Post {
     private String img;             //图片
     @Column(name = "text", length = 512)
     private String text;            //文字
-    @Column(name = "laud_time", length = 32)
-    private String laudCount;        //点赞次数
+    @Column(name = "laud_count", length = 8)
+    private int laudCount;        //点赞次数
     @Column(name = "follow_num", length = 8)
     private String followNum;       //关注人数
     @Column(name = "publish_time", length = 32)
     private String publishTime;     //发布时间
+    @Column(name = "nominate", length = 32)
+    private String nominate;     //推荐 (推荐 true， 不推荐 false)
     @Column(name = "publish_address", length = 16)
     private String publishAddress;  //发布位置
     @Column(name = "if_del", columnDefinition = "varchar(8) default 'false'")
@@ -71,11 +73,11 @@ public class Post {
         this.text = text;
     }
 
-    public String getLaudTime() {
+    public int getLaudCount() {
         return laudCount;
     }
 
-    public void setLaudTime(String laudCount) {
+    public void setLaudCount(int laudCount) {
         this.laudCount = laudCount;
     }
 
@@ -93,6 +95,14 @@ public class Post {
 
     public void setPublishTime(String publishTime) {
         this.publishTime = publishTime;
+    }
+
+    public String getNominate() {
+        return nominate;
+    }
+
+    public void setNominate(String nominate) {
+        this.nominate = nominate;
     }
 
     public String getPublishAddress() {

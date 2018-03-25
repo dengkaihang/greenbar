@@ -2,10 +2,13 @@ package com.qawhcb.shadow.dao;
 
 import com.qawhcb.shadow.entity.Feedback;
 import com.qawhcb.shadow.entity.Goods;
+import com.qawhcb.shadow.entity.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
 
 /**
  * @author Taoism <br/>
@@ -22,4 +25,12 @@ public interface IGoodsDao extends JpaRepository<Goods, Integer>, JpaSpecificati
     @Query(value = "update Goods as a set a.ifDel = 'true' where a.id = ?1")
     void delete(Integer id);
 
+
+    /**
+     * 通过店铺id查询所有商品
+     * @param storeId 店铺id
+     * @return 店铺下所有订单
+     */
+    @Query(value = "select g from Goods as g where g.storeId = ?1 and g.ifDel = 'false'")
+    List<Goods> findByStore(Integer storeId);
 }

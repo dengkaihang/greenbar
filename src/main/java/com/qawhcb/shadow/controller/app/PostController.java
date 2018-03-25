@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.Null;
+import javax.websocket.server.PathParam;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,9 +25,9 @@ import java.util.Map;
  * 帖子控制类
  */
 
-@Api(value = "社区", description = "社区相关")
+@Api(tags = "post app", description = "社区相关")
 @RestController(value = "appPostController")
-@RequestMapping(value = "/app/community")
+@RequestMapping(value = "/app/post")
 public class PostController {
 
     @ApiOperation(value = "发帖")
@@ -45,28 +47,34 @@ public class PostController {
         Map<String, Object> map = new HashMap<>(8);
 
 
-        Post save = iPostService.save(text,files,publishAddress);
+        Post save = iPostService.save(userId, text, files, publishAddress);
 
         map.put("code", 1);
-        map.put("mag", "添加地址成功");
+        map.put("msg", "添加地址成功");
         map.put("obj", save);
 
         return JSONArray.toJSONString(map);
     }
 
 
-    @ApiOperation(value = "分类查询发贴")
+    @ApiOperation(value = "分类查询发贴", notes = "当传递查询类型为1即‘关注’时，requirement 为当前用户id  当传递查询类型为5即‘同城’时，requirement 为当前用户所在城市  " +
+            "用户是否点赞暂存 post 的 label1中")
     @GetMapping(value = "/find")
-    public String find(@ApiParam(name = "type", value = "分类") @RequestParam(value = "type") String type,
-                       @ApiParam(name = "requirement", value = "查询条件") @RequestParam(value = "requirement") String requirement) {
+    public String find(@ApiParam(name = "page", value = "当前页") @RequestParam(value = "page", defaultValue = "1") int page,
+                       @ApiParam(name = "userId", value = "用户id",required = false) @RequestParam(value = "userId", required = false) Integer userId,
+                       @ApiParam(name = "type", value = "分类") @RequestParam(value = "type") String type,
+                       @ApiParam(name = "requirement", value = "查询条件",required = false) @RequestParam(value = "requirement", required = false) String requirement) {
 
         Map<String, Object> map = new HashMap<>(8);
 
+        if (page < 1) {
+            page = 1;
+        }
 
-        List<PostVo> posts = iPostService.find(type, requirement);
+        List<PostVo> posts = iPostService.find(userId, type, requirement, --page);
 
         map.put("code", 1);
-        map.put("mag", "添加地址成功");
+        map.put("msg", "查询成功");
         map.put("obj", posts);
 
         return JSONArray.toJSONString(map);

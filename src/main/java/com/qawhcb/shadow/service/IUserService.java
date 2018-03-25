@@ -3,6 +3,8 @@ package com.qawhcb.shadow.service;
 import com.qawhcb.shadow.entity.User;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 /**
  * 用户ｓｅｒｖｉｃｅ
  * Created by kane on 18-3-5
@@ -57,4 +59,35 @@ public interface IUserService {
      * @return 更新的对象
      */
     User updateVar(Integer userId, MultipartFile[] files);
+
+    /**
+     * 验证是否第三方绑定
+     * @param token 第三方toke
+     * @param mode 登录方式
+     * @return 是否注册过
+     */
+    User isRegisterBySide(String token, String mode);
+
+    /**
+     * 第三方登录绑定
+     * @param token 第三方登录token
+     * @param mode 登录方式
+     * @param phone 手机号
+     * @return 绑定并登录结果
+     */
+    User loginBySide(String token, String mode, String phone);
+
+    /**
+     * 环信关注好友
+     * @param userId 要添加好友的id
+     * @param friend 被添加为好友的id
+     */
+    void follow(Integer userId, Integer friend);
+
+    /**
+     * 根据传入的手机号字符串，查询用户信息
+     * @param phones 手机号字符串
+     * @return 用户列表
+     */
+    List<User> findByPhones(String phones);
 }

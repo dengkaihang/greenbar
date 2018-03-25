@@ -24,7 +24,7 @@ import java.util.Map;
  * Created on 2018/3/14 <br/>
  * 商品相关信息
  */
-@Api(value = "评论相关", description = "评论相关操作")
+@Api(tags = "comment app", description = "评论相关操作")
 @RestController(value = "appCommentController")
 @RequestMapping(value = "/app/comment")
 public class CommentController {

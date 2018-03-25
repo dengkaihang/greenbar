@@ -25,7 +25,7 @@ import java.util.Map;
  * Created on 2018/3/18 <br/>
  * 店铺相关
  */
-@Api(value = "店铺", description = "店铺相关")
+@Api(tags = "store app", description = "店铺相关")
 @RestController(value = "appStoreController")
 @RequestMapping(value = "/app/store")
 public class StoreController {

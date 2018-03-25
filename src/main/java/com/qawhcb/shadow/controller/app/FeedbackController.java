@@ -22,7 +22,7 @@ import java.util.Map;
  * Created on 2018/3/18 <br/>
  * 反馈相关
  */
-@Api(value = "收藏", description = "用户反馈")
+@Api(tags = "feedback app", description = "用户反馈")
 @RestController(value = "appFeedbackController")
 @RequestMapping(value = "/app/feedback")
 public class FeedbackController {
@@ -51,7 +51,7 @@ public class FeedbackController {
 
 
         map.put("code", 1);
-        map.put("mag", "提交反馈成功");
+        map.put("msg", "提交反馈成功");
         map.put("obj", feedback1);
 
         return JSONArray.toJSONString(map);

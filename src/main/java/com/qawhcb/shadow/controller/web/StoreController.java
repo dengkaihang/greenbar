@@ -23,7 +23,7 @@ import java.util.Map;
  * 店铺ｃｏｎｔｒｏｌｌｅｒ
  * Created by kane on 18-3-7
  */
-@Api(value = "店铺类(技师账户信息)", description = "店铺登录注册,重置密码，修改信息，上传图片")
+@Api(tags = "store web", description = "店铺登录注册,重置密码，修改信息，上传图片")
 @RestController
 @RequestMapping("/web/store")
 public class StoreController {
@@ -177,6 +177,31 @@ public class StoreController {
         return obj.toJSONString();
     }
 
+    @ApiOperation(value = "上传用户信息图片", notes = "当type 为 card 表示上传的是身份证。type为 portrait 表示上传的是头像")
+    @PostMapping(value = "/uploadImages/{token}/{storeId}/{type}")
+    @ResponseBody
+    public String upload(@ApiParam(name = "token", value = "token验证") @PathVariable(value = "token") String token,
+                            @ApiParam(name = "storeId", value = "店铺id") @PathVariable(value = "storeId") Integer storeId,
+                            @ApiParam(name = "type", value = "图片所属种类") @PathVariable(value = "type") String type,
+                            @ApiParam(name = "files", value = "图片文件,files", required = true) @RequestParam("files") MultipartFile[] files) {
+        // 验证token
+        String verifyToken = utilsService.storeVerifyAndReturn(token, storeId);
+        if (verifyToken != null) {
+            // 验证不通过，直接返回错误信息
+            return verifyToken;
+        }
+
+        Map<String, Object> map = new HashMap<>(8);
+
+        Store update = iStoreService.updateImg(storeId, type, files);
+
+        map.put("code", 1);
+        map.put("msg", "上传文件成功");
+        map.put("obj", update);
+
+        return JSONArray.toJSONString(map);
+
+    }
 
     @ApiOperation("修改店铺信息")
     @PatchMapping(value = "/update/{token}/{storeId}")
@@ -184,8 +209,15 @@ public class StoreController {
                          @ApiParam(name = "storeId", value = "店铺id") @PathVariable(value = "storeId") Integer storeId,
                          @ApiParam(name = "store", value = "店铺对象") @RequestBody() Store store) {
 
-
+        // 验证token
+        String verifyToken = utilsService.storeVerifyAndReturn(token, storeId);
+        if (verifyToken != null) {
+            // 验证不通过，直接返回错误信息
+            return verifyToken;
+        }
         Map<String, Object> map = new HashMap<>(8);
+
+        store.setId(storeId);
 
         Store update = iStoreService.update(store);
 

@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
+
 /**
  * @author Taoism <br/>
  * Created on 2018/3/6 <br/>
@@ -22,4 +24,6 @@ public interface IPostCommentDao extends JpaRepository<PostComment, Integer>, Jp
     @Query(value = "update PostComment as a set a.ifDel = 'true' where a.id = ?1")
     void delete(Integer id);
 
+    @Query(value = "select p from PostComment as p where p.postId = ?1 and p.ifDel = 'false'")
+    List<PostComment> findByPostId(Integer postId);
 }

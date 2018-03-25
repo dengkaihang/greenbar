@@ -42,6 +42,7 @@ public class ImUtils {
 
     /**
      * 发送信息给指定用户
+     *
      * @param users
      * @param message
      */
@@ -113,20 +114,22 @@ public class ImUtils {
 
         String url = "http://a1.easemob.com/" + orgName + "/" + appName + "/users?limit=" + limit;
 
+        // 获取此环信的所有账户
         String post = HttpUtils.httpRequest(url, "GET", null, "Bearer " + token);
 
+        // 将响应信息转换为map集合
         Map mapType = JSON.parseObject(post, Map.class);
 
-//        JSONArray entities = (JSONArray) mapType.get("entities");
-
-
+        // 从map集合中获取用户id， 环信接口将用户信息封装到 entities 中
         List<Map<String, Object>> mapListJson = (List) mapType.get("entities");
 
+        // 因为环信推荐一次最多发送给20个用户，所以将用户拆分
         ArrayList<String> users = new ArrayList<>(16);
         String[] userNames = new String[20];
         for (Map<String, Object> map :
                 mapListJson) {
 
+            // 环信用户id即用户名
             String username = (String) map.get("username");
 
             users.add(username);
@@ -134,15 +137,19 @@ public class ImUtils {
             // 最多一次发送20人
             if (users.size() == 20) {
 
+                // 每满20个用户发送一次
                 send(users.toArray(userNames), message);
 
                 System.out.println("发送一次：" + users.size());
                 users.clear();
 
+                // 发送或将用户清除
                 System.out.println("清除后：" + users.size());
             }
 
         }
+
+        // 最后一次可能没满20个，用户数组不为空，再发送一次
         if (users.size() != 0) {
             send(users.toArray(userNames), message);
             System.out.println("最后一次：" + users.size());
@@ -151,13 +158,13 @@ public class ImUtils {
             System.out.println("清除后：" + users.size());
         }
 
-
         return null;
     }
 
 
     /**
      * 环信用户注册
+     *
      * @param username 注册用户名
      * @return 请求结果
      */
@@ -171,9 +178,60 @@ public class ImUtils {
         user.setUsername(username);
         user.setPassword("12345678");
 
+        return HttpUtils.httpRequest(url, "POST", JSONArray.toJSONString(user), "Bearer " + token);
+    }
 
-        String post = HttpUtils.httpRequest(url, "POST", JSONArray.toJSONString(user), "Bearer " + token);
+    /**
+     * 环信用户添加好友
+     *
+     * @param owner  添加好友的用户名
+     * @param friend 被添加的用户名
+     * @return 请求结果
+     */
+    public static String follow(String owner, String friend) {
 
-        return post;
+        String token = getToken(orgName, appName, clientId, clientSecret);
+
+        String url = "http://a1.easemob.com/" + orgName + "/" + appName + "/users/" + owner + "/contacts/users/" + friend;
+
+        return HttpUtils.httpRequest(url, "POST", null, "Bearer " + token);
+    }
+
+    /**
+     * 查询某个用户的好友
+     *
+     * @param userId 用户id
+     * @return 所有好友信息
+     */
+    public static List<String> contacts(String userId) {
+        String token = getToken(orgName, appName, clientId, clientSecret);
+
+        String url = "http://a1.easemob.com/" + orgName + "/" + appName + "/users" + "/" + userId + "/contacts/users";
+
+        String post = HttpUtils.httpRequest(url, "GET", null, "Bearer " + token);
+
+        // 将响应信息转换为map集合
+        Map mapType = JSON.parseObject(post, Map.class);
+
+        /*
+         * 环信响应体
+         *{
+         *    "action": "get",
+         *    "uri": "http://a1.easemob.com/1165170823115932/lemeng1/users/15180047865/contacts/users",
+         *    "entities": [],
+         *    "data": [
+         *      "15180047853",
+         *      "15180047852"
+         *    ],
+         *    "timestamp": 1521698681516,
+         *    "duration": 5,
+         *    "count": 1
+         * }
+         */
+
+        // 从集合中获取封装的数据 data
+//        List<String> contacts = (List<String>) mapType.get("data");
+
+        return (List<String>) mapType.get("data");
     }
 }

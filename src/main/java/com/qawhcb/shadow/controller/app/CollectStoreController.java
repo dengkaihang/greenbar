@@ -22,7 +22,7 @@ import java.util.Map;
  * Created on 2018/3/18 <br/>
  * 收藏相关
  */
-@Api(value = "收藏", description = "店铺收藏相关")
+@Api(tags = "collectStore app", description = "店铺收藏相关")
 @RestController(value = "appCollectStoreController")
 @RequestMapping(value = "/app/collectStore")
 public class CollectStoreController {
