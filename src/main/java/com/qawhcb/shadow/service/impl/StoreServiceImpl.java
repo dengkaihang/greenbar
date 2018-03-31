@@ -23,6 +23,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -144,6 +145,7 @@ public class StoreServiceImpl implements IStoreService {
 
     /**
      * 获取商铺评分
+     *
      * @param storeId 店铺id
      * @param storeVo 要将评分设置进去的 Vo 对象
      */
@@ -205,7 +207,11 @@ public class StoreServiceImpl implements IStoreService {
 
     @Override
     public Store find(Integer storeId) {
-        return iStoreDao.findOne(storeId);
+        Store store = iStoreDao.findOne(storeId);
+
+        store.setPassword(null);
+
+        return store;
     }
 
     @Override
@@ -328,7 +334,10 @@ public class StoreServiceImpl implements IStoreService {
 
         List<CollectStore> byStore = iCollectStoreDao.findByStore(storeId);
 
+        List<Goods> goods = iGoodsDao.findByStore(storeId);
+
         store.setLabel1(String.valueOf(byStore.size()));
+        store.setLabel2(String.valueOf(goods.size()));
 
         return store;
     }
@@ -341,6 +350,61 @@ public class StoreServiceImpl implements IStoreService {
         getGrade(storeId, storeVo);
 
         return storeVo;
+    }
+
+    @Override
+    public void logout(Integer storeId) {
+        Store store = iStoreDao.findOne(storeId);
+
+        store.setToken(null);
+
+        iStoreDao.save(store);
+    }
+
+    @Override
+    public List<Store> ranking() {
+        List<Store> stores = iStoreDao.findAll();
+
+        stores.sort(new Comparator<Store>() {
+            @Override
+            public int compare(Store o1, Store o2) {
+                return o1.getScore() - o2.getScore();
+            }
+        });
+
+        return stores;
+    }
+
+    @Override
+    public List<Store> findNotDel() {
+
+        List<Store> stores = iStoreDao.findNotDel();
+
+        for (Store store :
+                stores) {
+
+            store.setPassword(null);
+
+        }
+
+        return stores;
+    }
+
+    @Override
+    public List<Store> nominate(String[] ids) {
+
+        List<Store> stores = new ArrayList<>(16);
+
+        for (String id :
+                ids) {
+            Store store = iStoreDao.findOne(Integer.parseInt(id));
+
+            store.setNominate("true");
+
+            stores.add(iStoreDao.save(store));
+
+        }
+        return stores;
     }
 
     @Autowired

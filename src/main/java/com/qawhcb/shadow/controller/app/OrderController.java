@@ -5,12 +5,10 @@ import com.qawhcb.shadow.entity.Order;
 import com.qawhcb.shadow.entity.dataModel.OrderVo;
 import com.qawhcb.shadow.service.IOrderService;
 import com.qawhcb.shadow.service.impl.UtilsService;
-import com.qawhcb.shadow.utils.UpdateUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -155,7 +153,7 @@ public class OrderController {
     }
 
     @ApiOperation(value = "取消订单")
-    @GetMapping(value = "/delete/{token}/{userId}")
+    @DeleteMapping(value = "/delete/{token}/{userId}")
     public String delete(@ApiParam(name = "token", value = "token验证") @PathVariable(value = "token") String token,
                          @ApiParam(name = "userId", value = "用户id") @PathVariable(value = "userId") Integer userId,
                          @ApiParam(name = "orderId", value = "订单id") @RequestParam(value = "orderId") String orderId) {
@@ -167,7 +165,14 @@ public class OrderController {
         }
         Map<String, Object> map = new HashMap<>(8);
 
-        iOrderService.delete(orderId);
+        try {
+            iOrderService.delete(orderId);
+        } catch (Exception e) {
+            map.put("code", -1);
+            map.put("msg", "此订单正在进行中，不能取消");
+
+            return JSONArray.toJSONString(map);
+        }
 
         map.put("code", 1);
         map.put("msg", "取消订单成功");
@@ -177,7 +182,7 @@ public class OrderController {
 
 
     @ApiOperation(value = "确认收货")
-    @GetMapping(value = "/finish/{token}/{userId}")
+    @PatchMapping(value = "/finish/{token}/{userId}")
     public String finish(@ApiParam(name = "token", value = "token验证") @PathVariable(value = "token") String token,
                          @ApiParam(name = "userId", value = "用户id") @PathVariable(value = "userId") Integer userId,
                          @ApiParam(name = "orderId", value = "订单id") @RequestParam(value = "orderId") String orderId) {
@@ -219,11 +224,13 @@ public class OrderController {
     }
 
 
+    @ApiOperation(value = "阿里支付回调，请勿操作！")
     @RequestMapping (value = "/fruit_ali")
     public void fruitAli(HttpServletRequest request){
         iOrderService.fruitAli(request);
     }
 
+    @ApiOperation(value = "微信支付回调，请勿操作！")
     @RequestMapping (value = "/fruit_wx")
     public String fruitWx(HttpServletRequest request){
         return  iOrderService.fruitWx(request);

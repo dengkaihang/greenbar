@@ -34,6 +34,8 @@ public class Store {
     private String defaultImg;     //店铺图片链接
     @Column(name = "rank", length = 4)
     private String rank;            //等级
+    @Column(name = "score", length = 8)
+    private int score;            //店铺得分
     @Column(name = "depict", length = 256)
     private String depict;        //店铺描述
     @Column(name = "store_address", length = 128)
@@ -48,6 +50,8 @@ public class Store {
     private String createTime;      //创建时间
     @Column(name = "status", length = 8)
     private String status;          //状态
+    @Column(name = "nominate", length = 8)
+    private String nominate;     //推荐 (推荐 true， 不推荐 false)
     @Column(name = "token", length = 64)
     private String token;           //验证token
     @Column(name = "if_del", columnDefinition = "varchar(8) default 'false'")
@@ -62,6 +66,13 @@ public class Store {
     public Store() {
     }
 
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
 
     public String getCreateTime() {
         return createTime;
@@ -89,6 +100,14 @@ public class Store {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getNominate() {
+        return nominate;
+    }
+
+    public void setNominate(String nominate) {
+        this.nominate = nominate;
     }
 
     public Integer getId() {

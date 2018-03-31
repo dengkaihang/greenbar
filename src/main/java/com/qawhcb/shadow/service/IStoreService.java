@@ -5,6 +5,8 @@ import com.qawhcb.shadow.entity.dataModel.StatisticsOrderVo;
 import com.qawhcb.shadow.entity.dataModel.StoreVo;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 /**
  * 店铺service
  * Created by kane on 18-3-6
@@ -103,4 +105,29 @@ public interface IStoreService {
      * @return 查询的评分, json 格式
      */
     StoreVo grade(Integer storeId);
+
+    /**
+     * 退出登录
+     * @param storeId 退出的帐号
+     */
+    void logout(Integer storeId);
+
+    /**
+     * 查询店铺排名
+     * @return 所有店铺排名
+     */
+    List<Store> ranking();
+
+    /**
+     * 查询没有被删除的店铺
+     * @return 店铺集合
+     */
+    List<Store> findNotDel();
+
+    /**
+     * 设置精选店铺
+     * @param ids 店铺id列表
+     * @return 修改后的店铺
+     */
+    List<Store> nominate(String[] ids);
 }

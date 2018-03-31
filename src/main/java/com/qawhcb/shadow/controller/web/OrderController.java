@@ -39,7 +39,7 @@ public class OrderController {
             return verifyToken;
         }
 
-        page = page<1?1:page;
+        page = page < 1 ? 1 : page;
 
         Map<String, Object> map = new HashMap<>(8);
 
@@ -57,8 +57,8 @@ public class OrderController {
     @ApiOperation(value = "根据类型查询商户订单", notes = "总页数预存在ordre的label1中")
     @GetMapping(value = "/findByType/{token}/{storeId}")
     public String findByType(@ApiParam(name = "token", value = "token验证") @PathVariable(value = "token") String token,
-                          @ApiParam(name = "storeId", value = "商户Id") @PathVariable(value = "storeId") Integer storeId,
-                          @ApiParam(name = "page", value = "当前页") @RequestParam(value = "page") Integer page,
+                             @ApiParam(name = "storeId", value = "商户Id") @PathVariable(value = "storeId") Integer storeId,
+                             @ApiParam(name = "page", value = "当前页") @RequestParam(value = "page") Integer page,
                              @ApiParam(name = "status", value = "状态") @RequestParam(value = "status") String status) {
 
         // 验证token
@@ -68,7 +68,7 @@ public class OrderController {
             return verifyToken;
         }
 
-        page = page<1?1:page;
+        page = page < 1 ? 1 : page;
 
         Map<String, Object> map = new HashMap<>(8);
 
@@ -110,7 +110,7 @@ public class OrderController {
     @PatchMapping(value = "/refund/{token}/{storeId}")
     public String refund(@ApiParam(name = "token", value = "token验证") @PathVariable(value = "token") String token,
                          @ApiParam(name = "storeId", value = "商户id") @PathVariable(value = "storeId") Integer storeId,
-                         @ApiParam(name = "orderId", value = "订单id") @RequestParam(value = "orderId") String orderId){
+                         @ApiParam(name = "orderId", value = "订单id") @RequestParam(value = "orderId") String orderId) {
 
         // 验证token
         String verifyToken = utilsService.storeVerifyAndReturn(token, storeId);
@@ -133,7 +133,7 @@ public class OrderController {
     @PatchMapping(value = "/update/{token}/{storeId}")
     public String update(@ApiParam(name = "token", value = "token验证") @PathVariable(value = "token") String token,
                          @ApiParam(name = "storeId", value = "商户id") @PathVariable(value = "storeId") Integer storeId,
-                         @ApiParam(name = "order", value = "订单") @RequestBody() Order order){
+                         @ApiParam(name = "order", value = "订单") @RequestBody() Order order) {
 
         // 验证token
         String verifyToken = utilsService.storeVerifyAndReturn(token, storeId);
@@ -158,7 +158,7 @@ public class OrderController {
     public String refuse(@ApiParam(name = "token", value = "token验证") @PathVariable(value = "token") String token,
                          @ApiParam(name = "storeId", value = "商户id") @PathVariable(value = "storeId") Integer storeId,
                          @ApiParam(name = "orderId", value = "拒绝退款订单id") @RequestParam(value = "orderId") String orderId,
-                         @ApiParam(name = "cause", value = "拒绝退款原因") @RequestParam(value = "cause") String cause){
+                         @ApiParam(name = "cause", value = "拒绝退款原因") @RequestParam(value = "cause") String cause) {
 
         // 验证token
         String verifyToken = utilsService.storeVerifyAndReturn(token, storeId);
@@ -183,7 +183,7 @@ public class OrderController {
     public String result(@ApiParam(name = "token", value = "token验证") @PathVariable(value = "token") String token,
                          @ApiParam(name = "storeId", value = "商户id") @PathVariable(value = "storeId") Integer storeId,
                          @ApiParam(name = "orderId", value = "订单id") @PathVariable(value = "orderId") String orderId,
-                         @ApiParam(name = "files", value = "订单处理文件") @RequestParam(value = "files") MultipartFile[] files){
+                         @ApiParam(name = "files", value = "订单处理文件") @RequestParam(value = "files") MultipartFile[] files) {
 
         // 验证token
         String verifyToken = utilsService.storeVerifyAndReturn(token, storeId);

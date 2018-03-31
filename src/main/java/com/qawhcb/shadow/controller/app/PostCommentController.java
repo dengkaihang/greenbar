@@ -1,8 +1,6 @@
 package com.qawhcb.shadow.controller.app;
 
 import com.alibaba.fastjson.JSONArray;
-import com.qawhcb.shadow.entity.Order;
-import com.qawhcb.shadow.entity.Post;
 import com.qawhcb.shadow.entity.PostComment;
 import com.qawhcb.shadow.entity.dataModel.PostCommentVo;
 import com.qawhcb.shadow.service.IPostCommentService;
@@ -10,7 +8,6 @@ import com.qawhcb.shadow.service.impl.UtilsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +19,7 @@ import java.util.Map;
  * @author Taoism <br/>
  * Created on 2018/3/23 <br/>
  */
-@Api(tags = "postComment app", description = "社区相关")
+@Api(tags = "postComment app", description = "社区评论相关")
 @RestController(value = "appPostCommentController")
 @RequestMapping(value = "/app/postComment")
 public class PostCommentController {
@@ -53,7 +50,7 @@ public class PostCommentController {
     }
 
     @ApiOperation(value = "查看当前帖子所有评论")
-    @PostMapping(value = "/find")
+    @GetMapping(value = "/find")
     public String find(@ApiParam(name = "postId", value = "帖子id", required = true) @RequestParam() Integer postId) {
 
         Map<String, Object> map = new HashMap<>(8);

@@ -36,7 +36,7 @@ public class FeedbackController {
         Feedback feedback = new Feedback();
 
         String names = null;
-        if (imgs != null){
+        if (imgs != null) {
             names = UploadFileUtils.userImgUpload(imgs, userId.toString());
         }
 

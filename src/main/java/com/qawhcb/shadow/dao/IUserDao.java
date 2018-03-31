@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
+
 /**
  * Created by kane on 18-3-5
  */
@@ -29,4 +31,14 @@ public interface IUserDao extends JpaRepository<User, Integer>, JpaSpecification
      */
     @Query(value = "select u.id, u.nickName, u.portrait from User as u where u.phone = ?1 and u.ifDel = 'false'")
     User findByPhone(String p);
+
+    /**
+     * 查询一周内的用户注册量
+     *
+     * @param date    本周开始时间
+     * @param endDate 结束时间
+     * @return 查询结果
+     */
+    @Query(value = "select u from User as u where u.registrationTime >= ?1 and u.registrationTime < ?2")
+    List<User> findByWeek(String date, String endDate);
 }

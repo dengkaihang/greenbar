@@ -7,7 +7,6 @@ import com.qawhcb.shadow.service.impl.UtilsService;
 import com.qawhcb.shadow.utils.LoggerUtil;
 import com.qawhcb.shadow.utils.MD5Util;
 import com.qawhcb.shadow.utils.VerifyUtil;
-import com.qawhcb.shadow.utils.easemobUtils.ImUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -129,11 +128,11 @@ public class UserController {
     @ApiOperation(value = "第三方绑定验证", notes = "QQ 第三方登录 传入 qq 。 微信第三方登录 传入 wechat")
     @PatchMapping(value = "/isRegisterBySide")
     public String isRegisterBySide(@ApiParam(name = "token", value = "第三方token") @RequestParam(value = "token") String token,
-                              @ApiParam(name = "mode", value = "第三方登录方式") @RequestParam(value = "mode") String mode) {
+                                   @ApiParam(name = "mode", value = "第三方登录方式") @RequestParam(value = "mode") String mode) {
 
         Map<String, Object> map = new HashMap<>(8);
 
-        User user  = iUserService.isRegisterBySide(token, mode);
+        User user = iUserService.isRegisterBySide(token, mode);
 
         map.put("code", 1);
         map.put("msg", user);
@@ -162,8 +161,8 @@ public class UserController {
     @ApiOperation(value = "环信关注好友", notes = "friend 为要添加好友的手机号")
     @PostMapping(value = "/follow/{token}/{userId}")
     public String follow(@ApiParam(name = "token", value = "token验证") @PathVariable(value = "token") String token,
-                              @ApiParam(name = "userId", value = "用户id") @PathVariable(value = "userId") Integer userId,
-                              @ApiParam(name = "friend", value = "要添加的好友id") @RequestParam(value = "friend") Integer friend) {
+                         @ApiParam(name = "userId", value = "用户id") @PathVariable(value = "userId") Integer userId,
+                         @ApiParam(name = "friend", value = "要添加的好友id") @RequestParam(value = "friend") Integer friend) {
 
         Map<String, Object> map = new HashMap<>(8);
 

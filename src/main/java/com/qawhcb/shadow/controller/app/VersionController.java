@@ -29,7 +29,8 @@ public class VersionController {
     private IVersionService iVersionService;
 
     /**
-     *  版本更新
+     * 版本更新
+     *
      * @param num
      * @return
      */
@@ -42,14 +43,14 @@ public class VersionController {
         List<Version> list = iVersionService.selectVersion();
         Version version = list.get(0);
         int versionNum = version.getVersionNum();
-        if(num < versionNum && num > 0){
+        if (num < versionNum && num > 0) {
             map.put("msg", "有新版本,请更新.");
             map.put("code", "1");
             map.put("obj", version);
-        }else if(num == versionNum){
+        } else if (num == versionNum) {
             map.put("msg", "当前版本已是最新版本");
             map.put("code", "0");
-        }else {
+        } else {
             map.put("msg", "版本号错误!");
             map.put("code", "-1");
         }

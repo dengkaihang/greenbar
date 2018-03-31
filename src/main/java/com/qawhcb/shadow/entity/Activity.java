@@ -13,8 +13,10 @@ public class Activity {
     @GeneratedValue()
     @Column(name = "id", columnDefinition = "int(11) UNSIGNED ZEROFILL AUTO_INCREMENT")
     private Integer id;              //id
-    @Column(name = "employee_id", length = 32)
+    @Column(name = "employee_id", length = 11)
     private Integer employeeId;      //员工id
+    @Column(name = "employee_account", length = 32)
+    private String employeeAccount;      //员工帐号
     @Column(name = "title", length = 32)
     private String title;           //活动标题
     @Column(name = "img", length = 32)
@@ -63,6 +65,14 @@ public class Activity {
 
     public String getImg() {
         return img;
+    }
+
+    public String getEmployeeAccount() {
+        return employeeAccount;
+    }
+
+    public void setEmployeeAccount(String employeeAccount) {
+        this.employeeAccount = employeeAccount;
     }
 
     public void setImg(String img) {

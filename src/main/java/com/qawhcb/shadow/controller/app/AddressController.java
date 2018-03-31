@@ -2,7 +2,6 @@ package com.qawhcb.shadow.controller.app;
 
 import com.alibaba.fastjson.JSONArray;
 import com.qawhcb.shadow.entity.Address;
-import com.qawhcb.shadow.entity.dataModel.CommentVo;
 import com.qawhcb.shadow.service.IAddressService;
 import com.qawhcb.shadow.service.impl.UtilsService;
 import io.swagger.annotations.Api;
@@ -72,7 +71,7 @@ public class AddressController {
     }
 
     @ApiOperation(value = "删除常用地址")
-    @GetMapping(value = "/delete/{token}/{userId}")
+    @DeleteMapping(value = "/delete/{token}/{userId}")
     public String delete(@ApiParam(name = "token", value = "token验证") @PathVariable(value = "token") String token,
                          @ApiParam(name = "userId", value = "用户id") @PathVariable(value = "userId") Integer userId,
                          @ApiParam(name = "addressId", value = "地址Id") @RequestParam(value = "addressId") Integer addressId) {

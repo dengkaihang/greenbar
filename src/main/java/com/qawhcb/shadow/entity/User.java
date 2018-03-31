@@ -20,10 +20,12 @@ public class User {
     private String password;    //密码
     @Column(name = "phone", length = 11, unique = true)
     private String phone;       //电话
-    @Column(name = "wechat", length = 32)
-    private String wechat;      //微信
     @Column(name = "qq", length = 13)
     private String qq;          //ＱＱ
+    @Column(name = "wechat", length = 32)
+    private String wechat;      //微信
+    @Column(name = "registration_time", length = 32)
+    private String registrationTime;      //注册时间
     @Column(name = "autograph", length = 64)
     private String autograph;   //签名
     @Column(name = "rank", length = 4)
@@ -46,6 +48,14 @@ public class User {
     private String label3;      //
 
     public User() {
+    }
+
+    public String getRegistrationTime() {
+        return registrationTime;
+    }
+
+    public void setRegistrationTime(String registrationTime) {
+        this.registrationTime = registrationTime;
     }
 
     public String getToken() {

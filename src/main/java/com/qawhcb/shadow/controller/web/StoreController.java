@@ -2,12 +2,11 @@ package com.qawhcb.shadow.controller.web;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.qawhcb.shadow.entity.Pack;
 import com.qawhcb.shadow.entity.Store;
 import com.qawhcb.shadow.service.IStoreService;
 import com.qawhcb.shadow.service.impl.UtilsService;
-import com.qawhcb.shadow.utils.UploadFileUtils;
 import com.qawhcb.shadow.utils.MD5Util;
+import com.qawhcb.shadow.utils.UploadFileUtils;
 import com.qawhcb.shadow.utils.VerifyUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -159,6 +159,10 @@ public class StoreController {
             String[] name = names.split(",");
 
             String defaultImg = store.getDefaultImg();
+
+            // 设置图片
+            store.setDefaultImg(names);
+
             for (int i = 0; i < name.length; i++) {
                 if (null == defaultImg) {
                     defaultImg = name[i];
@@ -181,9 +185,9 @@ public class StoreController {
     @PostMapping(value = "/uploadImages/{token}/{storeId}/{type}")
     @ResponseBody
     public String upload(@ApiParam(name = "token", value = "token验证") @PathVariable(value = "token") String token,
-                            @ApiParam(name = "storeId", value = "店铺id") @PathVariable(value = "storeId") Integer storeId,
-                            @ApiParam(name = "type", value = "图片所属种类") @PathVariable(value = "type") String type,
-                            @ApiParam(name = "files", value = "图片文件,files", required = true) @RequestParam("files") MultipartFile[] files) {
+                         @ApiParam(name = "storeId", value = "店铺id") @PathVariable(value = "storeId") Integer storeId,
+                         @ApiParam(name = "type", value = "图片所属种类") @PathVariable(value = "type") String type,
+                         @ApiParam(name = "files", value = "图片文件,files", required = true) @RequestParam("files") MultipartFile[] files) {
         // 验证token
         String verifyToken = utilsService.storeVerifyAndReturn(token, storeId);
         if (verifyToken != null) {
@@ -234,6 +238,12 @@ public class StoreController {
     public String modify(@ApiParam(name = "token", value = "token验证") @PathVariable(value = "token") String token,
                          @ApiParam(name = "storeId", value = "店铺id") @PathVariable(value = "storeId") Integer storeId) {
 
+        // 验证token
+        String verifyToken = utilsService.storeVerifyAndReturn(token, storeId);
+        if (verifyToken != null) {
+            // 验证不通过，直接返回错误信息
+            return verifyToken;
+        }
 
         Map<String, Object> map = new HashMap<>(8);
 
@@ -246,5 +256,52 @@ public class StoreController {
         return JSONArray.toJSONString(map);
 
     }
+
+    @ApiOperation("退出登录")
+    @PatchMapping(value = "/logout/{token}/{storeId}")
+    public String logout(@ApiParam(name = "token", value = "token验证") @PathVariable(value = "token") String token,
+                         @ApiParam(name = "storeId", value = "店铺id") @PathVariable(value = "storeId") Integer storeId) {
+
+        // 验证token
+        String verifyToken = utilsService.storeVerifyAndReturn(token, storeId);
+        if (verifyToken != null) {
+            // 验证不通过，直接返回错误信息
+            return verifyToken;
+        }
+
+        Map<String, Object> map = new HashMap<>(8);
+
+        iStoreService.logout(storeId);
+
+        map.put("code", 1);
+        map.put("msg", "退出登录");
+
+        return JSONArray.toJSONString(map);
+    }
+
+    @ApiOperation("店铺排行")
+    @PatchMapping(value = "/ranking/{token}/{storeId}")
+    public String ranking(@ApiParam(name = "token", value = "token验证") @PathVariable(value = "token") String token,
+                          @ApiParam(name = "storeId", value = "店铺id") @PathVariable(value = "storeId") Integer storeId) {
+
+        // 验证token
+        String verifyToken = utilsService.storeVerifyAndReturn(token, storeId);
+        if (verifyToken != null) {
+            // 验证不通过，直接返回错误信息
+            return verifyToken;
+        }
+
+        Map<String, Object> map = new HashMap<>(8);
+
+        List<Store> stores = iStoreService.ranking();
+
+        map.put("code", 1);
+        map.put("msg", "店铺排名查询成功");
+        map.put("obj", stores);
+
+        return JSONArray.toJSONString(map);
+
+    }
+
 
 }

@@ -1,8 +1,6 @@
 package com.qawhcb.shadow.controller.app;
 
 import com.alibaba.fastjson.JSONArray;
-import com.qawhcb.shadow.dao.ICollectStoreDao;
-import com.qawhcb.shadow.entity.Address;
 import com.qawhcb.shadow.entity.CollectStore;
 import com.qawhcb.shadow.entity.dataModel.CollectStoreVo;
 import com.qawhcb.shadow.service.ICollectStoreService;

@@ -2,9 +2,11 @@ package com.qawhcb.shadow.service.impl;
 
 import com.qawhcb.shadow.dao.ICommentDao;
 import com.qawhcb.shadow.dao.IOrderDao;
+import com.qawhcb.shadow.dao.IStoreDao;
 import com.qawhcb.shadow.dao.IUserDao;
 import com.qawhcb.shadow.entity.Comment;
 import com.qawhcb.shadow.entity.Order;
+import com.qawhcb.shadow.entity.Store;
 import com.qawhcb.shadow.entity.User;
 import com.qawhcb.shadow.entity.dataModel.CommentVo;
 import com.qawhcb.shadow.service.ICommentService;
@@ -126,6 +128,17 @@ public class CommentServiceImpl implements ICommentService {
 
         comment.setTotalPoints(String.valueOf((speed + depict + service) / 3));
 
+        // 如果总评分大于4 店铺加分2
+        if (Integer.parseInt(comment.getTotalPoints()) >= 4){
+            Store store = iStoreDao.findOne(order.getStoreId());
+
+            int score = store.getScore();
+
+            store.setScore(score+2);
+
+            iStoreDao.save(store);
+        }
+
         return iCommentDao.save(comment);
     }
 
@@ -140,4 +153,7 @@ public class CommentServiceImpl implements ICommentService {
 
     @Autowired
     private IUserDao iUserDao;
+
+    @Autowired
+    private IStoreDao iStoreDao;
 }

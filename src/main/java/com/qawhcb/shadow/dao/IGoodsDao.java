@@ -29,7 +29,7 @@ public interface IGoodsDao extends JpaRepository<Goods, Integer>, JpaSpecificati
     /**
      * 通过店铺id查询所有商品
      * @param storeId 店铺id
-     * @return 店铺下所有订单
+     * @return 店铺下所有商品
      */
     @Query(value = "select g from Goods as g where g.storeId = ?1 and g.ifDel = 'false'")
     List<Goods> findByStore(Integer storeId);

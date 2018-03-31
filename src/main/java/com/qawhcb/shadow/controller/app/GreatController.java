@@ -44,7 +44,7 @@ public class GreatController {
         map.put("code", 1);
 
         map.put("msg", ispraise == null ? "操作失败" : "操作成功");
-        map.put("obj", ispraise );
+        map.put("obj", ispraise);
 
         return JSONArray.toJSONString(map);
     }

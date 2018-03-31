@@ -25,7 +25,7 @@ public class Post {
     private String followNum;       //关注人数
     @Column(name = "publish_time", length = 32)
     private String publishTime;     //发布时间
-    @Column(name = "nominate", length = 32)
+    @Column(name = "nominate", length = 8)
     private String nominate;     //推荐 (推荐 true， 不推荐 false)
     @Column(name = "publish_address", length = 16)
     private String publishAddress;  //发布位置

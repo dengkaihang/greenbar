@@ -21,6 +21,8 @@ public class UseCoupon {
     private String ifUse;           //是否使用
     @Column(name = "use_time", length = 32)
     private String useTime;         //使用时间
+    @Column(name = "period_of_validity ", length = 32)
+    private String periodOfValidity ;         //有效期
     @Column(name = "if_del", columnDefinition = "varchar(8) default 'false'")
     private String ifDel = "false";           //是否删除
     @Column(name = "lable1", length = 32)
@@ -31,6 +33,14 @@ public class UseCoupon {
     private String lable3;
 
     public UseCoupon() {
+    }
+
+    public String getPeriodOfValidity() {
+        return periodOfValidity;
+    }
+
+    public void setPeriodOfValidity(String periodOfValidity) {
+        this.periodOfValidity = periodOfValidity;
     }
 
     public Integer getId() {

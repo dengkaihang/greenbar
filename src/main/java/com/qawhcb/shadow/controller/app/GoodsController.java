@@ -4,8 +4,6 @@ import com.alibaba.fastjson.JSONArray;
 import com.qawhcb.shadow.entity.Goods;
 import com.qawhcb.shadow.entity.dataModel.GoodsVo;
 import com.qawhcb.shadow.service.IGoodsService;
-import com.qawhcb.shadow.service.IOrderService;
-import com.qawhcb.shadow.service.impl.UtilsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

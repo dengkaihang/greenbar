@@ -73,7 +73,7 @@ public class CollectPostController {
     }
 
     @ApiOperation(value = "取消收藏帖子")
-    @GetMapping(value = "/delete/{token}/{userId}")
+    @DeleteMapping(value = "/delete/{token}/{userId}")
     public String delete(@ApiParam(name = "token", value = "token验证") @PathVariable(value = "token") String token,
                          @ApiParam(name = "userId", value = "用户id") @PathVariable(value = "userId") Integer userId,
                          @ApiParam(name = "postId", value = "帖子id") @RequestParam(value = "postId") Integer postId) {

@@ -41,4 +41,17 @@ public interface IPostService {
      * @return 查询结果
      */
     public List<PostVo> find(Integer userId, String type, String requirement, int page);
+
+    /**
+     * 设置推荐帖子
+     * @param postIds 所推荐帖子的id
+     * @return 设置好的所有帖子的结果
+     */
+    List<Post> nominate(Integer[] postIds);
+
+    /**
+     * 查询所有推荐帖子
+     * @return 查询结果集
+     */
+    List<Post> findNominate();
 }

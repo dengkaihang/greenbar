@@ -45,7 +45,16 @@ public class OrderServiceImpl implements IOrderService {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public void delete(String id) {
+    public void delete(String id) throws Exception {
+
+        // 取消前判断其状态 必须为待付款
+
+        Order order = iOrderDao.findOne(id);
+        if (! "dfk".equals(order.getStatus()) || !order.getStatus().contains("wc")){
+            throw new RuntimeException("订单已付款或未完成，不能取消！");
+        }
+
+
         iOrderDao.delete(id);
     }
 
@@ -75,12 +84,35 @@ public class OrderServiceImpl implements IOrderService {
         // 查询当前套餐售价
         Pack pack = iPackDao.findOne(order.getPackId());
 
-        // 设置订单价格
+        // 获取套餐数量和价格
         double num = Double.parseDouble(order.getNum());
         double price = Double.parseDouble(pack.getPrice());
 
         if (num > 0 && price > 0) {
-            order.setPrice(String.valueOf(num * price));
+            // 判断用户是否使用优惠券
+            if (order.getCouponId() != null && !"".equals(order.getCouponId())) {
+                Coupon coupon = iCouponDao.findOne(order.getCouponId());
+
+                Integer availPrice = Integer.parseInt(coupon.getAvailPrice());
+
+                double orderPrice = num * price;
+
+                // 如果符合优惠券使用规则，测将优惠券设置
+                if (orderPrice >= availPrice) {
+                    // 设置初始价格为计算结果
+                    order.setInitialPrice(String.valueOf(orderPrice));
+
+                    // 设置使用优惠券后的实际交易金额
+                    double oPrice = orderPrice - Integer.parseInt(coupon.getMoney());
+
+                    order.setPrice(String.valueOf(oPrice));
+                } else {
+                    order.setPrice(String.valueOf(num * price));
+                }
+
+            } else {
+                order.setPrice(String.valueOf(num * price));
+            }
         }
 
         // 设置订单创建时间
@@ -136,7 +168,15 @@ public class OrderServiceImpl implements IOrderService {
         }, new PageRequest(page, 6));
 
         List<OrderVo> orderVos = new ArrayList<>(16);
-        OrderVo orderVo = null;
+
+        getOrderVos(orderPage, orderVos);
+
+        return orderVos;
+    }
+
+    // 封装orderVos
+    private void getOrderVos(Page<Order> orderPage, List<OrderVo> orderVos) {
+        OrderVo orderVo;
         for (Order order :
                 orderPage.getContent()) {
 
@@ -158,8 +198,6 @@ public class OrderServiceImpl implements IOrderService {
 
             orderVos.add(orderVo);
         }
-
-        return orderVos;
     }
 
     @Override
@@ -499,6 +537,11 @@ public class OrderServiceImpl implements IOrderService {
 
         Order order = iOrderDao.findOne(orderId);
 
+        // 如果订单状态为待付款或者退款完成，直接取消退款操作
+        if ("dfk".equals(order.getStatus()) || "tkwc".equals(order.getStatus())) {
+            return "fail";
+        }
+
         // 判断支付方式，调用不同的退款接口
         if (ALIPAY.equals(order.getPayWay())) {
 
@@ -608,6 +651,7 @@ public class OrderServiceImpl implements IOrderService {
         }
 
         order.setStatus("tkwc");
+        order.setRefundTime(GetLocalDateTime.getLocalDataTime());
 
         iOrderDao.save(order);
 
@@ -639,6 +683,14 @@ public class OrderServiceImpl implements IOrderService {
 
         order.setFulfilTime(GetLocalDateTime.getLocalDataTime());
 
+        // 订单完成，店铺得分
+        Store store = iStoreDao.findOne(order.getStoreId());
+
+        int score = store.getScore();
+        store.setScore(score + 1);
+
+        iStoreDao.save(store);
+
         return iOrderDao.save(order);
 
     }
@@ -660,11 +712,13 @@ public class OrderServiceImpl implements IOrderService {
 
         order.setRefuseReason(cause);
 
+        order.setIsSubmit("true");
+
         // 构建退款消息发送人员数组
         User user = iUserDao.findOne(order.getUserId());
         String[] users = new String[]{user.getPhone()};
 
-        String msg = "您的退款要求被回绝，回绝的原因是"+cause+"。如不满意处理，后续请联系客服！";
+        String msg = "您的退款要求被回绝，回绝的原因是" + cause + "。如不满意处理，后续请联系客服！";
 
         // 发送系统消息到客户
         ImUtils.send(users, msg);
@@ -709,30 +763,70 @@ public class OrderServiceImpl implements IOrderService {
 
         List<OrderVo> orderVos = new ArrayList<>(16);
 
-        OrderVo orderVo = null;
-        for (Order order :
-                orderPage.getContent()) {
-
-            orderVo = new OrderVo();
-
-            orderVo.setOrder(order);
-
-            // 封装套餐详情
-            Pack pack = iPackDao.findOne(order.getPackId());
-            orderVo.setPackDepict(pack.getDepict());
-
-            // 设置商品名称
-            Goods goods = iGoodsDao.findOne(order.getGoodsId());
-            orderVo.setGoodsName(goods.getName());
-
-            // 设置买家手机号
-            User user = iUserDao.findOne(order.getUserId());
-            orderVo.setUserPhone(user.getPhone());
-
-            orderVos.add(orderVo);
-        }
+        getOrderVos(orderPage, orderVos);
 
         return orderVos;
+    }
+
+    @Override
+    public List<Order> findBySubmit(Integer page) {
+
+        Page<Order> all = iOrderDao.findAll(new Specification<Order>() {
+            @Override
+            public Predicate toPredicate(Root<Order> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                List<Predicate> re = new ArrayList<>(8);
+
+                re.add(cb.equal(root.get("isSubmit"), "true"));
+
+                Predicate[] p = new Predicate[re.size()];
+
+                return cb.and(re.toArray(p));
+            }
+        }, new PageRequest(page, 5));
+
+        if (all.getContent().size() > 0) {
+            all.getContent().get(0).setLabel1(String.valueOf(all.getTotalPages()));
+        }
+
+        return all.getContent();
+
+    }
+
+    @Override
+    public String oaRefund(String account, String orderId) {
+        String refund = refund(orderId);
+
+        if ("success".equals(refund)) {
+            Order order = iOrderDao.findOne(orderId);
+
+            order.setEmployeeAccount(account);
+
+            iOrderDao.save(order);
+        }
+
+        return refund;
+    }
+
+    @Override
+    public Order oaRefuse(String account, String orderId, String cause) {
+        Order order = iOrderDao.findOne(orderId);
+
+        String refuseReason = order.getRefuseReason();
+
+        order.setRefuseReason(refuseReason + ", 后台处理为拒绝订单。理由为：" + cause);
+
+        Order save = iOrderDao.save(order);
+
+        // 构建退款消息发送人员数组
+        User user = iUserDao.findOne(order.getUserId());
+        String[] users = new String[]{user.getPhone()};
+
+        String msg = "您的退款要求被平台回绝，回绝的原因是" + cause + "。如不满意处理，请联系平台！";
+
+        // 发送系统消息到客户
+        ImUtils.send(users, msg);
+
+        return save;
     }
 
 
@@ -750,6 +844,9 @@ public class OrderServiceImpl implements IOrderService {
 
     @Autowired
     private IUserDao iUserDao;
+
+    @Autowired
+    private ICouponDao iCouponDao;
 
     private final String ALI_PAY_SUCCESS = "trade_status=TRADE_SUCCESS";
     private final String WX_PAY_SUCCESS = "success";

@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.websocket.server.PathParam;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,9 +28,9 @@ import java.util.Map;
 public class StatisticsController {
 
     @ApiOperation(value = "订单相关统计")
-    @GetMapping(value = "/order/{token}/{sotreId}")
-    public String statisticsOrder(@ApiParam(value = "token", name = "token") @PathParam(value = "token") String token,
-                                  @ApiParam(name = "storeId", value = "店铺id") @PathVariable(value = "storeId") Integer storeId){
+    @GetMapping(value = "/order/{token}/{storeId}")
+    public String statisticsOrder(@ApiParam(value = "token", name = "token") @PathVariable(value = "token") String token,
+                                  @ApiParam(name = "storeId", value = "店铺id") @PathVariable(value = "storeId") Integer storeId) {
         // 验证token
         String verifyToken = utilsService.storeVerifyAndReturn(token, storeId);
         if (verifyToken != null) {
@@ -51,9 +50,9 @@ public class StatisticsController {
     }
 
     @ApiOperation(value = "首页商铺信息展示", notes = "店铺收藏数 暂存 label1中")
-    @GetMapping(value = "/store/{token}/{sotreId}")
-    public String showStore(@ApiParam(value = "token", name = "token") @PathParam(value = "token") String token,
-                                  @ApiParam(name = "storeId", value = "店铺id") @PathVariable(value = "storeId") Integer storeId){
+    @GetMapping(value = "/store/{token}/{storeId}")
+    public String showStore(@ApiParam(value = "token", name = "token") @PathVariable(value = "token") String token,
+                            @ApiParam(name = "storeId", value = "店铺id") @PathVariable(value = "storeId") Integer storeId) {
         // 验证token
         String verifyToken = utilsService.storeVerifyAndReturn(token, storeId);
         if (verifyToken != null) {
@@ -73,9 +72,9 @@ public class StatisticsController {
     }
 
     @ApiOperation(value = "店铺评分查询")
-    @GetMapping(value = "/grade/{token}/{sotreId}")
-    public String grade(@ApiParam(value = "token", name = "token") @PathParam(value = "token") String token,
-                            @ApiParam(name = "storeId", value = "店铺id") @PathVariable(value = "storeId") Integer storeId){
+    @GetMapping(value = "/grade/{token}/{storeId}")
+    public String grade(@ApiParam(value = "token", name = "token") @PathVariable(value = "token") String token,
+                        @ApiParam(name = "storeId", value = "店铺id") @PathVariable(value = "storeId") Integer storeId) {
         // 验证token
         String verifyToken = utilsService.storeVerifyAndReturn(token, storeId);
         if (verifyToken != null) {
@@ -93,7 +92,6 @@ public class StatisticsController {
         return JSONArray.toJSONString(map);
 
     }
-
 
 
     @Autowired

@@ -18,7 +18,7 @@ public interface IOrderService {
      *
      * @param id 用户id
      */
-    public void delete(String id);
+    public void delete(String id) throws Exception;
 
     /**
      * 通过商品查询所有订单
@@ -171,4 +171,29 @@ public interface IOrderService {
      * @return 查询结果
      */
     public List<OrderVo> sotreFindByStatus(Integer storeId, String status, Integer page, Integer size);
+
+    /**
+     * 后台查询提交待处理订单
+     * @param page 分页参数
+     * @return 结果
+     */
+    List<Order> findBySubmit(Integer page);
+
+    /**
+     * 后台退款
+     * @param account 退款操作人员帐号
+     * @param orderId 退款订单id
+     * @return 结果
+     */
+    String oaRefund(String account, String orderId);
+
+    /**
+     * 后台拒绝 退款
+     * @param account 操作人员帐号
+     * @param orderId 订单id
+     * @param cause 拒绝原因
+     * @return 操作结果
+     */
+    Order oaRefuse(String account, String orderId, String cause);
+
 }

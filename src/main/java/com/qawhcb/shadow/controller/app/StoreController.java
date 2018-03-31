@@ -1,21 +1,17 @@
 package com.qawhcb.shadow.controller.app;
 
 import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.qawhcb.shadow.entity.Store;
-import com.qawhcb.shadow.entity.dataModel.GoodsVo;
 import com.qawhcb.shadow.entity.dataModel.StoreVo;
 import com.qawhcb.shadow.service.IStoreService;
 import com.qawhcb.shadow.service.impl.UtilsService;
-import com.qawhcb.shadow.utils.MD5Util;
-import com.qawhcb.shadow.utils.UploadFileUtils;
-import com.qawhcb.shadow.utils.VerifyUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -47,7 +43,6 @@ public class StoreController {
         return JSONArray.toJSONString(map);
 
     }
-
 
 
     @Autowired

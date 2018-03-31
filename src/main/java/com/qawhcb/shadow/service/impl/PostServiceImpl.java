@@ -205,6 +205,32 @@ public class PostServiceImpl implements IPostService {
         return postVos;
     }
 
+    @Override
+    public List<Post> nominate(Integer[] postIds) {
+        List<Post> posts = new ArrayList<>(16);
+
+        for (Integer id :
+                postIds) {
+
+            Post post = iPostDao.findOne(id);
+
+            // 设置为精选
+            post.setNominate("true");
+
+            Post save = iPostDao.save(post);
+
+            posts.add(save);
+
+        }
+
+        return posts;
+    }
+
+    @Override
+    public List<Post> findNominate() {
+        return iPostDao.findNominate();
+    }
+
     private List<Post> getPostsByRequirement(String type, String requirement, int page) {
 
         // 排序对象

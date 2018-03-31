@@ -15,6 +15,8 @@ public class Coupon {
     private Integer id;              //id
     @Column(name = "employee_id", length = 11)
     private Integer employeeId;      //员工id
+    @Column(name = "employee_account", length = 12)
+    private String employeeAccount;      //员工帐号
     @Column(name = "money", length = 3)
     private String money;           //金额
     @Column(name = "title", length = 32)
@@ -43,6 +45,14 @@ public class Coupon {
     private String lable3;
 
     public Coupon() {
+    }
+
+    public String getEmployeeAccount() {
+        return employeeAccount;
+    }
+
+    public void setEmployeeAccount(String employeeAccount) {
+        this.employeeAccount = employeeAccount;
     }
 
     public Integer getId() {

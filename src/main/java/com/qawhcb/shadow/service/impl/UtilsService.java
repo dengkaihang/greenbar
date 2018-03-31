@@ -1,8 +1,10 @@
 package com.qawhcb.shadow.service.impl;
 
 import com.alibaba.fastjson.JSONArray;
+import com.qawhcb.shadow.dao.IEmployeeDao;
 import com.qawhcb.shadow.dao.IStoreDao;
 import com.qawhcb.shadow.dao.IUserDao;
+import com.qawhcb.shadow.entity.Employee;
 import com.qawhcb.shadow.entity.Store;
 import com.qawhcb.shadow.entity.User;
 import com.qawhcb.shadow.utils.LoggerUtil;
@@ -21,6 +23,23 @@ import static com.qawhcb.shadow.utils.StringUtils.isNull;
 @Service
 public class UtilsService {
 
+
+    /**
+     * 验证员工token
+     *
+     * @param token   待验证的token
+     * @param account 　待验证的员工帐号
+     * @return 验证结果
+     */
+    public boolean employeeTokenVerify(String token, String account) {
+        if (isNull(token)) {
+            return false;
+        }
+
+        Employee employee = iEmployeeDao.findByAccount(account);
+
+        return employee != null && token.equalsIgnoreCase(employee.getToken());
+    }
 
     /**
      * 验证用户token
@@ -104,10 +123,37 @@ public class UtilsService {
         }
     }
 
+    /**
+     * 员工验证token，并返回map信息
+     *
+     * @param token   员工token
+     * @param account 员工帐号
+     * @return 验证的map结果
+     */
+    public String employeeVerifyAndReturn(String token, String account) {
+        try {
+            Map<String, Object> map = new HashMap<>();
+            if (!this.employeeTokenVerify(token, account)) {
+                map.put("msg", "token error");
+                map.put("code", -33);
+
+                return JSONArray.toJSONString(map);
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            LoggerUtil.getLogger().error("" + e.getMessage());
+            return null;
+        }
+    }
+
     @Autowired
     private IUserDao iUserDao;
 
     @Autowired
     private IStoreDao iStoreDao;
+
+    @Autowired
+    private IEmployeeDao iEmployeeDao;
 
 }

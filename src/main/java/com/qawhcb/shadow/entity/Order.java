@@ -22,6 +22,10 @@ public class Order {
     private String refundReason;          //退款原因
     @Column(name = "refuse_reason", length = 128)
     private String refuseReason;          //拒绝原因
+    @Column(name = "is_submit", length = 128)
+    private String isSubmit;          //是否提交后台
+    @Column(name = "employee_account", length = 11)
+    private String employeeAccount;          //后台操作人员id
     @Column(name = "coupon_id", length = 12)
     private Integer couponId;        //代金券id
     @Column(name = "num", length = 4)
@@ -43,13 +47,17 @@ public class Order {
     @Column(name = "modify_desc", length = 256)
     private String modifyDesc;      //修改套餐描述
     @Column(name = "price", length = 8)
-    private String price;           //价格
+    private String price;           //价格 （实际交易金额）
+    @Column(name = "initial_price", length = 8)
+    private String initialPrice;           //初始价 （原始价格）
     @Column(name = "create_time", length = 32)
     private String createTime;        //创建时间
     @Column(name = "pay_time", length = 32)
     private String payTime;        //支付时间
     @Column(name = "fulfil_time", length = 32)
     private String fulfilTime;        //确认收货时间
+    @Column(name = "refund_time", length = 32)
+    private String refundTime;        //确认收货时间
     @Column(name = "reminder_time", length = 2)
     private String reminderTime;    //催单次数
     @Column(name = "original_load_time", length = 32)
@@ -92,6 +100,30 @@ public class Order {
     private String label3;          //
 
     public Order() {
+    }
+
+    public String getInitialPrice() {
+        return initialPrice;
+    }
+
+    public void setInitialPrice(String initialPrice) {
+        this.initialPrice = initialPrice;
+    }
+
+    public String getRefundTime() {
+        return refundTime;
+    }
+
+    public String getIsSubmit() {
+        return isSubmit;
+    }
+
+    public void setIsSubmit(String isSubmit) {
+        this.isSubmit = isSubmit;
+    }
+
+    public void setRefundTime(String refundTime) {
+        this.refundTime = refundTime;
     }
 
     public String getRefuseReason() {
@@ -348,6 +380,14 @@ public class Order {
 
     public void setReflectWater(String reflectWater) {
         this.reflectWater = reflectWater;
+    }
+
+    public String getEmployeeAccount() {
+        return employeeAccount;
+    }
+
+    public void setEmployeeAccount(String employeeAccount) {
+        this.employeeAccount = employeeAccount;
     }
 
     public String getArrivalTime() {

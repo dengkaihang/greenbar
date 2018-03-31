@@ -36,7 +36,6 @@ public class GoodsImgController {
         String names = UploadFileUtils.storeImgUpload(files, storeId + "/cover");
 
 
-
         return "";
     }
 

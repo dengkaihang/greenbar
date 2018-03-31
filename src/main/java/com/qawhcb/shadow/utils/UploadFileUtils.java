@@ -37,6 +37,26 @@ public class UploadFileUtils {
         return names;
     }
 
+    /**
+     * 活动文件上传
+     *
+     * @param files      文件数组类
+     * @param parentPath 文件保存路径
+     * @return 上传全部文件路径
+     */
+    public static String activityImgUpload(MultipartFile[] files, String parentPath) {
+
+
+        String uploadPath = UploadFileUtils.getProperty("img.upload.activity");
+
+        String download = UploadFileUtils.getProperty("img.download.activity");
+
+        // 可以从页面传参数过来
+        // 这里可以支持多文件上传
+        String names = upload(files, parentPath, uploadPath, download);
+
+        return names;
+    }
 
     /**
      * 用户文件上传

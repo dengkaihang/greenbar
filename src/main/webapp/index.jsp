@@ -8,6 +8,22 @@ jsp页面
 
 <button onclick="cli(this)" id="test">获取验证码</button>
 
+
+<form action="${pageContext.request.contextPath}/oa/order/testUp" enctype="multipart/form-data" method="post">
+
+    <label>
+        <input type="text" name="title">
+    </label>
+    <br/>
+
+    <input type="file" name="files">
+    <input type="file" name="files">
+    <input type="file" name="files2">
+    <input type="file" name="files2">
+
+    <input type="submit" value="提交">
+</form>
+
 <script src="jquery-3.3.1.js"></script>
 
 <script>

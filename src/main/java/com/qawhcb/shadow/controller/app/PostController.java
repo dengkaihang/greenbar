@@ -1,7 +1,6 @@
 package com.qawhcb.shadow.controller.app;
 
 import com.alibaba.fastjson.JSONArray;
-import com.qawhcb.shadow.entity.Address;
 import com.qawhcb.shadow.entity.Post;
 import com.qawhcb.shadow.entity.dataModel.PostVo;
 import com.qawhcb.shadow.service.IPostService;
@@ -13,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.constraints.Null;
-import javax.websocket.server.PathParam;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,9 +58,9 @@ public class PostController {
             "用户是否点赞暂存 post 的 label1中")
     @GetMapping(value = "/find")
     public String find(@ApiParam(name = "page", value = "当前页") @RequestParam(value = "page", defaultValue = "1") int page,
-                       @ApiParam(name = "userId", value = "用户id",required = false) @RequestParam(value = "userId", required = false) Integer userId,
+                       @ApiParam(name = "userId", value = "用户id", required = false) @RequestParam(value = "userId", required = false) Integer userId,
                        @ApiParam(name = "type", value = "分类") @RequestParam(value = "type") String type,
-                       @ApiParam(name = "requirement", value = "查询条件",required = false) @RequestParam(value = "requirement", required = false) String requirement) {
+                       @ApiParam(name = "requirement", value = "查询条件", required = false) @RequestParam(value = "requirement", required = false) String requirement) {
 
         Map<String, Object> map = new HashMap<>(8);
 
